@@ -1,0 +1,88 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19-10-2015, 19:37:38
+    Author     : Joseline
+*/
+*{
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #329BC9;
+    background-image: url("http://localhost/Reservas_PetChow/files/img/fondo.gif");
+}
+#Contenedor{
+    background: #fff;
+    height: 1050px;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+header{
+    background: #329BC9;
+    height: 102px;
+    width: 900px;
+}
+#Menu{
+    background:#1E57F5;
+    width: 900px;
+    height: 40px;
+    margin: auto;
+    font-family: Arial;
+}
+#banner{
+    background: #389DBC;
+    height: 235px;
+    width: 900px;
+}
+ul, ol{
+    list-style: none;
+}
+.nav li a{
+    background-color:#1E57F5;
+    color:#fff;
+    text-decoration:none;
+    padding: 10px 15px;
+    display: block;
+}
+.nav > li{
+    float: left;
+}
+.nav li a:hover{
+    background-color:#F51EEE;
+}
+
+#Contenido{
+    background: #CFF4FE;
+    height: 750px;
+    width: 900px;
+}
+footer{
+    background:#13C0F0;
+    width: 900px;
+    height: 45px;
+    padding-top: 15px
+}
+footer p{
+    font-family: arial;
+    font-size: 10px;
+    text-align: center;
+}
+div.login{
+    float: left;
+    width: 300px;
+    margin: 0 auto;
+    padding: 50px;
+}
+div.formulario-ingreso{
+    width: 300px;
+    margin: 0 auto;
+    background: #ccc;
+    padding: 25px;
+}
