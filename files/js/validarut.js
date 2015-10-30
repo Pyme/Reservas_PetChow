@@ -59,8 +59,6 @@ function revisarDigito2(crut)
     }
     if (dvr != dv.toLowerCase())
     {
-        alert("EL rut es incorrecto")
-        window.document.form1.rut.select();
         return false
     }
 

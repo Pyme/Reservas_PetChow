@@ -73,7 +73,7 @@ class PersonaDAO implements InterfaceDAO {
 
     public function findLikeAtrr($name) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM persona WHERE upper(nombre) LIKE upper('$name%')";
+        $query = "SELECT * FROM persona WHERE upper(nombres) LIKE upper('$name%')";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $personas = array();
@@ -108,7 +108,6 @@ class PersonaDAO implements InterfaceDAO {
         $this->conexion->conectar();
 
         $query = "UPDATE persona SET "
-                . " run = " . $object->getRun() . ", "
                 . " nombres = '" . $object->getNombres() . "', "
                 . " apellidos = '" . $object->getApellidos() . "', "
                 . " fechaNac = '" . $object->getFechaNac() . "', "

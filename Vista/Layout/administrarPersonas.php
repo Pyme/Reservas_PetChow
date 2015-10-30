@@ -21,7 +21,7 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearPersona()">Agregar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarPersona()">Editar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarPersona()">Eliminar</a>
-    <input type="text" name="inputBuscarUsuario" id="inputBuscarUsuario" value="" placeholder="Buscar por nombres" onKeyUp="buscarPersona()">
+    <input type="text" name="inputBuscarPersona" id="inputBuscarPersona" value="" placeholder="Buscar por nombres" onKeyUp="buscarPersona()">
     <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="buscarPersona()">Buscar</a>
 </div>
 
@@ -74,6 +74,7 @@
             </select>
         </div>
         <input name="accion" id="accion" type="hidden">
+        <input name="runRespaldo" id="runRespaldo" type="hidden">
     </form>
 </div>  
 
@@ -88,13 +89,13 @@
 <script>
         function crearPersona() {
             document.getElementById("fm").reset();
-            //run.disabled = false;//Activamos
+            run.disabled = false;//Activamos
             $('#dlg').dialog('open').dialog('setTitle', 'Crear Persona');
             document.getElementById('accion').value = "AGREGAR";
         }
 
         function guardarPersona() {
-            if (validar()) {
+            if (validar()) {                
                 $('#fm').form('submit', {
                     url: "../Servlet/administrarPersonas.php",
                     onSubmit: function () {
@@ -117,7 +118,81 @@
             }
 
         }
+        function eliminarPersona() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $.messager.confirm('Confirmar', '¿Esta seguro de eliminar la persona seleccionado?', function (r) {
+                    if (r) {//SI
+                        $.post('../Servlet/administrarPersonas.php?accion=BORRAR', {run: row.run}, function (result) {
+                            if (result.success) {
+                                $('#dg').datagrid('reload');    // reload the user data
+                                $.messager.show({
+                                    title: 'Aviso',
+                                    msg: result.mensaje
+                                });
+                            } else {
+                                $.messager.show({// show error message
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            } else {
+                $.messager.alert('Alerta', 'Debe seleccionar la persona a eliminar.');
+            }
+        }
 
+        function buscarPersona() {
+            var nombres = document.getElementById("inputBuscarPersona").value;
+            var parm = "";
+            if (nombres != "") {
+                parm = parm + "&nombres=" + nombres;
+            }
+
+            var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR' + parm;
+            $.getJSON(
+                    url_json,
+                    function (datos) {
+                        $('#dg').datagrid('loadData', datos);
+                    }
+            );
+        }
+        
+        function editarPersona() {
+            document.getElementById("fm").reset();
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                //run.disabled = true;//Desactivar
+                $('#dlg').dialog('open').dialog('setTitle', 'Editar Persona');
+                $('#run').val(row.run);
+                $('#runRespaldo').val(row.run);
+                $('#idPerfil').val(row.idPerfil);
+                $('#fm').form('load', row);
+                obtieneUsuario();
+                document.getElementById('accion').value = "ACTUALIZAR";
+            } else {
+                $.messager.alert('Alerta', 'Debe seleccionar la persona a editar.');
+            }
+        }
+        
+        function obtieneUsuario() {
+            var run = document.getElementById("run").value;
+            var parm = "";
+            if (run != "") {
+                parm = parm + "&run=" + run;
+            }
+            var url_json = '../Servlet/administrarUsuarios.php?accion=BUSCAR' + parm;
+            $.getJSON(
+                    url_json,
+                    function (dato) {
+                        document.getElementById("clave").value = dato.clave;
+                        document.getElementById("idPerfil").value = dato.idPerfil;
+                    }
+            );
+        }
+        
         function validar() {
             if (Rut(document.getElementById('run').value)) {
                 if (document.getElementById('nombres').value != "") {
