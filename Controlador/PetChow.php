@@ -33,15 +33,7 @@ class PetChow {
             self::$instancia = new PetChow();
         }
         return self::$instancia;
-    }
-
-    public function validarUsuario($run, $clave) {
-        $usuario = $this->usuarioDAO->findByRun($run);
-        if ($usuario != null && $usuario->getClave() == $clave) {
-            return true;
-        }
-        return false;
-    }
+    }  
 
     public function getAllUsuarios() {
         return $this->usuarioDAO->findAll();

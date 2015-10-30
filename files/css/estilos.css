@@ -19,7 +19,7 @@ body{
 }
 #Contenedor{
     background: #fff;
-    height: 1050px;
+    height: 600px;
     width: 900px;
     margin-left: auto;
     margin-right: auto;
@@ -60,7 +60,7 @@ ul, ol{
 
 #Contenido{
     background: #CFF4FE;
-    height: 750px;
+    height: 600px;
     width: 900px;
 }
 footer{
@@ -76,13 +76,17 @@ footer p{
 }
 div.login{
     float: left;
-    width: 300px;
+    width: 900px;
     margin: 0 auto;
     padding: 50px;
 }
 div.formulario-ingreso{
+    border-radius: 20px;
     width: 300px;
     margin: 0 auto;
-    background: #ccc;
+    background: #13C0F0;
     padding: 25px;
+}
+div.boton-login{
+    text-align: center;
 }

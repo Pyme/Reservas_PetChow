@@ -23,6 +23,13 @@ and open the template in the editor.
                 interval: 3000
             });
         </script>
+        
+        <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/demo/demo.css">
+        <script type="text/javascript" src="files/Complementos/jquery-easyui-1.4.2/jquery.min.js"></script>
+        <script type="text/javascript" src="files/Complementos/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="files/Complementos/jquery-easyui-1.4.2/plugins/jquery.datagrid.js"></script>
     </head>
     <body>
         <section id = "Contenedor">
@@ -86,7 +93,7 @@ and open the template in the editor.
             <section id="Contenido">
                   <div class="login">
                         <div class="formulario-ingreso">
-                            <form action="Vista/Servlet/login.php" method="POST">
+                            <form id="fm" method="post" novalidate>
                                 <div class="form-group">
                                     <label for="InputRut">Run:</label>
                                     <input type="text" class="form-control" id="InputRun" name="InputRun" placeholder="112223339 ">
@@ -95,7 +102,9 @@ and open the template in the editor.
                                     <label for="InputPassword1">Password</label>
                                     <input type="password" class="form-control" id="InputPassword1" name="InputPassword1" placeholder="Password">
                                 </div>
-                                <button type="submit" class="btn btn-default">Entrar</button>
+                                <div class="boton-login">
+                                    <a class="btn btn-default" onclick="validarLogin()">Entrar</a>
+                                </div>   
                             </form>
                         </div>
                     </div>
@@ -104,6 +113,28 @@ and open the template in the editor.
                 <p> Hostal de Mascotas PetChow | Av. Andres Bello S/n | Chillan <br/> Fono/Fax: (56-42)2463000 </p>
             </footer>
         </section>   
-
+        <script>
+            function validarLogin(){
+                $('#fm').form('submit', {
+                    url: "Vista/Servlet/login.php",
+                    onSubmit: function () {
+                        return $(this).form('validate');
+                    },
+                    success: function (result) {
+                        console.log("<<"+result);
+                        var result = eval('(' + result + ')');
+                        $.messager.show({
+                                title: 'Aviso',
+                                msg: result.mensaje
+                            });
+                        if (!result.success) {
+                            $.messager.alert('Error', result.mensaje);
+                        } else {
+                            
+                        }
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
