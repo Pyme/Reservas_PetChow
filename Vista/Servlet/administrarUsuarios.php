@@ -11,6 +11,12 @@ if ($accion != null) {
         
         $json = json_encode($usuarios);
         echo $json;
+    }else if($accion == "BUSCAR"){
+        $run = htmlspecialchars($_REQUEST['run']);
+        $usuario = $control->getUsuarioByRun($run);
+        
+        $json = json_encode($usuario);
+        echo $json;
     }
 }
 
