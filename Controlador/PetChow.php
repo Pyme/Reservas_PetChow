@@ -3,6 +3,8 @@
 include_once 'Mantenedores/PersonaDAO.php';
 include_once 'Mantenedores/UsuarioDAO.php';
 include_once 'Mantenedores/MascotaDAO.php';
+include_once 'Mantenedores/CanilDAO.php';
+include_once 'Mantenedores/PagoDAO.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,11 +17,15 @@ class PetChow {
     private $personaDAO;
     private $usuarioDAO;
     private $mascotaDAO;
+    private $canilDAO;
+    private $pagoDAO;
 
     public function PetChow() {
         $this->personaDAO = new PersonaDAO();
         $this->usuarioDAO = new UsuarioDAO();
         $this->mascotaDAO = new MascotaDAO();
+        $this->canilDAO = new CanilDAO();
+        $this->pagoDAO = new PagoDAO();
     }
 
     public static function getInstancia() {
@@ -104,5 +110,40 @@ class PetChow {
     public function getMascotaByIdMascota($idMascota) {
         return $this->mascotaDAO->findByIdMascota($idMascota);
     }
-
+    
+    public function deleteCanil($idCanil){
+        return $this->canilDAO->delete($idCanil);
+    }
+    
+    public function getAllCanil(){
+        return $this->canilDAO->findAll();
+    }
+    
+    public function getCanilById($idCanil){
+        return $this->canilDAO->findByIdCanil($idCanil);
+    }
+    
+    public function saveCanil($canil){
+        return $this->canilDAO->save($canil);;
+    }
+    
+    public function updateCanil($canil){
+        return $this->canilDAO->update($canil);
+    }
+    
+    public function deletePago($idPago){
+        return $this->pagoDAO->delete($idPago);
+    }
+    
+    public function getAllPagos(){
+        return $this->pagoDAO->findAll();
+    }
+    
+    public function savePago($pago){
+        return $this->pagoDAO->save($pago);
+    }
+    
+    public function updatePago($pago){
+        return $this->pagoDAO->update($pago);
+    }
 }
