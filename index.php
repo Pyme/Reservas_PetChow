@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Reservas PetChow </title>
+        <link rel="shortcut icon"  href="files/img/icono.png" sizes="16x16">
         <link rel="stylesheet" href="files/css/estilos.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!-- Latest compiled and minified CSS -->

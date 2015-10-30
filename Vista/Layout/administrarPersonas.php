@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-<table id="dg" title="Personas" class="easyui-datagrid" style="width:890px;height:450px"
+<table id="dg" title="Personas" class="easyui-datagrid" style="width:900px;height:600px"
        url="../Servlet/administrarPersonas.php?accion=Listado"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">
@@ -21,8 +21,7 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearPersona()">Agregar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarPersona()">Editar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarPersona()">Eliminar</a>
-    <input type="text" name="inputBuscarPersona" id="inputBuscarPersona" value="" placeholder="Buscar por nombres" onKeyUp="buscarPersona()">
-    <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="buscarPersona()">Buscar</a>
+    <input type="search" name="inputBuscarPersona" id="inputBuscarPersona" placeholder="Buscar por nombres" results="4" onKeyUp="buscarPersona()">    
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:410px;height:485px;padding:10px 20px;"
@@ -95,7 +94,7 @@
         }
 
         function guardarPersona() {
-            if (validar()) {                
+            if (validar()) {
                 $('#fm').form('submit', {
                     url: "../Servlet/administrarPersonas.php",
                     onSubmit: function () {
@@ -147,9 +146,7 @@
         function buscarPersona() {
             var nombres = document.getElementById("inputBuscarPersona").value;
             var parm = "";
-            if (nombres != "") {
-                parm = parm + "&nombres=" + nombres;
-            }
+                parm = parm + "&nombres=" + nombres;            
 
             var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR' + parm;
             $.getJSON(
@@ -159,7 +156,7 @@
                     }
             );
         }
-        
+
         function editarPersona() {
             document.getElementById("fm").reset();
             var row = $('#dg').datagrid('getSelected');
@@ -176,7 +173,7 @@
                 $.messager.alert('Alerta', 'Debe seleccionar la persona a editar.');
             }
         }
-        
+
         function obtieneUsuario() {
             var run = document.getElementById("run").value;
             var parm = "";
@@ -192,7 +189,7 @@
                     }
             );
         }
-        
+
         function validar() {
             if (Rut(document.getElementById('run').value)) {
                 if (document.getElementById('nombres').value != "") {

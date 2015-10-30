@@ -24,7 +24,7 @@ class PersonaDAO implements InterfaceDAO {
 
     public function delete($run) {
         $this->conexion->conectar();
-        $query = "DELETE FROM Persona WHERE run = " . $run;
+        $query = "DELETE FROM Persona WHERE run = '" . $run."'";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -55,7 +55,7 @@ class PersonaDAO implements InterfaceDAO {
 
     public function findByRun($run) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM persona WHERE run = " . $run;
+        $query = "SELECT * FROM persona WHERE run = '" . $run."'";
         $result = $this->conexion->ejecutar($query);
         $persona = new PersonaDTO();
         while ($fila = mysql_fetch_assoc($result)) {
@@ -96,7 +96,7 @@ class PersonaDAO implements InterfaceDAO {
     public function save($object) {
         $this->conexion->conectar();
         $query = "INSERT INTO persona (run,nombres,apellidos,fechaNac,sexo, direccion,telefono)"
-                . " VALUES (" . $object->getRun() . ",'" . $object->getNombres() ."','".$object->getApellidos(). "','" . $object->getFechaNac() . "','" . $object->getSexo() . "','" . $object->getDireccion() . "'," . $object->getTelefono() . ")";
+                . " VALUES ('" . $object->getRun() . "','" . $object->getNombres() ."','".$object->getApellidos(). "','" . $object->getFechaNac() . "','" . $object->getSexo() . "','" . $object->getDireccion() . "'," . $object->getTelefono() . ")";
         
         
         $result = $this->conexion->ejecutar($query);
@@ -114,7 +114,7 @@ class PersonaDAO implements InterfaceDAO {
                 . " sexo = '" . $object->getSexo() . "', "
                 . " direccion = '" . $object->getDireccion() . "', "
                 . " telefono = " . $object->getTelefono() . " "
-                . " WHERE run = " . $object->getRun();
+                . " WHERE run = '" . $object->getRun()."'";
 
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();

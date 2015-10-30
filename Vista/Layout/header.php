@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Reservas PetChow </title>
+        <link rel="shortcut icon"  href="../../files/img/icono.png" sizes="16x16">
         <link rel="stylesheet" href="../../files/css/estilos.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!-- Latest compiled and minified CSS -->
@@ -24,7 +25,7 @@ and open the template in the editor.
             })
         </script>
 
-        <link rel="stylesheet" type="text/css" href="../../files/Complementos/jquery-easyui-1.4.2/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../../files/Complementos/jquery-easyui-1.4.2/themes/metro-blue/easyui.css">
         <link rel="stylesheet" type="text/css" href="../../files/Complementos/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../../files/Complementos/jquery-easyui-1.4.2/demo/demo.css">
         <script type="text/javascript" src="../../files/Complementos/jquery-easyui-1.4.2/jquery.min.js"></script>
@@ -49,6 +50,10 @@ and open the template in the editor.
                     include '../Menus/Persona.php';
                 } else if ($perfil == 3) {
                     include '../Menus/Cuidador.php';
+                } else if ($perfil == 4) {
+                    include '../Menus/Secretaria.php';
+                } else if ($perfil == 5) {
+                    include '../Menus/Veterinario.php';
                 }
                 ?>
 

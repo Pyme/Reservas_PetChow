@@ -19,7 +19,7 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function delete($run) {
         $this->conexion->conectar();
-        $query = "DELETE FROM USUARIO WHERE RUN =" . $run;
+        $query = "DELETE FROM USUARIO WHERE RUN = '" . $run."'";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -47,7 +47,7 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function findByRun($run) {
         $this->conexion->conectar();
-        $query = "SELECT u.run, u.clave, p.idPerfil, p.nombre FROM usuario u JOIN perfil p on u.idPerfil = p.idPerfil WHERE u.run = " . $run;
+        $query = "SELECT u.run, u.clave, p.idPerfil, p.nombre FROM usuario u JOIN perfil p on u.idPerfil = p.idPerfil WHERE u.run = '" . $run."'";
         $result = $this->conexion->ejecutar($query);
         $usuario = new UsuarioDTO();
         while ($fila = mysql_fetch_assoc($result)) {
@@ -81,7 +81,7 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function save($object) {
         $this->conexion->conectar();
-        $query = "INSERT INTO USUARIO (run, clave, idPerfil) VALUES (" . $object->getRun() . ",'" . $object->getClave() . "', " . $object->getIdPerfil() . ")";
+        $query = "INSERT INTO USUARIO (run, clave, idPerfil) VALUES ('" . $object->getRun() . "','" . $object->getClave() . "', " . $object->getIdPerfil() . ")";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -93,7 +93,7 @@ class UsuarioDAO implements InterfaceDAO {
         $query = "UPDATE usuario SET "
                 . " idPerfil = " . $object->getIdPerfil() . ", "
                 . " clave = '" . $object->getClave() . "' "
-                . " WHERE run = " . $object->getRun();
+                . " WHERE run = '" . $object->getRun()."'";
 
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();

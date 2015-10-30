@@ -86,7 +86,7 @@ class MascotaDAO implements InterfaceDAO {
     public function save($object) {
         $this->conexion->conectar();
         $query = "INSERT INTO mascota (idMascota,raza,nombre,run)"
-                . " VALUES (" . $object->getIdMascota() . ",'" . $object->getRaza() . "','" . $object->getNombre() . "'," . $object->getRun() . ")";
+                . " VALUES (" . $object->getIdMascota() . ",'" . $object->getRaza() . "','" . $object->getNombre() . "','" . $object->getRun() . "')";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -99,7 +99,7 @@ class MascotaDAO implements InterfaceDAO {
                 . " idMascota = " . $object->getIdMascota() . ", "
                 . " raza = '" . $object->getRaza() . "', "
                 . " nombre = '" . $object->getNombre() . "', "
-                . " run = " . $object->getRun() . " "
+                . " run = '" . $object->getRun() . "' "
                 . " WHERE idMascota = " . $object->getIdMascota();
 
         $result = $this->conexion->ejecutar($query);

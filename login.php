@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Reservas PetChow </title>
+        <link rel="shortcut icon"  href="files/img/icono.png" sizes="16x16">
         <link rel="stylesheet" href="files/css/estilos.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!-- Latest compiled and minified CSS -->
@@ -23,7 +24,7 @@ and open the template in the editor.
                 interval: 3000
             });
         </script>
-        
+
         <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/themes/default/easyui.css">
         <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/demo/demo.css">
@@ -91,46 +92,41 @@ and open the template in the editor.
                 </div> <!-- Carousel -->
             </section>
             <section id="Contenido">
-                  <div class="login">
-                        <div class="formulario-ingreso">
-                            <form id="fm" method="post" novalidate>
-                                <div class="form-group">
-                                    <label for="InputRut">Run:</label>
-                                    <input type="text" class="form-control" id="InputRun" name="InputRun" placeholder="112223339 ">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="InputPassword1" name="InputPassword1" placeholder="Password">
-                                </div>
-                                <div class="boton-login">
-                                    <a class="btn btn-default" onclick="validarLogin()">Entrar</a>
-                                </div>   
-                            </form>
-                        </div>
+                <div class="login">
+                    <div class="formulario-ingreso">
+                        <form id="fm" method="post" novalidate>
+                            <div class="form-group">
+                                <label for="InputRut">Run:</label>
+                                <input type="text" class="form-control" id="InputRun" name="InputRun" placeholder="112223339 ">
+                            </div>
+                            <div class="form-group">
+                                <label for="InputPassword1">Password</label>
+                                <input type="password" class="form-control" id="InputPassword1" name="InputPassword1" placeholder="Password">
+                            </div>
+                            <div class="boton-login">
+                                <a class="btn btn-default" onclick="validarLogin()">Entrar</a>
+                            </div>   
+                        </form>
                     </div>
+                </div>
             </section>
             <footer>
                 <p> Hostal de Mascotas PetChow | Av. Andres Bello S/n | Chillan <br/> Fono/Fax: (56-42)2463000 </p>
             </footer>
         </section>   
         <script>
-            function validarLogin(){
+            function validarLogin() {
                 $('#fm').form('submit', {
                     url: "Vista/Servlet/login.php",
                     onSubmit: function () {
                         return $(this).form('validate');
                     },
                     success: function (result) {
-                        console.log("<<"+result);
                         var result = eval('(' + result + ')');
-                        $.messager.show({
-                                title: 'Aviso',
-                                msg: result.mensaje
-                            });
                         if (!result.success) {
                             $.messager.alert('Error', result.mensaje);
-                        } else {
-                            
+                        }else{
+                            location.href = result.pagina;
                         }
                     }
                 });
