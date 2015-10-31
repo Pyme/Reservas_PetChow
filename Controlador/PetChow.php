@@ -102,7 +102,9 @@ class PetChow {
     public function getMascotaByIdMascota($idMascota) {
         return $this->mascotaDAO->findByIdMascota($idMascota);
     }
-    
+    public function getMascotaByRunDueño($run) {
+        return $this->mascotaDAO->findByRun($run);
+    }
     public function deleteCanil($idCanil){
         return $this->canilDAO->delete($idCanil);
     }

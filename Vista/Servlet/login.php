@@ -22,7 +22,7 @@ if (($run != null || $run != "") && ($clave != null || $clave != "")) {
             $_SESSION["nombre"] = $usuario->getNombre();
 
             if ($usuario->getIdPerfil() == 1) {//administrador
-                $pagina = "Vista/Layout/administrarPersonas.php";
+                $pagina = "Vista/Layout/administrarMascotas.php";
             } else if ($usuario->getIdPerfil() == 2) {//Persona
                 $pagina = "Vista/Layout/administrarPersonas.php";
             } else if ($usuario->getIdPerfil() == 3) {//Cuidador

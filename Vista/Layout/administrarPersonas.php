@@ -30,7 +30,7 @@
     <form id="fm" method="post" novalidate>
         <div class="fitem">
             <label>Run:</label>
-            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="Sin puntos y guion">
+            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k">
         </div>
         <div class="fitem">
             <label>Nombres:</label>

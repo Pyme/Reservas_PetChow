@@ -37,7 +37,7 @@ class MascotaDAO implements InterfaceDAO {
         $i = 0; //Se inicializa en 0 para las posiciones del arreglo
         $mascotas = array(); //Se crea un arreglo no se le dice el tamaño
         while ($fila = mysql_fetch_assoc($result)) {
-            $mascota = new PersonaDTO();
+            $mascota = new MascotaDTO();
             $mascota->setIdMascota($fila['idMascota']);
             $mascota->setRaza($fila['raza']);
             $mascota->setNombre($fila['nombre']);
@@ -85,8 +85,8 @@ class MascotaDAO implements InterfaceDAO {
 
     public function save($object) {
         $this->conexion->conectar();
-        $query = "INSERT INTO mascota (idMascota,raza,nombre,run)"
-                . " VALUES (" . $object->getIdMascota() . ",'" . $object->getRaza() . "','" . $object->getNombre() . "','" . $object->getRun() . "')";
+        $query = "INSERT INTO mascota (raza,nombre,run)"
+                . " VALUES ('" . $object->getRaza() . "','" . $object->getNombre() . "','" . $object->getRun() . "')";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -108,7 +108,18 @@ class MascotaDAO implements InterfaceDAO {
     }
 
     public function findByRun($run) {
-        
+        $this->conexion->conectar();
+        $query = "SELECT * FROM mascota WHERE run = " . $run;
+        $result = $this->conexion->ejecutar($query);
+        $mascota = new MascotaDTO();
+        while ($fila = mysql_fetch_assoc($result)) {
+            $mascota->setIdMascota($fila['idMascota']);
+            $mascota->setRaza($fila['raza']);
+            $mascota->setNombre($fila['nombre']);
+            $mascota->setRun($fila['run']);
+        }
+        $this->conexion->desconectar();
+        return $mascota;
     }
 
 }
