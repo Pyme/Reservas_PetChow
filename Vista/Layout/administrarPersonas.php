@@ -44,10 +44,10 @@
             <label>Fecha Nacimiento:</label>
             <input type="date" class="easyui-validatebox" value="" id="fechaNac" style="width:200px; height: 21px;" name="fechaNac" required>
         </div>
-        <div class="fitem">
+        <div class="fitem2">
             <label>Sexo: </label>
-            <input type="radio" name="sexo" value="F" checked> Femenino
-            <input type="radio" name="sexo" value="M" > Masculino<br>
+            <input type="radio" name="sexo" value="F" style="margin-left:120px;"checked> Femenino
+            <input type="radio" name="sexo" value="M" style="margin-left:20px;" > Masculino<br>
         </div>
         <div class="fitem">
             <label>Direccion:</label>
@@ -64,7 +64,7 @@
         </div>
         <div class="fitem">
             <label>Perfil:</label>
-            <select class="easyui-validatebox" value="" id="idPerfil" style="width:200px; margin-left: 87px;" name="idPerfil" maxlength="45">
+            <select class="easyui-validatebox" value="" id="idPerfil" style="width:200px;" name="idPerfil" maxlength="45">
                 <option value='1'>Administrador</option>
                 <option value='2'>Persona</option>
                 <option value='3'>Cuidador</option>

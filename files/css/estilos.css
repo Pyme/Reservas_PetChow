@@ -90,3 +90,15 @@ div.formulario-ingreso{
 div.boton-login{
     text-align: center;
 }
+.fitem{
+    height: 25px;
+}
+.fitem input{
+    float: right;
+}
+.fitem2{
+    height: 25px;
+}
+.fitem select{
+    float: right;
+}
