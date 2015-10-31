@@ -17,7 +17,7 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearMascota()">Agregar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarMascota()">Editar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarMascota()">Eliminar</a>
-    <input type="search" name="inputBuscarMascota" id="inputBuscarPersona" placeholder="Buscar por nombres" results="4" onKeyUp="buscarMascota()">    
+    <input type="search" name="inputBuscarMascota" id="inputBuscarMascota" placeholder="Buscar por nombre" results="4" onKeyUp="buscarMascota()">    
 </div>
 <div id="dlg" class="easyui-dialog" style="width:410px;height:210px;padding:20px 30px;"
      closed="true" buttons="#dlg-buttons" modal="true">
@@ -60,6 +60,7 @@
                         return $(this).form('validate');
                     },
                     success: function (result) {
+                        console.log(result);
                         var result = eval('(' + result + ')');
                         if (result.errorMsg) {
                             $.messager.alert('Error', result.errorMsg);
@@ -73,6 +74,57 @@
                         }
                     }
                 });
+            }
+        }
+        function eliminarMascota() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $.messager.confirm('Confirmar', '¿Esta seguro de eliminar la mascota seleccionada?', function (r) {
+                    if (r) {//SI
+                        $.post('../Servlet/administrarMascotas.php?accion=BORRAR', {idMascota: row.idMascota}, function (result) {
+                            if (result.success) {
+                                $('#dg').datagrid('reload');    // reload the user data
+                                $.messager.show({
+                                    title: 'Aviso',
+                                    msg: result.mensaje
+                                });
+                            } else {
+                                $.messager.show({// show error message
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            } else {
+                $.messager.alert('Alerta', 'Debe seleccionar la mascota a eliminar.');
+            }
+        }
+        function buscarMascota() {
+            var nombre = document.getElementById("inputBuscarMascota").value;
+            var parm = "";
+            parm = parm + "&nombre=" + nombre;
+            var url_json = '../Servlet/administrarMascotas.php?accion=BUSCAR' + parm;
+            $.getJSON(
+                    url_json,
+                    function (datos) {
+                        $('#dg').datagrid('loadData', datos);
+                    }
+            );
+        }
+        function editarMascota() {
+            document.getElementById("fm").reset();
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $('#dlg').dialog('open').dialog('setTitle', 'Editar Mascota');
+                $('#raza').val(row.raza);
+                $('#nombre').val(row.nombre);
+                $('#run').val(row.run);
+                $('#fm').form('load', row);
+                document.getElementById('accion').value = "ACTUALIZAR";
+            } else {
+                $.messager.alert('Alerta', 'Debe seleccionar la mascota a editar.');
             }
         }
 

@@ -58,6 +58,9 @@ class PetChow {
     public function getAllPersonas() {
         return $this->personaDAO->findAll();
     }
+    public function getAllEmpleados() {
+        return $this->personaDAO->findAllEmpleados();
+    }
 
     public function addPersona($persona) {
         return $this->personaDAO->save($persona);

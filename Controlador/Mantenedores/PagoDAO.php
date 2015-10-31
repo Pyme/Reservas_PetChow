@@ -25,7 +25,7 @@ class PagoDAO implements InterfaceDAO {
 
     public function delete($idPago) {
         $this->conexion->conectar();
-        $query = "DELETE FROM Pago WHERE idPago = " . $idPago;
+        $query = "DELETE FROM pago WHERE idPago = " . $idPago;
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;

@@ -19,7 +19,7 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function delete($run) {
         $this->conexion->conectar();
-        $query = "DELETE FROM USUARIO WHERE RUN = '" . $run."'";
+        $query = "DELETE FROM usuario WHERE run = '" . $run."'";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -27,7 +27,7 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function findAll() {
         $this->conexion->conectar();
-        $query = "SELECT * FROM USUARIO JOIN PERFIL ON USUARIO.RUN = PERFIL.RUN";
+        $query = "SELECT * FROM usuario JOIN perfil ON usuario.run = perfil.run";
         $result = $this->conexion->ejecutar($query);
         $i = 0; //Se inicializa en 0 para las posiciones del arreglo
         $usuarios = array(); //Se crea un arreglo no se le dice el tamaño
@@ -62,7 +62,7 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function findLikeAtrr($run) {
         $this->conexion->conectar();
-        $query = "SELECT u.run, u.clave, p.idPerfil, p.nombre FROM USUARIO u JOIN PERFIL p ON u.idPerfil = p.idPerfil WHERE u.RUN LIKE ('$run%')";
+        $query = "SELECT u.run, u.clave, p.idPerfil, p.nombre FROM usuario u JOIN perfil p ON u.idPerfil = p.idPerfil WHERE u.run LIKE ('$run%')";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $usuarios = array();
@@ -81,7 +81,7 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function save($object) {
         $this->conexion->conectar();
-        $query = "INSERT INTO USUARIO (run, clave, idPerfil) VALUES ('" . $object->getRun() . "','" . $object->getClave() . "', " . $object->getIdPerfil() . ")";
+        $query = "INSERT INTO usuario (run, clave, idPerfil) VALUES ('" . $object->getRun() . "','" . $object->getClave() . "', " . $object->getIdPerfil() . ")";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -89,7 +89,6 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function update($object) {
         $this->conexion->conectar();
-
         $query = "UPDATE usuario SET "
                 . " idPerfil = " . $object->getIdPerfil() . ", "
                 . " clave = '" . $object->getClave() . "' "

@@ -12,6 +12,7 @@
  * @author Joseline
  */
 class PersonaDTO {
+
     //put your code here
     public $run;
     public $nombres;
@@ -20,6 +21,7 @@ class PersonaDTO {
     public $sexo;
     public $direccion;
     public $telefono;
+    public $cargo;
 
     function getRun() {
         return $this->run;
@@ -49,6 +51,10 @@ class PersonaDTO {
         return $this->telefono;
     }
 
+    function getCargo() {
+        return $this->cargo;
+    }
+
     function setRun($run) {
         $this->run = $run;
     }
@@ -76,4 +82,9 @@ class PersonaDTO {
     function setTelefono($telefono) {
         $this->telefono = $telefono;
     }
+
+    function setCargo($cargo) {
+        $this->cargo = $cargo;
+    }
+
 }

@@ -24,7 +24,7 @@ class CanilDAO implements InterfaceDAO{
     
     public function delete($idCanil) {
         $this->conexion->conectar();
-        $query = "DELETE FROM Canil WHERE idCanil = " . $idCanil;
+        $query = "DELETE FROM canil WHERE idCanil = " . $idCanil;
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -32,7 +32,7 @@ class CanilDAO implements InterfaceDAO{
 
     public function findAll() {
         $this->conexion->conectar();
-        $query = "SELECT * FROM canil C JOIN EstadoCanil E ON C.idEstadoCanil = E.idEstadoCanil";
+        $query = "SELECT * FROM canil C JOIN estadocanil E ON C.idEstadoCanil = E.idEstadoCanil";
         $result = $this->conexion->ejecutar($query);
         $i = 0; //Se inicializa en 0 para las posiciones del arreglo
         $caniles = array(); //Se crea un arreglo no se le dice el tamaño
@@ -52,7 +52,7 @@ class CanilDAO implements InterfaceDAO{
 
     public function findByIdCanil($idCanil) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM canil C JOIN EstadoCanil E ON C.idEstadoCanil = E.idEstadoCanil WHERE C.idCanil = ".$idCanil;
+        $query = "SELECT * FROM canil C JOIN estadocanil E ON C.idEstadoCanil = E.idEstadoCanil WHERE C.idCanil = ".$idCanil;
         $result = $this->conexion->ejecutar($query);        
         $canil = new CanilDTO();
         while ($fila = mysql_fetch_assoc($result)) {            

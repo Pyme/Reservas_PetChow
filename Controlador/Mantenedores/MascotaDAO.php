@@ -24,7 +24,7 @@ class MascotaDAO implements InterfaceDAO {
 
     public function delete($idMascota) {
         $this->conexion->conectar();
-        $query = "DELETE FROM MASCOTA WHERE idMascota = " . $idMascota;
+        $query = "DELETE FROM mascota WHERE idMascota = " . $idMascota;
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -96,7 +96,6 @@ class MascotaDAO implements InterfaceDAO {
         $this->conexion->conectar();
 
         $query = "UPDATE mascota SET "
-                . " idMascota = " . $object->getIdMascota() . ", "
                 . " raza = '" . $object->getRaza() . "', "
                 . " nombre = '" . $object->getNombre() . "', "
                 . " run = '" . $object->getRun() . "' "
