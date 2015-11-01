@@ -91,11 +91,11 @@ and open the template in the editor.
                     <p>
                         Somos una empresa que se dedica desde hace más de 5 años a ofrecer un servicio personalizado, amable y de alta calidad, a través de un equipo de trabajo que se esmera día a día para que su mascota se sienta como en casa. Lo que nos hace una buena opción por nuestro ambiente agradable, ameno y acogedor. 
                     </p>
-                    <h4><b>Vision</b></h4>
+                    <h4><b>Visión</b></h4>
                     <p>
                         Somos un equipo comprometido con el servicio personalizado, para satisfacer a sus mascotas y lograr su fidelidad.
                     </p>
-                    <h4><b>Mision</b></h4>
+                    <h4><b>Misión</b></h4>
                     <p>
                         Ser el líder en el mercado en nuestro ramo, brindando un servicio confiable y seguro, posicionando a nuestra hostal en la preferencia del cliente.  
                     </p>
@@ -107,7 +107,7 @@ and open the template in the editor.
                         <li>Compromiso.</li>
                     </ul>                        
                     </p>
-                    <h4><b>Nuestra Filosofia</b></h4>
+                    <h4><b>Nuestra Filosofía</b></h4>
                     <p>
                         Orientación a la satisfacción de la mascota.<br>
                         Decisiones con responsabilidad de los colaboradores.<br>
