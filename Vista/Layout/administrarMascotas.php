@@ -7,10 +7,10 @@
     <thead>
         <tr>
             <th field="idMascota" width="30">ID</th>
+            <th field="tipoMascota" width="30">Tipo Mascota</th>
             <th field="raza" width="60">Raza</th>
             <th field="nombre" width="60">Nombre</th>
-            <th field="run" width="30">Run Dueño</th>
-            <th field="tipoMascota" width="30">Tipo Mascota</th>
+            <th field="run" width="30">Run Dueño</th>            
         </tr>
     </thead>
 </table>
@@ -25,6 +25,13 @@
     <div class="ftitle"></div>
     <form id="fm" method="post" novalidate>
         <div class="fitem">
+            <label>Tipo Mascota:</label>
+            <select class="easyui-validatebox" value="" id="tipoMascota" style="width:200px;" name="tipoMascota" maxlength="45">
+                <option value='Perro'>Perro</option>
+                <option value='Gato'>Gato</option>
+            </select>
+        </div>
+        <div class="fitem">
             <label>Raza:</label>
             <input type="text" class="easyui-validatebox" value="" id="raza" style="width:200px;" name="raza" maxlength="45" required>
         </div>
@@ -35,14 +42,7 @@
         <div class="fitem">
             <label>Run Dueño:</label>
             <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k" onkeyup="obtienePersona()" >
-        </div>
-        <div class="fitem">
-            <label>Tipo Mascota:</label>
-            <select class="easyui-validatebox" value="" id="tipoMascota" style="width:200px;" name="tipoMascota" maxlength="45">
-                <option value='Perro'>Perro</option>
-                <option value='Gato'>Gato</option>
-            </select>
-        </div>
+        </div>        
         <input name="accion" id="accion" type="hidden">
         <input name="idMascota" id="idMascota" type="hidden">
         <input name="existe" id="existe" type="hidden">
