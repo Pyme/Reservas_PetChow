@@ -35,7 +35,7 @@ and open the template in the editor.
     <body>
         <section id = "Contenedor">
             <header>
-                <a href="index.html"><img src="files/img/logo.jpg" width="900px" height="102px"></a>
+                <a href="index.php"><img src="files/img/logo.jpg" width="900px" height="102px"></a>
             </header>
             <section id="Menu">
                 <ul class="nav">

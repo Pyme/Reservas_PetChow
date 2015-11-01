@@ -81,7 +81,7 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function save($object) {
         $this->conexion->conectar();
-        $query = "INSERT INTO usuario (run, clave, idPerfil) VALUES ('" . $object->getRun() . "','" . $object->getClave() . "', " . $object->getIdPerfil() . ")";
+        $query = "INSERT INTO usuario (run, clave, idperfil) VALUES ('" . $object->getRun() . "','" . $object->getClave() . "', " . $object->getIdPerfil() . ")";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -90,7 +90,7 @@ class UsuarioDAO implements InterfaceDAO {
     public function update($object) {
         $this->conexion->conectar();
         $query = "UPDATE usuario SET "
-                . " idPerfil = " . $object->getIdPerfil() . ", "
+                . " idperfil = " . $object->getIdPerfil() . ", "
                 . " clave = '" . $object->getClave() . "' "
                 . " WHERE run = '" . $object->getRun()."'";
 
@@ -98,6 +98,4 @@ class UsuarioDAO implements InterfaceDAO {
         $this->conexion->desconectar();
         return $result;
     }
-
-//put your code here
 }
