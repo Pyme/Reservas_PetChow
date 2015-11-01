@@ -18,7 +18,7 @@ body{
     background-image: url("http://localhost/Reservas_PetChow/files/img/fondo.gif");
 }
 #Contenedor{
-    background: #fff;
+    background: #CFF4FE;
     height: 600px;
     width: 900px;
     margin-left: auto;
@@ -62,6 +62,40 @@ ul, ol{
     background: #CFF4FE;
     height: 600px;
     width: 900px;
+}
+#quienesSomos{
+    background: #CFF4FE;
+    height: 600px;
+    width: 550px;    
+    font-family: Arial;    
+    font-size: 15px;
+    padding:7px 30px 30px 30px;
+    text-align: justify;
+}
+#imagen{
+    padding: 214px 30px 30px 60px;
+    height: 600px;
+    width:150px;
+}
+#contacto{
+    background: #CFF4FE;
+    height: 600px;
+    width: 900px;        
+    padding: 0px 30px 30px 30px;    
+}
+#datosContacto{
+    text-align: center;
+    font-family: Arial;    
+    font-size: 16px;
+}
+#mapa{
+    padding-top: 30px;
+    text-align: center;
+}
+
+.cubo{
+    width: 420px;
+    float: left;
 }
 footer{
     background:#13C0F0;
