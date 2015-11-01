@@ -15,11 +15,13 @@ if ($accion != null) {
         $raza = htmlspecialchars($_REQUEST['raza']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $run = htmlspecialchars($_REQUEST['run']);
+        $tipoMascota = htmlspecialchars($_REQUEST['tipoMascota']);
 
         $mascota = new MascotaDTO();
         $mascota->setRaza($raza);
         $mascota->setNombre($nombre);
         $mascota->setRun($run);
+        $mascota->setTipoMascota($tipoMascota);
 
         $result = $control->addMascota($mascota);
 
@@ -49,12 +51,14 @@ if ($accion != null) {
         $raza = htmlspecialchars($_REQUEST['raza']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $run = htmlspecialchars($_REQUEST['run']);
+        $tipoMascota = htmlspecialchars($_REQUEST['tipoMascota']);
 
         $mascota = new MascotaDTO();
         $mascota->setIdMascota($idMascota);
         $mascota->setRaza($raza);
         $mascota->setNombre($nombre);
         $mascota->setRun($run);
+        $mascota->setTipoMascota($tipoMascota);
 
         $result = $control->updateMascota($mascota);
 

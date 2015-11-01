@@ -18,6 +18,7 @@ class MascotaDTO {
     public $raza;
     public $nombre;
     public $run;
+    public $tipoMascota;
 
     function getIdMascota() {
         return $this->idMascota;
@@ -50,5 +51,11 @@ class MascotaDTO {
     function setRun($run) {
         $this->run = $run;
     }
+    function getTipoMascota() {
+        return $this->tipoMascota;
+    }
 
+    function setTipoMascota($tipoMascota) {
+        $this->tipoMascota = $tipoMascota;
+    }
 }

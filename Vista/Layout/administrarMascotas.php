@@ -10,6 +10,7 @@
             <th field="raza" width="60">Raza</th>
             <th field="nombre" width="60">Nombre</th>
             <th field="run" width="30">Run Dueño</th>
+            <th field="tipoMascota" width="30">Tipo Mascota</th>
         </tr>
     </thead>
 </table>
@@ -19,7 +20,7 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarMascota()">Eliminar</a>
     <input type="search" name="inputBuscarMascota" id="inputBuscarMascota" placeholder="Buscar por nombre" results="4" onKeyUp="buscarMascota()">    
 </div>
-<div id="dlg" class="easyui-dialog" style="width:410px;height:210px;padding:20px 30px;"
+<div id="dlg" class="easyui-dialog" style="width:410px;height:220px;padding:20px 30px;"
      closed="true" buttons="#dlg-buttons" modal="true">
     <div class="ftitle"></div>
     <form id="fm" method="post" novalidate>
@@ -34,6 +35,13 @@
         <div class="fitem">
             <label>Run Dueño:</label>
             <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k" onkeyup="obtienePersona()" >
+        </div>
+        <div class="fitem">
+            <label>Tipo Mascota:</label>
+            <select class="easyui-validatebox" value="" id="tipoMascota" style="width:200px;" name="tipoMascota" maxlength="45">
+                <option value='Perro'>Perro</option>
+                <option value='Gato'>Gato</option>
+            </select>
         </div>
         <input name="accion" id="accion" type="hidden">
         <input name="idMascota" id="idMascota" type="hidden">
@@ -154,7 +162,11 @@
                 if (document.getElementById("existe").value == "true") {
                     if (document.getElementById('nombre').value != "") {
                         if (document.getElementById('raza').value != "") {
-                            return true;
+                            if (document.getElementById('tipoMascota').value != "") {
+                                return true;
+                            } else {
+                                $.messager.alert("Alerta", "Debe seleccionar un tipo de mascota");
+                            }
                         } else {
                             $.messager.alert("Alerta", "Debe ingresar La raza de la mascota");
                         }

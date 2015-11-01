@@ -42,6 +42,7 @@ class MascotaDAO implements InterfaceDAO {
             $mascota->setRaza($fila['raza']);
             $mascota->setNombre($fila['nombre']);
             $mascota->setRun($fila['run']);
+            $mascota->setTipoMascota($fila['tipoMascota']);
             $mascotas[$i] = $mascota;
             $i++;
         }
@@ -59,6 +60,7 @@ class MascotaDAO implements InterfaceDAO {
             $mascota->setRaza($fila['raza']);
             $mascota->setNombre($fila['nombre']);
             $mascota->setRun($fila['run']);
+            $mascota->setTipoMascota($fila['tipoMascota']);
         }
         $this->conexion->desconectar();
         return $mascota;
@@ -76,6 +78,7 @@ class MascotaDAO implements InterfaceDAO {
             $mascota->setRaza($fila['raza']);
             $mascota->setNombre($fila['nombre']);
             $mascota->setRun($fila['run']);
+            $mascota->setTipoMascota($fila['tipoMascota']);
             $mascotas[$i] = $mascota;
             $i++;
         }
@@ -85,8 +88,8 @@ class MascotaDAO implements InterfaceDAO {
 
     public function save($object) {
         $this->conexion->conectar();
-        $query = "INSERT INTO mascota (raza,nombre,run)"
-                . " VALUES ('" . $object->getRaza() . "','" . $object->getNombre() . "','" . $object->getRun() . "')";
+        $query = "INSERT INTO mascota (raza,nombre,run,tipomascota)"
+                . " VALUES ('" . $object->getRaza() . "','" . $object->getNombre() . "','" . $object->getRun() . "','".$object->getTipoMascota()."')";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -99,6 +102,7 @@ class MascotaDAO implements InterfaceDAO {
                 . " raza = '" . $object->getRaza() . "', "
                 . " nombre = '" . $object->getNombre() . "', "
                 . " run = '" . $object->getRun() . "' "
+                . " tipoMascota = '".$object->getTipoMascota()."', "
                 . " WHERE idMascota = " . $object->getIdMascota();
 
         $result = $this->conexion->ejecutar($query);
@@ -116,6 +120,7 @@ class MascotaDAO implements InterfaceDAO {
             $mascota->setRaza($fila['raza']);
             $mascota->setNombre($fila['nombre']);
             $mascota->setRun($fila['run']);
+            $mascota->setTipoMascota($fila['tipoMascota']);
         }
         $this->conexion->desconectar();
         return $mascota;
