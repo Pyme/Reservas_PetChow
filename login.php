@@ -19,6 +19,9 @@ and open the template in the editor.
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         
+        <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/themes/metro-blue/easyui.css">
+        <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/themes/icon.css">
+        
         <link rel="stylesheet" href="files/css/estilos.css">
         <script>
             $('.carousel').carousel({
