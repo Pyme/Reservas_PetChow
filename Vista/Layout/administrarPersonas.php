@@ -62,6 +62,10 @@
             <label>Clave:</label>
             <input type="password" class="easyui-validatebox" value="" id="clave" style="width:200px;" name="clave" maxlength="45" pattern=".{6,}" title="minimo 4 caracteres" Required>
         </div>
+        <div class="fitem">
+            <label>Confirmar Clave:</label>
+            <input type="password" class="easyui-validatebox" value="" id="claveRepetida" style="width:200px;" name="claveRepetida" maxlength="45" pattern=".{6,}" title="minimo 4 caracteres" Required>
+        </div>
         <input name="accion" id="accion" type="hidden">
         <input name="runRespaldo" id="runRespaldo" type="hidden">
     </form>
@@ -151,11 +155,9 @@
             document.getElementById("fm").reset();
             var row = $('#dg').datagrid('getSelected');
             if (row) {
-                //run.disabled = true;//Desactivar
                 $('#dlg').dialog('open').dialog('setTitle', 'Editar Persona');
                 $('#run').val(row.run);
-                $('#runRespaldo').val(row.run);
-                $('#idPerfil').val(row.idPerfil);
+                $('#runRespaldo').val(row.run);                
                 $('#fm').form('load', row);
                 obtieneUsuario();
                 document.getElementById('accion').value = "ACTUALIZAR";
@@ -175,7 +177,7 @@
                     url_json,
                     function (dato) {
                         document.getElementById("clave").value = dato.clave;
-                        document.getElementById("idPerfil").value = dato.idPerfil;
+                        $('#claveRepetida').val(dato.clave);
                     }
             );
         }
@@ -189,7 +191,11 @@
                                 if (document.getElementById('telefono').value != "") {
                                     var cadenaPass = document.getElementById('clave').value;
                                     if (cadenaPass.length >= 4) {
-                                        return true;
+                                        if (cadenaPass == document.getElementById('claveRepetida').value) {
+                                            return true;
+                                        } else {
+                                            $.messager.alert("Alerta", "Las contraseñas no coinciden");
+                                        }                                        
                                     } else {
                                         $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
                                     }

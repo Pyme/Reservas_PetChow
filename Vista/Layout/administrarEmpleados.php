@@ -63,12 +63,16 @@
             <input type="password" class="easyui-validatebox" value="" id="clave" style="width:200px;" name="clave" maxlength="45" pattern=".{6,}" title="minimo 4 caracteres" Required>
         </div>
         <div class="fitem">
+            <label>Confirmar Clave:</label>
+            <input type="password" class="easyui-validatebox" value="" id="claveRepetida" style="width:200px;" name="claveRepetida" maxlength="45" pattern=".{6,}" title="minimo 4 caracteres" Required>
+        </div>
+        <div class="fitem">
             <label>Perfil:</label>
             <select class="easyui-validatebox" value="" id="idPerfil" style="width:200px;" name="idPerfil" maxlength="45">
                 <option value='1'>Administrador</option>
                 <option value='3'>Cuidador</option>
                 <option value='4'>Secretaria</option>
-                <option value='3'>Veterinario</option>
+                <option value='5'>Veterinario</option>
             </select>
         </div>
         <div class="fitem">
@@ -124,9 +128,9 @@
         function eliminarEmpleado() {
             var row = $('#dg').datagrid('getSelected');
             if (row) {
-                $.messager.confirm('Confirmar', '¿Esta seguro de eliminar la persona seleccionado?', function (r) {
+                $.messager.confirm('Confirmar', '¿Esta seguro de eliminar el empleado seleccionado?', function (r) {
                     if (r) {//SI
-                        $.post('../Servlet/administrarEmpleado.php?accion=BORRAR', {run: row.run}, function (result) {
+                        $.post('../Servlet/administrarEmpleados.php?accion=BORRAR', {run: row.run}, function (result) {
                             if (result.success) {
                                 $('#dg').datagrid('reload');    // reload the user data
                                 $.messager.show({
@@ -143,40 +147,37 @@
                     }
                 });
             } else {
-                $.messager.alert('Alerta', 'Debe seleccionar la persona a eliminar.');
+                $.messager.alert('Alerta', 'Debe seleccionar un empleado a eliminar.');
             }
         }
-        
+
         function buscarPersonaByRun() {
             var run = document.getElementById("run").value;
             var parm = "";
             parm = parm + "&run=" + run;
 
-            var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR_BY_RUN' + parm;            
+            var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR_BY_RUN' + parm;
             $.getJSON(
                     url_json,
                     function (datos) {
-                        if(datos.run != null){
-                            document.getElementById("nombres").value = datos.nombres;
-                            document.getElementById("apellidos").value = datos.apellidos;
-                            document.getElementById("fechaNac").value = datos.fechaNac;                            
-                            document.getElementById("direccion").value = datos.direccion;
-                            document.getElementById("telefono").value = datos.telefono;
-                            document.getElementById("clave").value = datos.clave;                            
+                        if (datos.run != null) {
+                            $('#fm').form('load', datos);
+                            $('#runRespaldo').val(datos.run);
+                            obtieneUsuario();
                             document.getElementById("existe").value = true;
-                        }else{
+                        } else {
                             document.getElementById("existe").value = false;
                         }
                     }
             );
         }
-        
-        function buscarPersona() {
-            var nombres = document.getElementById("inputBuscarPersona").value;
+
+        function buscarEmpleado() {
+            var nombres = document.getElementById("inputBuscarEmpleado").value;
             var parm = "";
             parm = parm + "&nombres=" + nombres;
 
-            var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR' + parm;
+            var url_json = '../Servlet/administrarEmpleados.php?accion=BUSCAR' + parm;
             $.getJSON(
                     url_json,
                     function (datos) {
@@ -185,20 +186,18 @@
             );
         }
 
-        function editarPersona() {
+        function editarEmpleado() {
             document.getElementById("fm").reset();
             var row = $('#dg').datagrid('getSelected');
             if (row) {
-                //run.disabled = true;//Desactivar
-                $('#dlg').dialog('open').dialog('setTitle', 'Editar Persona');
-                $('#run').val(row.run);
+                $('#dlg').dialog('open').dialog('setTitle', 'Editar Empleado');
                 $('#runRespaldo').val(row.run);
                 $('#idPerfil').val(row.idPerfil);
                 $('#fm').form('load', row);
                 obtieneUsuario();
                 document.getElementById('accion').value = "ACTUALIZAR";
             } else {
-                $.messager.alert('Alerta', 'Debe seleccionar la persona a editar.');
+                $.messager.alert('Alerta', 'Debe seleccionar un empleado a editar.');
             }
         }
 
@@ -212,8 +211,10 @@
             $.getJSON(
                     url_json,
                     function (dato) {
+                        console.log(dato);
                         document.getElementById("clave").value = dato.clave;
                         document.getElementById("idPerfil").value = dato.idPerfil;
+                        $('#claveRepetida').val(dato.clave);
                     }
             );
         }
@@ -227,10 +228,18 @@
                                 if (document.getElementById('telefono').value != "") {
                                     var cadenaPass = document.getElementById('clave').value;
                                     if (cadenaPass.length >= 4) {
-                                        if (document.getElementById('cargo').value != "") {
-                                            return true;
+                                        if (cadenaPass == document.getElementById('claveRepetida').value) {
+                                            if (document.getElementById('idPerfil').value != "") {
+                                                if (document.getElementById('cargo').value != "") {
+                                                    return true;
+                                                } else {
+                                                    $.messager.alert("Alerta", "Debe ingresar un cargo");
+                                                }
+                                            } else {
+                                                $.messager.alert("Alerta", "Debe seleccionar un perfil");
+                                            }
                                         } else {
-                                            $.messager.alert("Alerta", "Debe ingresar un cargo");
+                                            $.messager.alert("Alerta", "Las contraseñas no coinciden");
                                         }
                                     } else {
                                         $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");

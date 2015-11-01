@@ -105,20 +105,8 @@ class EmpleadoDAO implements InterfaceDAO {
 
     public function update($object) {
         $this->conexion->conectar();
-        $query = "UPDATE persona SET "
-                . " nombres = '" . $object->getNombres() . "', "
-                . " apellidos = '" . $object->getApellidos() . "', "
-                . " fechaNac = '" . $object->getFechaNac() . "', "
-                . " sexo = '" . $object->getSexo() . "', "
-                . " direccion = '" . $object->getDireccion() . "', "
-                . " telefono = " . $object->getTelefono() . " "
-                . " WHERE run = '" . $object->getRun() . "'";
-        
-        $result = $this->conexion->ejecutar($query);
-        
-        $query = "UPDATE empleado SET cargo = '" . $object->getCargo() . "'";
-        $result2 = $this->conexion->ejecutar($query);
-        
+        $query = "UPDATE empleado SET cargo = '" . $object->getCargo() . "' WHERE run = '".$object->getRun()."'";
+        $result = $this->conexion->ejecutar($query);        
         $this->conexion->desconectar();
         return $result;
     }

@@ -6,6 +6,7 @@
        rownumbers="true" fitColumns="true" singleSelect="true">
     <thead>
         <tr>
+            <th field="idMascota" width="30">ID</th>
             <th field="raza" width="60">Raza</th>
             <th field="nombre" width="60">Nombre</th>
             <th field="run" width="30">Run Dueño</th>
@@ -32,10 +33,11 @@
         </div>
         <div class="fitem">
             <label>Run Dueño:</label>
-            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k" >
+            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k" onkeyup="obtienePersona()" >
         </div>
         <input name="accion" id="accion" type="hidden">
         <input name="idMascota" id="idMascota" type="hidden">
+        <input name="existe" id="existe" type="hidden">
     </form>
 </div>  
 <div id="dlg-buttons">
@@ -121,22 +123,46 @@
                 $('#nombre').val(row.nombre);
                 $('#run').val(row.run);
                 $('#fm').form('load', row);
+                document.getElementById("existe").value = true;
                 document.getElementById('accion').value = "ACTUALIZAR";
             } else {
                 $.messager.alert('Alerta', 'Debe seleccionar la mascota a editar.');
             }
         }
 
+        function obtienePersona() {
+            var run = document.getElementById("run").value;
+            var parm = "";
+            if (run != "") {
+                parm = parm + "&run=" + run;
+            }
+            var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR_BY_RUN' + parm;
+            $.getJSON(
+                    url_json,
+                    function (dato) {
+                        if (dato.run != null) {
+                            document.getElementById("existe").value = true;
+                        } else {
+                            document.getElementById("existe").value = false;
+                        }
+                    }
+            );
+        }
+
         function validar() {
             if (Rut(document.getElementById('run').value)) {
-                if (document.getElementById('nombre').value != "") {
-                    if (document.getElementById('raza').value != "") {
-                        return true;
+                if (document.getElementById("existe").value == "true") {
+                    if (document.getElementById('nombre').value != "") {
+                        if (document.getElementById('raza').value != "") {
+                            return true;
+                        } else {
+                            $.messager.alert("Alerta", "Debe ingresar La raza de la mascota");
+                        }
                     } else {
-                        $.messager.alert("Alerta", "Debe ingresar La raza de la mascota");
+                        $.messager.alert("Alerta", "Debe ingresar el nombre");
                     }
                 } else {
-                    $.messager.alert("Alerta", "Debe ingresar el nombre");
+                    $.messager.alert("Alerta", "Debe registrar al cliente.");
                 }
             } else {
                 $.messager.alert("Alerta", "El run ingresado no es valido");

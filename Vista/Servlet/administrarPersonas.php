@@ -55,7 +55,7 @@ if ($accion != null) {
             echo json_encode(array('errorMsg' => 'El run ya existe, intento nuevamente.'));
         }
     } else if ($accion == "BORRAR") {
-        $run = intval($_REQUEST['run']);
+        $run = htmlspecialchars($_REQUEST['run']);
 
         $result = $control->removePersona($run);
         if ($result) {
@@ -96,9 +96,7 @@ if ($accion != null) {
         $persona->setDireccion($direccion);
         $persona->setTelefono($telefono);
 
-        $usuario = new UsuarioDTO();
-        $usuario->setRun($run);
-        $usuario->setIdPerfil(2);
+        $usuario = $control->getUsuarioByRun($run);      
         $usuario->setClave($clave);
 
         $result = $control->updatePersona($persona);

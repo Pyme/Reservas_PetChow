@@ -14,8 +14,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Reservas PetChow </title>
-        <link rel="shortcut icon"  href="../../files/img/icono.png" sizes="16x16">
-        <link rel="stylesheet" href="../../files/css/estilos.css">
+        <link rel="shortcut icon"  href="../../files/img/icono.png" sizes="16x16">        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="../../files/Complementos/jquery-easyui-1.4.2/themes/metro-blue/easyui.css">
@@ -24,6 +23,8 @@ and open the template in the editor.
         <script type="text/javascript" src="../../files/Complementos/jquery-easyui-1.4.2/jquery.min.js"></script>
         <script type="text/javascript" src="../../files/Complementos/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
         <script type="text/javascript" src="../../files/Complementos/jquery-easyui-1.4.2/plugins/jquery.datagrid.js"></script>
+        
+        <link rel="stylesheet" href="../../files/css/estilos.css">
     </head>
     <body>
         <section id = "Contenedor">
