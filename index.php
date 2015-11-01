@@ -85,9 +85,23 @@ and open the template in the editor.
                 </div> <!-- Carousel -->
             </section>
             <section id="Contenido">
-                
-                
-                
+                <div class="cubo" id="bienvenido">
+                    <h1><b>¡Bienvenido a PetChow!</b></h1>
+                </div>
+
+                <div class="cubo" id="publi">
+                    <a href="http://www.masterdog.cl/"><img src="files/img/anuncio2.png" width="200px" height="480px"></a>
+                </div>
+                <div class="cubo" id="publi2">
+                    <a href="http://www.garrasypatas.cl/"><img src="files/img/anuncio4.jpg" width="280px" height="150px"></a>
+                    <p> <br> </p>
+                    <a href=""><img src="files/img/perdido.jpg" width="280px" height="300px"></a>
+                </div>
+                <div class="cubo" id="publi3">
+                    <a href=""><img src="files/img/cuidar1.jpg" width="330px" height="227px"></a>
+                    <p> <br> </p>
+                    <a href=""><img src="files/img/cuidar2.jpg" width="330px" height="227px"></a>
+                </div>
             </section>
             <footer>
                 <p> Hostal de Mascotas PetChow | Av. Andres Bello S/n | Chillan <br/> Fono/Fax: (56-42)2463000 </p>
