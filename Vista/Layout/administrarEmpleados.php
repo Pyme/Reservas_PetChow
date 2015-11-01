@@ -1,27 +1,28 @@
 <?php include 'header.php'; ?>
 
-<table id="dg" title="Personas" class="easyui-datagrid" style="width:900px;height:600px"
+<table id="dg" title="Empleados" class="easyui-datagrid" style="width:900px;height:600px"
        url="../Servlet/administrarEmpleados.php?accion=Listado"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">
     <thead>
         <tr>
             <th field="run" width="30">Run</th>
-            <th field="nombres" width="60">Nombres</th>
-            <th field="apellidos" width="60">Apellidos</th>
+            <th field="nombres" width="50">Nombres</th>
+            <th field="apellidos" width="50">Apellidos</th>
             <th field="fechaNac" width="30">Fecha Nac.</th>
-            <th field="sexo" width="30">Sexo</th>
+            <th field="sexo" width="15">Sexo</th>
             <th field="direccion" width="50">Direccion</th>
             <th field="telefono" width="30">Telefono</th>
+            <th field="cargo" width="30">Cargo</th>
         </tr>
     </thead>
 </table>
-<!--
+
 <div id="toolbar">
-    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearPersona()">Agregar</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarPersona()">Editar</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarPersona()">Eliminar</a>
-    <input type="search" name="inputBuscarPersona" id="inputBuscarPersona" placeholder="Buscar por nombres" results="4" onKeyUp="buscarPersona()">    
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearEmpleado()">Agregar</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarEmpleado()">Editar</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarEmpleado()">Eliminar</a>
+    <input type="search" name="inputBuscarEmpleado" id="inputBuscarEmpleado" placeholder="Buscar por nombres" results="4" onKeyUp="buscarEmpleado()">    
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:410px;height:485px;padding:10px 20px;"
@@ -30,7 +31,7 @@
     <form id="fm" method="post" novalidate>
         <div class="fitem">
             <label>Run:</label>
-            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k">
+            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k" onKeyUp="buscarPersonaByRun()">
         </div>
         <div class="fitem">
             <label>Nombres:</label>
@@ -57,7 +58,6 @@
             <label>Telefono:</label>
             <input type="text" class="easyui-validatebox" value="" id="telefono" style="width:200px;" name="telefono" maxlength="45" pattern="^[9|8|7|6|5]\d{6}$" Required>
         </div>
-
         <div class="fitem">
             <label>Clave:</label>
             <input type="password" class="easyui-validatebox" value="" id="clave" style="width:200px;" name="clave" maxlength="45" pattern=".{6,}" title="minimo 4 caracteres" Required>
@@ -66,37 +66,41 @@
             <label>Perfil:</label>
             <select class="easyui-validatebox" value="" id="idPerfil" style="width:200px;" name="idPerfil" maxlength="45">
                 <option value='1'>Administrador</option>
-                <option value='2'>Persona</option>
                 <option value='3'>Cuidador</option>
                 <option value='4'>Secretaria</option>
                 <option value='3'>Veterinario</option>
             </select>
         </div>
+        <div class="fitem">
+            <label>Cargo:</label>
+            <input type="text" class="easyui-validatebox" value="" id="cargo" style="width:200px;" name="cargo" maxlength="45" Required>
+        </div>
         <input name="accion" id="accion" type="hidden">
         <input name="runRespaldo" id="runRespaldo" type="hidden">
+        <input name="existe" id="existe" type="hidden">
     </form>
 </div>  
 
 <div id="dlg-buttons">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="guardarPersona()">Guardar</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="guardarEmpleado()">Guardar</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancelar</a>
 </div>  
 
-<!-- Administracion
+<!-- Administracion-->
 <script src="../../files/js/validarut.js"></script>
 
 <script>
-        function crearPersona() {
+        function crearEmpleado() {
             document.getElementById("fm").reset();
             run.disabled = false;//Activamos
             $('#dlg').dialog('open').dialog('setTitle', 'Crear Persona');
             document.getElementById('accion').value = "AGREGAR";
         }
 
-        function guardarPersona() {
+        function guardarEmpleado() {
             if (validar()) {
                 $('#fm').form('submit', {
-                    url: "../Servlet/administrarPersonas.php",
+                    url: "../Servlet/administrarEmpleados.php",
                     onSubmit: function () {
                         return $(this).form('validate');
                     },
@@ -117,12 +121,12 @@
             }
 
         }
-        function eliminarPersona() {
+        function eliminarEmpleado() {
             var row = $('#dg').datagrid('getSelected');
             if (row) {
                 $.messager.confirm('Confirmar', '¿Esta seguro de eliminar la persona seleccionado?', function (r) {
                     if (r) {//SI
-                        $.post('../Servlet/administrarPersonas.php?accion=BORRAR', {run: row.run}, function (result) {
+                        $.post('../Servlet/administrarEmpleado.php?accion=BORRAR', {run: row.run}, function (result) {
                             if (result.success) {
                                 $('#dg').datagrid('reload');    // reload the user data
                                 $.messager.show({
@@ -142,11 +146,35 @@
                 $.messager.alert('Alerta', 'Debe seleccionar la persona a eliminar.');
             }
         }
+        
+        function buscarPersonaByRun() {
+            var run = document.getElementById("run").value;
+            var parm = "";
+            parm = parm + "&run=" + run;
 
+            var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR_BY_RUN' + parm;            
+            $.getJSON(
+                    url_json,
+                    function (datos) {
+                        if(datos.run != null){
+                            document.getElementById("nombres").value = datos.nombres;
+                            document.getElementById("apellidos").value = datos.apellidos;
+                            document.getElementById("fechaNac").value = datos.fechaNac;                            
+                            document.getElementById("direccion").value = datos.direccion;
+                            document.getElementById("telefono").value = datos.telefono;
+                            document.getElementById("clave").value = datos.clave;                            
+                            document.getElementById("existe").value = true;
+                        }else{
+                            document.getElementById("existe").value = false;
+                        }
+                    }
+            );
+        }
+        
         function buscarPersona() {
             var nombres = document.getElementById("inputBuscarPersona").value;
             var parm = "";
-                parm = parm + "&nombres=" + nombres;            
+            parm = parm + "&nombres=" + nombres;
 
             var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR' + parm;
             $.getJSON(
@@ -199,7 +227,11 @@
                                 if (document.getElementById('telefono').value != "") {
                                     var cadenaPass = document.getElementById('clave').value;
                                     if (cadenaPass.length >= 4) {
-                                        return true;
+                                        if (document.getElementById('cargo').value != "") {
+                                            return true;
+                                        } else {
+                                            $.messager.alert("Alerta", "Debe ingresar un cargo");
+                                        }
                                     } else {
                                         $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
                                     }
@@ -224,5 +256,5 @@
             return false;
         }
 
-</script>-->
+</script>
 <?php include 'footer.php'; ?>

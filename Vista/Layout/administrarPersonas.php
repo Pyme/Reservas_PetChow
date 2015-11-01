@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-<table id="dg" title="Personas" class="easyui-datagrid" style="width:900px;height:600px"
+<table id="dg" title="Clientes" class="easyui-datagrid" style="width:900px;height:600px"
        url="../Servlet/administrarPersonas.php?accion=Listado"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">
@@ -61,16 +61,6 @@
         <div class="fitem">
             <label>Clave:</label>
             <input type="password" class="easyui-validatebox" value="" id="clave" style="width:200px;" name="clave" maxlength="45" pattern=".{6,}" title="minimo 4 caracteres" Required>
-        </div>
-        <div class="fitem">
-            <label>Perfil:</label>
-            <select class="easyui-validatebox" value="" id="idPerfil" style="width:200px;" name="idPerfil" maxlength="45">
-                <option value='1'>Administrador</option>
-                <option value='2'>Persona</option>
-                <option value='3'>Cuidador</option>
-                <option value='4'>Secretaria</option>
-                <option value='3'>Veterinario</option>
-            </select>
         </div>
         <input name="accion" id="accion" type="hidden">
         <input name="runRespaldo" id="runRespaldo" type="hidden">

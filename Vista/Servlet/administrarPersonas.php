@@ -20,7 +20,6 @@ if ($accion != null) {
         $direccion = htmlspecialchars($_REQUEST['direccion']);
         $telefono = htmlspecialchars($_REQUEST['telefono']);
         $clave = htmlspecialchars($_REQUEST['clave']);
-        $idPerfil = htmlspecialchars($_REQUEST['idPerfil']);
 
         $pers = $control->getPersonaByRun($run);
         if ($pers->getRun() == null || $pers->getRun() == "") {
@@ -36,7 +35,7 @@ if ($accion != null) {
 
             $usuario = new UsuarioDTO();
             $usuario->setRun($run);
-            $usuario->setIdPerfil($idPerfil);
+            $usuario->setIdPerfil(2);
             $usuario->setClave($clave);
 
             $result = $control->addPersona($persona);
@@ -71,6 +70,13 @@ if ($accion != null) {
 
         $json = json_encode($personas);
         echo $json;
+    } else if ($accion == "BUSCAR_BY_RUN") {
+        $run = htmlspecialchars($_REQUEST['run']);
+
+        $persona = $control->getPersonaByRun($run);
+
+        $json = json_encode($persona);
+        echo $json;
     } else if ($accion == "ACTUALIZAR") {
         $run = htmlspecialchars($_REQUEST['runRespaldo']);
         $nombres = htmlspecialchars($_REQUEST['nombres']);
@@ -80,7 +86,6 @@ if ($accion != null) {
         $direccion = htmlspecialchars($_REQUEST['direccion']);
         $telefono = htmlspecialchars($_REQUEST['telefono']);
         $clave = htmlspecialchars($_REQUEST['clave']);
-        $idPerfil = htmlspecialchars($_REQUEST['idPerfil']);
 
         $persona = new PersonaDTO();
         $persona->setRun($run);
@@ -93,7 +98,7 @@ if ($accion != null) {
 
         $usuario = new UsuarioDTO();
         $usuario->setRun($run);
-        $usuario->setIdPerfil($idPerfil);
+        $usuario->setIdPerfil(2);
         $usuario->setClave($clave);
 
         $result = $control->updatePersona($persona);

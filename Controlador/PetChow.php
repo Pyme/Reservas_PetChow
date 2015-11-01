@@ -5,6 +5,7 @@ include_once 'Mantenedores/UsuarioDAO.php';
 include_once 'Mantenedores/MascotaDAO.php';
 include_once 'Mantenedores/CanilDAO.php';
 include_once 'Mantenedores/PagoDAO.php';
+include_once 'Mantenedores/EmpleadoDAO.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,6 +20,7 @@ class PetChow {
     private $mascotaDAO;
     private $canilDAO;
     private $pagoDAO;
+    private $empleadoDAO;
 
     public function PetChow() {
         $this->personaDAO = new PersonaDAO();
@@ -26,6 +28,7 @@ class PetChow {
         $this->mascotaDAO = new MascotaDAO();
         $this->canilDAO = new CanilDAO();
         $this->pagoDAO = new PagoDAO();
+        $this->empleadoDAO = new EmpleadoDAO();
     }
 
     public static function getInstancia() {
@@ -57,10 +60,7 @@ class PetChow {
 
     public function getAllPersonas() {
         return $this->personaDAO->findAll();
-    }
-    public function getAllEmpleados() {
-        return $this->personaDAO->findAllEmpleados();
-    }
+    }    
 
     public function addPersona($persona) {
         return $this->personaDAO->save($persona);
@@ -142,5 +142,29 @@ class PetChow {
     
     public function updatePago($pago){
         return $this->pagoDAO->update($pago);
+    }
+    
+    public function getAllEmpleados() {
+        return $this->empleadoDAO->findAll();
+    }
+    
+    public function deleteEmpleado($run){
+        return $this->empleadoDAO->delete($run);
+    }
+    
+    public function getEmpleadoByRun($run) {
+        return $this->empleadoDAO->findByRun($run);
+    }
+    
+    public function getEmpleadoByName($name) {
+        return $this->empleadoDAO->findLikeAtrr($name);
+    }
+    
+    public function saveEmpleado($empleado) {
+        return $this->empleadoDAO->save($empleado);
+    }
+    
+    public function updateEmpleado($empleado) {
+        return $this->empleadoDAO->update($empleado);
     }
 }
