@@ -30,7 +30,7 @@
     <form id="fm" method="post" novalidate>
         <div class="fitem">
             <label>Run:</label>
-            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k">
+            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k" onkeyup="eliminarCaracteres()">
         </div>
         <div class="fitem">
             <label>Nombres:</label>
@@ -140,7 +140,7 @@
         function buscarPersona() {
             var nombres = document.getElementById("inputBuscarPersona").value;
             var parm = "";
-                parm = parm + "&nombres=" + nombres;            
+            parm = parm + "&nombres=" + nombres;
 
             var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR' + parm;
             $.getJSON(
@@ -157,7 +157,7 @@
             if (row) {
                 $('#dlg').dialog('open').dialog('setTitle', 'Editar Persona');
                 $('#run').val(row.run);
-                $('#runRespaldo').val(row.run);                
+                $('#runRespaldo').val(row.run);
                 $('#fm').form('load', row);
                 obtieneUsuario();
                 document.getElementById('accion').value = "ACTUALIZAR";
@@ -188,19 +188,24 @@
                     if (document.getElementById('apellidos').value != "") {
                         if (document.getElementById('fechaNac').value != "") {
                             if (document.getElementById('direccion').value != "") {
-                                if (document.getElementById('telefono').value != "") {
-                                    var cadenaPass = document.getElementById('clave').value;
-                                    if (cadenaPass.length >= 4) {
-                                        if (cadenaPass == document.getElementById('claveRepetida').value) {
-                                            return true;
+                                var telefono = document.getElementById('telefono').value;
+                                if (telefono != "" && telefono.length > 5) {
+                                    if (!isNaN(telefono)) {
+                                        var cadenaPass = document.getElementById('clave').value;
+                                        if (cadenaPass.length >= 4) {
+                                            if (cadenaPass == document.getElementById('claveRepetida').value) {
+                                                return true;
+                                            } else {
+                                                $.messager.alert("Alerta", "Las contraseñas no coinciden");
+                                            }
                                         } else {
-                                            $.messager.alert("Alerta", "Las contraseñas no coinciden");
-                                        }                                        
+                                            $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
+                                        }
                                     } else {
-                                        $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
+                                        $.messager.alert("Alerta", "El telefono contiene caracteres no validos");
                                     }
                                 } else {
-                                    $.messager.alert("Alerta", "Debe ingresar una telefono de contacto");
+                                    $.messager.alert("Alerta", "Debe ingresar una telefono de contacto con al menos 6 digitos");
                                 }
                             } else {
                                 $.messager.alert("Alerta", "Debe ingresar una direccion");
@@ -218,6 +223,14 @@
                 $.messager.alert("Alerta", "El run ingresado no es valido");
             }
             return false;
+        }
+
+        function eliminarCaracteres() {
+            var aux = String(document.getElementById("run").value);
+            aux = aux.replace('.', '');
+            aux = aux.replace('.', '');
+            aux = aux.replace('-', '');
+            document.getElementById("run").value = aux;
         }
 
 </script>

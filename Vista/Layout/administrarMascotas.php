@@ -139,6 +139,7 @@
         }
 
         function obtienePersona() {
+            document.getElementById("run").value = eliminarCaracteres(document.getElementById("run").value);
             var run = document.getElementById("run").value;
             var parm = "";
             if (run != "") {
@@ -180,6 +181,14 @@
                 $.messager.alert("Alerta", "El run ingresado no es valido");
             }
             return false;
+        }
+        
+        function eliminarCaracteres(cadena){
+            var aux = String(cadena);
+            aux = aux.replace('.','');
+            aux = aux.replace('.','');
+            aux = aux.replace('-','');
+            return aux;
         }
 
 </script>

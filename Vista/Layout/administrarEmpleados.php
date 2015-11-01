@@ -152,6 +152,7 @@
         }
 
         function buscarPersonaByRun() {
+            document.getElementById("run").value = eliminarCaracteres(document.getElementById("run").value);
             var run = document.getElementById("run").value;
             var parm = "";
             parm = parm + "&run=" + run;
@@ -211,7 +212,6 @@
             $.getJSON(
                     url_json,
                     function (dato) {
-                        console.log(dato);
                         document.getElementById("clave").value = dato.clave;
                         document.getElementById("idPerfil").value = dato.idPerfil;
                         $('#claveRepetida').val(dato.clave);
@@ -225,21 +225,26 @@
                     if (document.getElementById('apellidos').value != "") {
                         if (document.getElementById('fechaNac').value != "") {
                             if (document.getElementById('direccion').value != "") {
-                                if (document.getElementById('telefono').value != "") {
-                                    var cadenaPass = document.getElementById('clave').value;
-                                    if (cadenaPass.length >= 4) {
-                                        if (cadenaPass == document.getElementById('claveRepetida').value) {
-                                            if (document.getElementById('idPerfil').value != "") {
-                                                if (document.getElementById('cargo').value != "") {
-                                                    return true;
+                                var telefono = document.getElementById('telefono').value;
+                                if (telefono != "" && telefono.length > 5) {
+                                    if (!isNaN(telefono)) {
+                                        var cadenaPass = document.getElementById('clave').value;
+                                        if (cadenaPass.length >= 4) {
+                                            if (cadenaPass == document.getElementById('claveRepetida').value) {
+                                                if (document.getElementById('idPerfil').value != "") {
+                                                    if (document.getElementById('cargo').value != "") {
+                                                        return true;
+                                                    } else {
+                                                        $.messager.alert("Alerta", "Debe ingresar un cargo");
+                                                    }
                                                 } else {
-                                                    $.messager.alert("Alerta", "Debe ingresar un cargo");
+                                                    $.messager.alert("Alerta", "Debe seleccionar un perfil");
                                                 }
                                             } else {
-                                                $.messager.alert("Alerta", "Debe seleccionar un perfil");
+                                                $.messager.alert("Alerta", "Las contraseñas no coinciden");
                                             }
                                         } else {
-                                            $.messager.alert("Alerta", "Las contraseñas no coinciden");
+                                            $.messager.alert("Alerta", "El telefono contiene caracteres no validos");
                                         }
                                     } else {
                                         $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
@@ -265,5 +270,12 @@
             return false;
         }
 
+        function eliminarCaracteres(cadena) {
+            var aux = String(cadena);
+            aux = aux.replace('.', '');
+            aux = aux.replace('.', '');
+            aux = aux.replace('-', '');
+            return aux;
+        }
 </script>
 <?php include 'footer.php'; ?>
