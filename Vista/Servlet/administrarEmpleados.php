@@ -22,7 +22,7 @@ if ($accion != null) {
         $clave = htmlspecialchars($_REQUEST['clave']);
         $idPerfil = htmlspecialchars($_REQUEST['idPerfil']);
         $cargo = htmlspecialchars($_REQUEST['cargo']);
-        $existe = htmlspecialchars($_REQUEST['existe']);
+        $existe = (htmlspecialchars($_REQUEST['existe'] == "true") ? true : false);
         $runRespaldo = htmlspecialchars($_REQUEST['runRespaldo']);
 
         $pers = $control->getEmpleadoByRun($run);
@@ -43,28 +43,36 @@ if ($accion != null) {
             $usuario->setIdPerfil($idPerfil);
             $usuario->setClave($clave);
 
+            $resulPersona;
+            $resulEmpleado;
+            $resulUsuario;
             if ($existe) {
                 $persona->setRun($runRespaldo);
-                $control->updatePersona($persona);
+                $resulPersona = $control->updatePersona($persona);
             } else {
-                $control->addPersona($persona);
+                $resulPersona = $control->addPersona($persona);
             }
-            $result = $control->saveEmpleado($persona);
+            $resulEmpleado = $control->saveEmpleado($persona);
 
             if ($existe) {
                 $usuario->setRun($runRespaldo);
-                $result = $control->updateUsuario($usuario);
+                $resulUsuario = $control->updateUsuario($usuario);
             } else {
-                $result = $control->addUsuario($usuario);
+                $resulUsuario = $control->addUsuario($usuario);
             }
 
-            if ($result) {
+            if ($resulPersona && $resulEmpleado && $resulUsuario) {
                 echo json_encode(array(
                     'success' => true,
                     'mensaje' => "Empleado ingresada correctamente"
                 ));
-            } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            } else {                
+                echo json_encode(array(
+                    'errorMsg' => 'Ha ocurrido un error.',
+                    'resultPersona' => $resulPersona,
+                    'resulEmpleado' => $resulEmpleado,
+                    'resultUsuario' => $resulUsuario,
+                    ));
             }
         } else {
             echo json_encode(array('errorMsg' => 'El run ya existe, intente nuevamente.'));

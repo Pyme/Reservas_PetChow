@@ -57,11 +57,16 @@ if ($accion != null) {
     } else if ($accion == "BORRAR") {
         $run = htmlspecialchars($_REQUEST['run']);
 
-        $result = $control->removePersona($run);
-        if ($result) {
-            echo json_encode(array('success' => true, 'mensaje' => "Persona borrado correctamente"));
-        } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+        $empleado = $control->getEmpleadoByRun($run);//Buscamos el empleado por el run si existe
+        if ($empleado->getRun() == null || $empleado->getRun() == "") {//Validamos que el cliente no sea empleado
+            $result = $control->removePersona($run);
+            if ($result) {
+                echo json_encode(array('success' => true, 'mensaje' => "Persona borrado correctamente"));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            }
+        }else{
+            echo json_encode(array('errorMsg' => 'No se puede eliminar al cliente porque es empleado de la empresa.'));
         }
     } else if ($accion == "BUSCAR") {
         $nombres = htmlspecialchars($_REQUEST['nombres']);
@@ -96,12 +101,12 @@ if ($accion != null) {
         $persona->setDireccion($direccion);
         $persona->setTelefono($telefono);
 
-        $usuario = $control->getUsuarioByRun($run);      
+        $usuario = $control->getUsuarioByRun($run);
         $usuario->setClave($clave);
 
         $result = $control->updatePersona($persona);
-          if ($result)
-                $result = $control->updateUsuario($usuario);
+        if ($result)
+            $result = $control->updateUsuario($usuario);
 
         if ($result) {
             echo json_encode(array(

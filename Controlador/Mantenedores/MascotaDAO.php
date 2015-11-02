@@ -101,9 +101,9 @@ class MascotaDAO implements InterfaceDAO {
         $query = "UPDATE mascota SET "
                 . " raza = '" . $object->getRaza() . "', "
                 . " nombre = '" . $object->getNombre() . "', "
-                . " run = '" . $object->getRun() . "' "
-                . " tipoMascota = '".$object->getTipoMascota()."', "
-                . " WHERE idMascota = " . $object->getIdMascota();
+                . " run = '" . $object->getRun() . "', "
+                . " tipomascota = '".$object->getTipoMascota()."' "
+                . " WHERE idmascota = " . $object->getIdMascota();
 
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();

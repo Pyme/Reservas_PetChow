@@ -97,7 +97,7 @@ class EmpleadoDAO implements InterfaceDAO {
 
     public function save($object) {
         $this->conexion->conectar();       
-        $query = "INSERT INTO empleado (run,cargo) VALUES ('" . $object->getRun() . "','" . $object->getCargo() . "')";
+        $query = "INSERT INTO empleado (run,cargo) VALUES ('" . $object->getRun() . "', '" . $object->getCargo() . "')";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
