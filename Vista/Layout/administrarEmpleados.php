@@ -55,7 +55,7 @@
             <input type="text" class="easyui-validatebox" value="" id="direccion" style="width:200px;" name="direccion" maxlength="45" required>
         </div>
         <div class="fitem">
-            <label>Telefono:</label>
+            <label>Telefono/Celular:</label>
             <input type="text" class="easyui-validatebox" value="" id="telefono" style="width:200px;" name="telefono" maxlength="45" pattern="^[9|8|7|6|5]\d{6}$" Required>
         </div>
         <div class="fitem">
