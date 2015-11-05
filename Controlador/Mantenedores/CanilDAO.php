@@ -92,7 +92,7 @@ class CanilDAO implements InterfaceDAO {
 
     public function findByTipoAndLibre($tipo, $fechaInicio, $fechaFin) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM canil C WHERE C.tipoCanil = '$tipo' AND C.idCanil NOT IN (SELECT R.idCanil FROM reservahostal R WHERE (R.fechaInicio <= '$fechaInicio' AND r.fechaFin >= '$fechaInicio') OR (R.fechaInicio <= '$fechaFin' AND r.fechaFin >= '$fechaFin'))";
+        $query = "SELECT * FROM canil C WHERE C.tipoCanil = '$tipo' AND C.idCanil NOT IN (SELECT R.idCanil FROM reservahostal R WHERE (R.fechaInicio <= '$fechaInicio' AND R.fechaFin >= '$fechaInicio') OR (R.fechaInicio <= '$fechaFin' AND R.fechaFin >= '$fechaFin'))";
         $result = $this->conexion->ejecutar($query);
         $i = 0; //Se inicializa en 0 para las posiciones del arreglo
         $caniles = array(); //Se crea un arreglo no se le dice el tamaño        
