@@ -16,8 +16,6 @@ class CanilDTO {
     public $idCanil;
     public $dimension;
     public $tipoCanil;
-    public $idEstadoCanil;
-    public $estadoCanil;
     
     public function CanilDTO(){
         
@@ -35,14 +33,6 @@ class CanilDTO {
         return $this->tipoCanil;
     }
 
-    function getIdEstadoCanil() {
-        return $this->idEstadoCanil;
-    }
-
-    function getEstadoCanil() {
-        return $this->estadoCanil;
-    }
-
     function setIdCanil($idCanil) {
         $this->idCanil = $idCanil;
     }
@@ -54,14 +44,4 @@ class CanilDTO {
     function setTipoCanil($tipoCanil) {
         $this->tipoCanil = $tipoCanil;
     }
-
-    function setIdEstadoCanil($idEstadoCanil) {
-        $this->idEstadoCanil = $idEstadoCanil;
-    }
-
-    function setEstadoCanil($estadoCanil) {
-        $this->estadoCanil = $estadoCanil;
-    }
-
-
 }

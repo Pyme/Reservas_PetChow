@@ -15,13 +15,14 @@ include_once 'InterfaceDAO.php';
  *
  * @author Joseline
  */
-class CanilDAO implements InterfaceDAO{
+class CanilDAO implements InterfaceDAO {
+
     private $conexion;
-    
+
     public function CanilDAO() {
         $this->conexion = new ConexionMySQL();
     }
-    
+
     public function delete($idCanil) {
         $this->conexion->conectar();
         $query = "DELETE FROM canil WHERE idCanil = " . $idCanil;
@@ -32,7 +33,7 @@ class CanilDAO implements InterfaceDAO{
 
     public function findAll() {
         $this->conexion->conectar();
-        $query = "SELECT * FROM canil C JOIN estadocanil E ON C.idEstadoCanil = E.idEstadoCanil";
+        $query = "SELECT * FROM canil C";
         $result = $this->conexion->ejecutar($query);
         $i = 0; //Se inicializa en 0 para las posiciones del arreglo
         $caniles = array(); //Se crea un arreglo no se le dice el tamaño
@@ -41,8 +42,6 @@ class CanilDAO implements InterfaceDAO{
             $canil->setIdCanil($fila['idCanil']);
             $canil->setDimension($fila['dimension']);
             $canil->setTipoCanil($fila['tipoCanil']);
-            $canil->setIdEstadoCanil($fila['idEstadoCanil']);
-            $canil->setEstadoCanil($fila['estado']);
             $caniles[$i] = $canil;
             $i++;
         }
@@ -52,15 +51,13 @@ class CanilDAO implements InterfaceDAO{
 
     public function findByIdCanil($idCanil) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM canil C JOIN estadocanil E ON C.idEstadoCanil = E.idEstadoCanil WHERE C.idCanil = ".$idCanil;
-        $result = $this->conexion->ejecutar($query);        
+        $query = "SELECT * FROM canil C WHERE C.idCanil = " . $idCanil;
+        $result = $this->conexion->ejecutar($query);
         $canil = new CanilDTO();
-        while ($fila = mysql_fetch_assoc($result)) {            
+        while ($fila = mysql_fetch_assoc($result)) {
             $canil->setIdCanil($fila['idCanil']);
             $canil->setDimension($fila['dimension']);
             $canil->setTipoCanil($fila['tipoCanil']);
-            $canil->setIdEstadoCanil($fila['idEstadoCanil']);
-            $canil->setEstadoCanil($fila['estado']);
         }
         $this->conexion->desconectar();
         return $canil;
@@ -72,8 +69,8 @@ class CanilDAO implements InterfaceDAO{
 
     public function save($object) {
         $this->conexion->conectar();
-        $query = "INSERT INTO canil (idCanil,dimension,tipoCanil,idEstadoCanil)"
-                . " VALUES (" . $object->getIdCanil() . ",'" . $object->getDimension() . "','" . $object->getTipoCanil() . "'," . $object->getIdEstadoCanil() . ")";
+        $query = "INSERT INTO canil (idCanil,dimension,tipoCanil)"
+                . " VALUES (" . $object->getIdCanil() . ",'" . $object->getDimension() . "','" . $object->getTipoCanil() . "')";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -86,30 +83,27 @@ class CanilDAO implements InterfaceDAO{
                 . " idCanil = " . $object->getIdCanil() . ", "
                 . " dimension = '" . $object->getDimension() . "', "
                 . " tipoCanil = '" . $object->getTipoCanil() . "', "
-                . " idEstadoCanl = " . $object->getIdEstadoCanil() . " "
                 . " WHERE idCanil = " . $object->getIdCanil();
 
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
     }
-    
-    public function findByTipoAndLibre($tipo,$fechaInicio,$fechaFin){
+
+    public function findByTipoAndLibre($tipo, $fechaInicio, $fechaFin) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM canil C JOIN estadocanil E ON C.idEstadoCanil = E.idEstadoCanil WHERE C.tipoCanil = '"+$tipo+"' AND C.idCanil NOT IN (SELECT R.idCanil FROM reservahostal R WHERE (R.fechaInicio <= '"+$fechaInicio+"' AND r.fechaFin >= '"+$fechaInicio+"') OR (R.fechaInicio <= '"+$fechaFin+"' AND r.fechaFin >= '"+$fechaFin+"'))";        
+        $query = "SELECT * FROM canil C WHERE C.tipoCanil = '$tipo' AND C.idCanil NOT IN (SELECT R.idCanil FROM reservahostal R WHERE (R.fechaInicio <= '$fechaInicio' AND r.fechaFin >= '$fechaInicio') OR (R.fechaInicio <= '$fechaFin' AND r.fechaFin >= '$fechaFin'))";
         $result = $this->conexion->ejecutar($query);
         $i = 0; //Se inicializa en 0 para las posiciones del arreglo
-        $caniles = array(); //Se crea un arreglo no se le dice el tamaño
-        while ($fila = mysql_fetch_assoc($result)) {
-            $canil = new CanilDTO();
-            $canil->setIdCanil($fila['idCanil']);
-            $canil->setDimension($fila['dimension']);
-            $canil->setTipoCanil($fila['tipoCanil']);
-            $canil->setIdEstadoCanil($fila['idEstadoCanil']);
-            $canil->setEstadoCanil($fila['estado']);
-            $caniles[$i] = $canil;
-            $i++;
-        }
+        $caniles = array(); //Se crea un arreglo no se le dice el tamaño        
+            while ($fila = mysql_fetch_assoc($result)) {
+                $canil = new CanilDTO();
+                $canil->setIdCanil($fila['idCanil']);
+                $canil->setDimension($fila['dimension']);
+                $canil->setTipoCanil($fila['tipoCanil']);
+                $caniles[$i] = $canil;
+                $i++;
+            }
         $this->conexion->desconectar();
         return $caniles;
     }

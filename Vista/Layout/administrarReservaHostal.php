@@ -21,9 +21,9 @@
 
 <div id="toolbar">
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearReserva()">Agregar</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarReserva()">Editar</a>
+    <!--<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarReserva()">Editar</a>-->
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarReserva()">Eliminar</a>
-    <input type="search" name="inputBuscarReserva" id="inputBuscarReserva" placeholder="Buscar..." results="4" onKeyUp="buscarReserva()">    
+    <!--<input type="search" name="inputBuscarReserva" id="inputBuscarReserva" placeholder="Buscar..." results="4" onKeyUp="buscarReserva()">-->
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:410px;height:285px;padding:10px 20px;"
@@ -85,7 +85,7 @@
             document.getElementById('accion').value = "AGREGAR";
         }
 
-        function guardarPersona() {
+        function guardarReserva() {
             if (validar()) {
                 $('#fm').form('submit', {
                     url: "../Servlet/administrarReservaHostal.php",
@@ -99,6 +99,8 @@
                         } else {
                             $('#dlg').dialog('close');        // close the dialog
                             $('#dg').datagrid('reload');    // reload the user data
+                            $("#idMascota").empty();
+                            $("#idCanil").empty();
                             $.messager.show({
                                 title: 'Aviso',
                                 msg: result.mensaje
@@ -109,12 +111,12 @@
             }
         }
 
-        function eliminarPersona() {
+        function eliminarReserva() {
             var row = $('#dg').datagrid('getSelected');
             if (row) {
-                $.messager.confirm('Confirmar', '¿Esta seguro de eliminar la persona seleccionado?', function (r) {
+                $.messager.confirm('Confirmar', '¿Esta seguro de eliminar la reserva seleccionado?', function (r) {
                     if (r) {//SI
-                        $.post('../Servlet/administrarPersonas.php?accion=BORRAR', {run: row.run}, function (result) {
+                        $.post('../Servlet/administrarReservaHostal.php?accion=BORRAR', {idReservaHostal: row.idReservaHostal}, function (result) {
                             if (result.success) {
                                 $('#dg').datagrid('reload');    // reload the user data
                                 $.messager.show({
@@ -131,7 +133,7 @@
                     }
                 });
             } else {
-                $.messager.alert('Alerta', 'Debe seleccionar la persona a eliminar.');
+                $.messager.alert('Alerta', 'Debe seleccionar una reserva a eliminar.');
             }
         }
 
@@ -182,40 +184,26 @@
 
         function validar() {
             if (Rut(document.getElementById('run').value)) {
-                if (document.getElementById('nombres').value != "") {
-                    if (document.getElementById('apellidos').value != "") {
-                        if (document.getElementById('fechaNac').value != "") {
-                            if (document.getElementById('direccion').value != "") {
-                                var telefono = document.getElementById('telefono').value;
-                                if (telefono != "" && telefono.length > 5) {
-                                    if (!isNaN(telefono)) {
-                                        var cadenaPass = document.getElementById('clave').value;
-                                        if (cadenaPass.length >= 4) {
-                                            if (cadenaPass == document.getElementById('claveRepetida').value) {
-                                                return true;
-                                            } else {
-                                                $.messager.alert("Alerta", "Las contraseñas no coinciden");
-                                            }
-                                        } else {
-                                            $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
-                                        }
-                                    } else {
-                                        $.messager.alert("Alerta", "El telefono contiene caracteres no validos");
-                                    }
+                if (document.getElementById('fechaInicio').value != "") {
+                    if (document.getElementById('fechaFin').value != "") {
+                        if (document.getElementById('tarifa').value != "") {
+                            if (document.getElementById('idMascota').value != "") {
+                                if (document.getElementById('idCanil').value != "") {
+                                    return true;
                                 } else {
-                                    $.messager.alert("Alerta", "Debe ingresar una telefono de contacto con al menos 6 digitos");
+                                    $.messager.alert("Alerta", "No hay caniles disponibles para las fechas indicadas.");
                                 }
                             } else {
-                                $.messager.alert("Alerta", "Debe ingresar una direccion");
+                                $.messager.alert("Alerta", "EL cliente no tiene mascotas registrada.");
                             }
                         } else {
-                            $.messager.alert("Alerta", "Debe ingresar una fecha de nacimiento");
+                            $.messager.alert("Alerta", "Debe ingresar la tarifa.");
                         }
                     } else {
-                        $.messager.alert("Alerta", "Debe ingresar sus apellidos");
+                        $.messager.alert("Alerta", "Debe ingresar la fecha de termino");
                     }
                 } else {
-                    $.messager.alert("Alerta", "Debe ingresar sus nombres");
+                    $.messager.alert("Alerta", "Debe ingresar la fecha de inicio");
                 }
             } else {
                 $.messager.alert("Alerta", "El run ingresado no es valido");
@@ -242,12 +230,10 @@
             var fechaInicio = document.getElementById("fechaInicio").value;
             var fechaFin = document.getElementById("fechaFin").value;
             var url_json = '../Servlet/administrarCanil.php?accion=BUSCAR_CANIL_LIBRE_BY_MASCOTA&idMascota=' + idMascota + '&fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFin;
-            console.log(url_json);
             $("#idCanil").empty();
             $.getJSON(
                     url_json,
                     function (data) {
-                        console.log(data);
                         $.each(data, function (k, v) {
                             $("#idCanil").append("<option value=\'" + v.idCanil + "\'>" + v.dimension + "</option>");
                         });
