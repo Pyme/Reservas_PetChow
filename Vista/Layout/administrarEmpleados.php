@@ -22,7 +22,7 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearEmpleado()">Agregar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarEmpleado()">Editar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarEmpleado()">Eliminar</a>
-    <input type="search" name="inputBuscarEmpleado" id="inputBuscarEmpleado" placeholder="Buscar por nombres" results="4" onKeyUp="buscarEmpleado()">    
+    <input type="search" name="inputBuscarEmpleado" id="inputBuscarEmpleado" placeholder="Buscar..." results="4" onKeyUp="buscarEmpleado()">    
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:410px;height:485px;padding:10px 20px;"

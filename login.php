@@ -40,10 +40,10 @@ and open the template in the editor.
             </header>
             <section id="Menu">
                 <ul class="nav">
-                    <li><a href="index.php">Inicio</a></li>
-                    <li><a href="quienesSomos.php">Quienes Somos</a></li>
-                    <li><a href="contacto.php">Contacto</a></li>
-                    <li><a href="login.php">Ingresar</a></li>
+                    <li><a style="height: 40px;" href="index.php">Inicio</a></li>
+                    <li><a style="height: 40px;" href="quienesSomos.php">Quienes Somos</a></li>
+                    <li><a style="height: 40px;" href="contacto.php">Contacto</a></li>
+                    <li><a style="height: 40px;" href="login.php">Ingresar</a></li>
                 </ul>
             </section>
             <section id="banner">

@@ -112,18 +112,22 @@ class MascotaDAO implements InterfaceDAO {
 
     public function findByRun($run) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM mascota WHERE run = " . $run;
+        $query = "SELECT * FROM mascota WHERE run = '" . $run."' ";
         $result = $this->conexion->ejecutar($query);
-        $mascota = new MascotaDTO();
+        $i = 0;
+        $mascotas = array();
         while ($fila = mysql_fetch_assoc($result)) {
+            $mascota = new MascotaDTO();
             $mascota->setIdMascota($fila['idMascota']);
             $mascota->setRaza($fila['raza']);
             $mascota->setNombre($fila['nombre']);
             $mascota->setRun($fila['run']);
             $mascota->setTipoMascota($fila['tipoMascota']);
+            $mascotas[$i] = $mascota;
+            $i++;
         }
         $this->conexion->desconectar();
-        return $mascota;
+        return $mascotas;
     }
 
 }

@@ -46,6 +46,11 @@ if ($accion != null) {
         $mascotas = $control->getMascotasByName($nombre);
         $json = json_encode($mascotas);
         echo $json;
+    } else if ($accion == "BUSCAR_BY_RUN") {
+        $run = htmlspecialchars($_REQUEST['run']);
+        $mascotas = $control->getMascotaByRunDueño($run);
+        $json = json_encode($mascotas);
+        echo $json;
     } else if ($accion == "ACTUALIZAR") {
         $idMascota = htmlspecialchars($_REQUEST['idMascota']);
         $raza = htmlspecialchars($_REQUEST['raza']);

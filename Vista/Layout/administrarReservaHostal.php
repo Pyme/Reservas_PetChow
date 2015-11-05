@@ -1,78 +1,77 @@
 <?php include 'header.php'; ?>
 
-<table id="dg" title="Clientes" class="easyui-datagrid" style="width:900px;height:600px"
-       url="../Servlet/administrarPersonas.php?accion=Listado"
+<table id="dg" title="Reservas" class="easyui-datagrid" style="width:900px;height:600px"
+       url="../Servlet/administrarReservaHostal.php?accion=LISTADO"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">
     <thead>
         <tr>
-            <th field="run" width="30">Run</th>
-            <th field="nombres" width="60">Nombres</th>
-            <th field="apellidos" width="60">Apellidos</th>
-            <th field="fechaNac" width="30">Fecha Nac.</th>
-            <th field="sexo" width="30">Sexo</th>
-            <th field="direccion" width="50">Direccion</th>
-            <th field="telefono" width="30">Telefono</th>
+            <th field="idReservaHostal" width="30">ID</th>
+            <th field="tipo" width="40">Tipo</th>
+            <th field="fechaInicio" width="40">Fecha Inicio</th>
+            <th field="fechaFin" width="40">Fecha Fin</th>
+            <th field="fechaReserva" width="40">Fecha Reserva</th>
+            <th field="tarifa" width="30">Tarifa</th>
+            <th field="descripcionEstado" width="40">Estado Reserva</th>
+            <th field="idMascota" width="30">Mascota</th>
+            <th field="idCanil" width="30">Canil</th>
         </tr>
     </thead>
 </table>
 
 <div id="toolbar">
-    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearPersona()">Agregar</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarPersona()">Editar</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarPersona()">Eliminar</a>
-    <input type="search" name="inputBuscarPersona" id="inputBuscarPersona" placeholder="Buscar..." results="4" onKeyUp="buscarPersona()">    
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearReserva()">Agregar</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarReserva()">Editar</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarReserva()">Eliminar</a>
+    <input type="search" name="inputBuscarReserva" id="inputBuscarReserva" placeholder="Buscar..." results="4" onKeyUp="buscarReserva()">    
 </div>
 
-<div id="dlg" class="easyui-dialog" style="width:410px;height:485px;padding:10px 20px;"
+<div id="dlg" class="easyui-dialog" style="width:410px;height:285px;padding:10px 20px;"
      closed="true" buttons="#dlg-buttons" modal="true">
     <div class="ftitle"></div>
     <form id="fm" method="post" novalidate>
         <div class="fitem">
             <label>Run:</label>
-            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k" onkeyup="eliminarCaracteres()">
+            <input type="text" name="run" id="run" class="easyui-validatebox" style="width:200px;"  required onkeyup="eliminarCaracteres();" onchange="buscarMascotas();">
         </div>
         <div class="fitem">
-            <label>Nombres:</label>
-            <input type="text" class="easyui-validatebox" value="" id="nombres" style="width:200px;" name="nombres" maxlength="45" required>
+            <label>Fecha Inicio:</label>
+            <input type="date" name="fechaInicio" id="fechaInicio" class="easyui-validatebox" style="width:200px;" onchange="diasEntreFechas();" required>
         </div>
         <div class="fitem">
-            <label>Apellidos:</label>
-            <input type="text" class="easyui-validatebox" value="" id="apellidos" style="width:200px;" name="apellidos" maxlength="45" required>
+            <label>Fecha Fin:</label>
+            <input type="date" class="easyui-validatebox" value="" id="fechaFin" style="width:200px;" name="fechaFin" onchange="diasEntreFechas();" required>
         </div>
         <div class="fitem">
-            <label>Fecha Nacimiento:</label>
-            <input type="date" class="easyui-validatebox" value="" id="fechaNac" style="width:200px; height: 21px;" name="fechaNac" required>
-        </div>
-        <div class="fitem2">
-            <label>Sexo: </label>
-            <input type="radio" name="sexo" value="F" style="margin-left:120px;"checked> Femenino
-            <input type="radio" name="sexo" value="M" style="margin-left:20px;" > Masculino<br>
-        </div>
-        <div class="fitem">
-            <label>Direccion:</label>
-            <input type="text" class="easyui-validatebox" value="" id="direccion" style="width:200px;" name="direccion" maxlength="45" required>
+            <label>Estado Reserva:</label>
+            <select class="easyui-validatebox" value="" id="idEstadoReserva" style="width:200px;" name="idEstadoReserva" maxlength="45">
+                <option value='1'>Reservada</option>
+                <option value='2'>Concretada</option>
+                <option value='3'>Finalizada</option>
+            </select>            
         </div>
         <div class="fitem">
-            <label>Telefono/Celular:</label>
-            <input type="text" class="easyui-validatebox" value="" id="telefono" style="width:200px;" name="telefono" maxlength="45" pattern="^[9|8|7|6|5]\d{6}$" Required>
-        </div>
-
-        <div class="fitem">
-            <label>Clave:</label>
-            <input type="password" class="easyui-validatebox" value="" id="clave" style="width:200px;" name="clave" maxlength="45" pattern=".{6,}" title="minimo 4 caracteres" Required>
+            <label>Tarifa:</label>
+            <input type="text" class="easyui-validatebox" value="" id="tarifa" style="width:200px; height: 21px;" name="tarifa" required>
         </div>
         <div class="fitem">
-            <label>Confirmar Clave:</label>
-            <input type="password" class="easyui-validatebox" value="" id="claveRepetida" style="width:200px;" name="claveRepetida" maxlength="45" pattern=".{6,}" title="minimo 4 caracteres" Required>
+            <label>Mascota: </label>            
+            <select class="easyui-validatebox" value="" id="idMascota" style="width:200px;" name="idMascota" maxlength="45" onchange="buscarCanilParaMascota()">
+            </select>
         </div>
+        <div class="fitem">
+            <label>Canil:</label>
+            <select class="easyui-validatebox" value="" id="idCanil" style="width:200px;" name="idCanil" maxlength="45">
+            </select>
+        </div>        
         <input name="accion" id="accion" type="hidden">
-        <input name="runRespaldo" id="runRespaldo" type="hidden">
+        <input name="idReservaHostal" id="idReservaHostal" type="hidden">
+        <input name="tipo" id="tipo" value="Presencial" type="hidden">
     </form>
 </div>  
 
 <div id="dlg-buttons">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="guardarPersona()">Guardar</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="guardarReserva()">Guardar</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancelar</a>
 </div>  
 
@@ -80,17 +79,16 @@
 <script src="../../files/js/validarut.js"></script>
 
 <script>
-        function crearPersona() {
+        function crearReserva() {
             document.getElementById("fm").reset();
-            run.disabled = false;//Activamos
-            $('#dlg').dialog('open').dialog('setTitle', 'Crear Persona');
+            $('#dlg').dialog('open').dialog('setTitle', 'Crear Reserva');
             document.getElementById('accion').value = "AGREGAR";
         }
 
         function guardarPersona() {
             if (validar()) {
                 $('#fm').form('submit', {
-                    url: "../Servlet/administrarPersonas.php",
+                    url: "../Servlet/administrarReservaHostal.php",
                     onSubmit: function () {
                         return $(this).form('validate');
                     },
@@ -109,8 +107,8 @@
                     }
                 });
             }
-
         }
+
         function eliminarPersona() {
             var row = $('#dg').datagrid('getSelected');
             if (row) {
@@ -225,12 +223,72 @@
             return false;
         }
 
+        function buscarMascotas() {
+            var run = document.getElementById("run").value;
+            var url_json = '../Servlet/administrarMascotas.php?accion=BUSCAR_BY_RUN&run=' + run;
+            $("#idMascota").empty();
+            $.getJSON(
+                    url_json,
+                    function (data) {
+                        $.each(data, function (k, v) {
+                            $("#idMascota").append("<option value=\'" + v.idMascota + "\'>" + v.nombre + "</option>");
+                        });
+                    }
+            );
+        }
+
+        function buscarCanilParaMascota() {
+            var idMascota = document.getElementById("idMascota").value;
+            var fechaInicio = document.getElementById("fechaInicio").value;
+            var fechaFin = document.getElementById("fechaFin").value;
+            var url_json = '../Servlet/administrarCanil.php?accion=BUSCAR_CANIL_LIBRE_BY_MASCOTA&idMascota=' + idMascota + '&fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFin;
+            console.log(url_json);
+            $("#idCanil").empty();
+            $.getJSON(
+                    url_json,
+                    function (data) {
+                        console.log(data);
+                        $.each(data, function (k, v) {
+                            $("#idCanil").append("<option value=\'" + v.idCanil + "\'>" + v.dimension + "</option>");
+                        });
+                    }
+            );
+        }
+
         function eliminarCaracteres() {
             var aux = String(document.getElementById("run").value);
             aux = aux.replace('.', '');
             aux = aux.replace('.', '');
             aux = aux.replace('-', '');
             document.getElementById("run").value = aux;
+        }
+
+        function diasEntreFechas() {
+            var f1 = document.getElementById("fechaInicio").value;
+            var f2 = document.getElementById("fechaFin").value;
+
+            if (f1 != "" && f2 != "") {
+                if (f1 <= f2) {
+                    var dia1 = f1.substr(8);
+                    var mes1 = f1.substr(5, 2);
+                    var anyo1 = f1.substr(0, 4);
+
+                    var dia2 = f2.substr(8);
+                    var mes2 = f2.substr(5, 2);
+                    var anyo2 = f2.substr(0, 4);
+
+                    var nuevafecha1 = new Date(anyo1 + "," + mes1 + "," + dia1);
+                    var nuevafecha2 = new Date(anyo2 + "," + mes2 + "," + dia2);
+
+                    var Dif = nuevafecha2.getTime() - nuevafecha1.getTime();
+                    var dias = Math.floor(Dif / (1000 * 24 * 60 * 60));
+                    document.getElementById("tarifa").value = (dias + 1) * 5000;
+                    buscarCanilParaMascota();
+                } else {
+                    $.messager.alert('Error', "La fecha final no puede ser menor a la inicial");
+                    document.getElementById("fechaFin").value = "";
+                }
+            }
         }
 
 </script>
