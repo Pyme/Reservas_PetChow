@@ -305,29 +305,51 @@
         function diasEntreFechas() {
             var f1 = document.getElementById("fechaInicio").value;
             var f2 = document.getElementById("fechaFin").value;
+            var f_actual = fechaActual();
 
             if (f1 != "" && f2 != "") {
-                if (f1 <= f2) {
-                    var dia1 = f1.substr(8);
-                    var mes1 = f1.substr(5, 2);
-                    var anyo1 = f1.substr(0, 4);
+                if (f1 >= f_actual) {
+                    if (f1 <= f2) {
+                        var dia1 = f1.substr(8);
+                        var mes1 = f1.substr(5, 2);
+                        var anyo1 = f1.substr(0, 4);
 
-                    var dia2 = f2.substr(8);
-                    var mes2 = f2.substr(5, 2);
-                    var anyo2 = f2.substr(0, 4);
+                        var dia2 = f2.substr(8);
+                        var mes2 = f2.substr(5, 2);
+                        var anyo2 = f2.substr(0, 4);
 
-                    var nuevafecha1 = new Date(anyo1 + "," + mes1 + "," + dia1);
-                    var nuevafecha2 = new Date(anyo2 + "," + mes2 + "," + dia2);
+                        var nuevafecha1 = new Date(anyo1 + "," + mes1 + "," + dia1);
+                        var nuevafecha2 = new Date(anyo2 + "," + mes2 + "," + dia2);
 
-                    var Dif = nuevafecha2.getTime() - nuevafecha1.getTime();
-                    var dias = Math.floor(Dif / (1000 * 24 * 60 * 60));
-                    document.getElementById("tarifa").value = (dias + 1) * 5000;
-                    buscarCanilParaMascota();
+                        var Dif = nuevafecha2.getTime() - nuevafecha1.getTime();
+                        var dias = Math.floor(Dif / (1000 * 24 * 60 * 60));
+                        document.getElementById("tarifa").value = (dias + 1) * 5000;
+                        buscarCanilParaMascota();
+                    } else {
+                        $.messager.alert('Error', "La fecha final no puede ser menor a la inicial");
+                        document.getElementById("fechaFin").value = "";
+                    }
                 } else {
-                    $.messager.alert('Error', "La fecha final no puede ser menor a la inicial");
-                    document.getElementById("fechaFin").value = "";
+                    $.messager.alert('Error', "La fecha inicial no puede ser menor a la actual");
+                    document.getElementById("fechaInicio").value = "";
                 }
             }
+        }
+
+        function fechaActual() {
+            var hoy = new Date();
+            var dd = hoy.getDate();
+            var mm = hoy.getMonth() + 1; //hoy es 0!
+            var yyyy = hoy.getFullYear();
+
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            hoy = yyyy + "-" + mm + "-" + dd;
+            return hoy;
         }
 
 </script>
