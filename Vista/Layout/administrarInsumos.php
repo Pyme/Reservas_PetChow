@@ -137,8 +137,6 @@
                 $.messager.alert('Alerta', 'Debe seleccionar el insumo a editar.');
             }
         }
-
-
 </script>
 
 <?php include 'footer.php'; ?>
