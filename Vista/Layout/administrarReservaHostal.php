@@ -6,7 +6,7 @@
        rownumbers="true" fitColumns="true" singleSelect="true">
     <thead>
         <tr>
-            <th field="idReservaHostal" width="30">ID</th>
+            <th field="idReservaHostal" width="10">ID</th>
             <th field="tipo" width="40">Tipo</th>
             <th field="fechaInicio" width="40">Fecha Inicio</th>
             <th field="fechaFin" width="40">Fecha Fin</th>
@@ -15,15 +15,16 @@
             <th field="descripcionEstado" width="40">Estado Reserva</th>
             <th field="idMascota" width="30">Mascota</th>
             <th field="idCanil" width="30">Canil</th>
+            <th field="run" width="30">Run Cliente</th>
         </tr>
     </thead>
 </table>
 
 <div id="toolbar">
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearReserva()">Agregar</a>
-    <!--<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarReserva()">Editar</a>-->
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarReserva()">Editar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarReserva()">Eliminar</a>
-    <!--<input type="search" name="inputBuscarReserva" id="inputBuscarReserva" placeholder="Buscar..." results="4" onKeyUp="buscarReserva()">-->
+    <input type="search" name="inputBuscarReserva" id="inputBuscarReserva" placeholder="Buscar..." results="4" onKeyUp="buscarReserva()">
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:410px;height:285px;padding:10px 20px;"
@@ -137,12 +138,12 @@
             }
         }
 
-        function buscarPersona() {
-            var nombres = document.getElementById("inputBuscarPersona").value;
+        function buscarReserva() {
+            var cadena = document.getElementById("inputBuscarReserva").value;
             var parm = "";
-            parm = parm + "&nombres=" + nombres;
+            parm = parm + "&cadena=" + cadena;
 
-            var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR' + parm;
+            var url_json = '../Servlet/administrarReservaHostal.php?accion=BUSCAR' + parm;
             $.getJSON(
                     url_json,
                     function (datos) {
@@ -151,35 +152,18 @@
             );
         }
 
-        function editarPersona() {
+        function editarReserva() {
             document.getElementById("fm").reset();
             var row = $('#dg').datagrid('getSelected');
             if (row) {
-                $('#dlg').dialog('open').dialog('setTitle', 'Editar Persona');
-                $('#run').val(row.run);
-                $('#runRespaldo').val(row.run);
+                buscarMascotas();
+                buscarCanilParaMascota();
+                $('#dlg').dialog('open').dialog('setTitle', 'Editar Reserva');
                 $('#fm').form('load', row);
-                obtieneUsuario();
                 document.getElementById('accion').value = "ACTUALIZAR";
             } else {
-                $.messager.alert('Alerta', 'Debe seleccionar la persona a editar.');
+                $.messager.alert('Alerta', 'Debe seleccionar un empleado a editar.');
             }
-        }
-
-        function obtieneUsuario() {
-            var run = document.getElementById("run").value;
-            var parm = "";
-            if (run != "") {
-                parm = parm + "&run=" + run;
-            }
-            var url_json = '../Servlet/administrarUsuarios.php?accion=BUSCAR' + parm;
-            $.getJSON(
-                    url_json,
-                    function (dato) {
-                        document.getElementById("clave").value = dato.clave;
-                        $('#claveRepetida').val(dato.clave);
-                    }
-            );
         }
 
         function validar() {

@@ -10,8 +10,16 @@ class ReservahostalDTO {
     public $descripcionEstado;
     public $idMascota;
     public $idCanil;
+    public $run;
 
     public function ReservahostalDTO(){
+    }
+    function getRun() {
+        return $this->run;
+    }
+
+    function setRun($run) {
+        $this->run = $run;
     }
 
     function getIdReservaHostal() {

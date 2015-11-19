@@ -8,6 +8,7 @@ include_once 'Mantenedores/PagoDAO.php';
 include_once 'Mantenedores/EmpleadoDAO.php';
 include_once 'Mantenedores/EstadoreservaDAO.php';
 include_once 'Mantenedores/ReservahostalDAO.php';
+include_once 'Mantenedores/InsumosDAO.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,7 +25,8 @@ class PetChow {
     private $pagoDAO;
     private $empleadoDAO;
     private $estadoreservaDAO;
-    private $reservahostalDAO;    
+    private $reservahostalDAO;
+    private $insumosDAO;
 
     public function PetChow() {
         $this->personaDAO = new PersonaDAO();
@@ -33,8 +35,9 @@ class PetChow {
         $this->canilDAO = new CanilDAO();
         $this->pagoDAO = new PagoDAO();
         $this->empleadoDAO = new EmpleadoDAO();
-        $this->estadoreservaDAO = new EstadoreservaDAO();        
+        $this->estadoreservaDAO = new EstadoreservaDAO();
         $this->reservahostalDAO = new ReservahostalDAO();
+        $this->insumosDAO = new InsumosDAO();
     }
 
     public static function getInstancia() {
@@ -42,7 +45,7 @@ class PetChow {
             self::$instancia = new PetChow();
         }
         return self::$instancia;
-    }  
+    }
 
     public function getAllUsuarios() {
         return $this->usuarioDAO->findAll();
@@ -66,7 +69,7 @@ class PetChow {
 
     public function getAllPersonas() {
         return $this->personaDAO->findAll();
-    }    
+    }
 
     public function addPersona($persona) {
         return $this->personaDAO->save($persona);
@@ -111,58 +114,60 @@ class PetChow {
     public function getMascotaByIdMascota($idMascota) {
         return $this->mascotaDAO->findByIdMascota($idMascota);
     }
-    
+
     public function getMascotaByRunDueño($run) {
         return $this->mascotaDAO->findByRun($run);
     }
-    public function deleteCanil($idCanil){
+
+    public function deleteCanil($idCanil) {
         return $this->canilDAO->delete($idCanil);
     }
-    
-    public function getAllCanil(){
+
+    public function getAllCanil() {
         return $this->canilDAO->findAll();
     }
-    
-    public function getCanilById($idCanil){
+
+    public function getCanilById($idCanil) {
         return $this->canilDAO->findByIdCanil($idCanil);
     }
-    
-    public function getAllCanilLibre($tipo,$fechaInicio,$fechaFin){
-        return $this->canilDAO->findByTipoAndLibre($tipo,$fechaInicio,$fechaFin);
+
+    public function getAllCanilLibre($tipo, $fechaInicio, $fechaFin) {
+        return $this->canilDAO->findByTipoAndLibre($tipo, $fechaInicio, $fechaFin);
     }
-    
-    public function saveCanil($canil){
-        return $this->canilDAO->save($canil);;
+
+    public function saveCanil($canil) {
+        return $this->canilDAO->save($canil);
+        ;
     }
-    
-    public function updateCanil($canil){
+
+    public function updateCanil($canil) {
         return $this->canilDAO->update($canil);
-    }    
-    
+    }
+
     public function getAllEmpleados() {
         return $this->empleadoDAO->findAll();
     }
-    
-    public function deleteEmpleado($run){
+
+    public function deleteEmpleado($run) {
         return $this->empleadoDAO->delete($run);
     }
-    
+
     public function getEmpleadoByRun($run) {
         return $this->empleadoDAO->findByRun($run);
     }
-    
+
     public function getEmpleadoByName($name) {
         return $this->empleadoDAO->findLikeAtrr($name);
     }
-    
+
     public function saveEmpleado($empleado) {
         return $this->empleadoDAO->save($empleado);
     }
-    
+
     public function updateEmpleado($empleado) {
         return $this->empleadoDAO->update($empleado);
     }
-    
+
     public function getAllEstadoreservas() {
         return $this->estadoreservaDAO->findAll();
     }
@@ -186,7 +191,7 @@ class PetChow {
     public function getEstadoreservaLikeAtrr($cadena) {
         return $this->estadoreservaDAO->findLikeAtrr($cadena);
     }
-    
+
     public function getAllPagos() {
         return $this->pagoDAO->findAll();
     }
@@ -210,7 +215,7 @@ class PetChow {
     public function getPagoLikeAtrr($cadena) {
         return $this->pagoDAO->findLikeAtrr($cadena);
     }
-    
+
     public function getAllReservaHostals() {
         return $this->reservahostalDAO->findAll();
     }
@@ -234,4 +239,36 @@ class PetChow {
     public function getReservaHostalLikeAtrr($cadena) {
         return $this->reservahostalDAO->findLikeAtrr($cadena);
     }
+
+    public function getAllInsumos() {
+        return $this->insumosDAO->findAll();
+    }
+
+    public function getInsumosByIdInsumos($idInsumos) {
+        return $this->insumosDAO->findByIdInsumos($idInsumos);
+    }
+
+    public function getInsumosByDisponibles() {
+        return $this->insumosDAO->findByDisponibles();
+    }
+
+    public function getInsumosByNoDisponibles() {
+        return $this->insumosDAO->findByNoDisponibles();
+    }
+     public function getInsumosLikeAtrr($cadena) {
+        return $this->insumosDAO->findLikeAtrr($cadena);
+    }
+
+    public function addInsumo($insumo) {
+        return $this->insumosDAO->save($insumo);
+    }
+
+    public function removeInsumo($idInsumo) {
+        return $this->insumosDAO->delete($idInsumo);
+    }
+
+    public function updateInsumo($insumo) {
+        return $this->insumosDAO->update($insumo);
+    }
+
 }

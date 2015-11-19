@@ -6,9 +6,16 @@ class Configuracion {
     public $host;
     public $bd;
     public function __construct() {
+        //Para el servidor UBB Colvin
+        /*$this->user = "jcistern";
+        $this->password = "glnEK7TH";
+        $this->host = "192.168.122.70"; 
+        $this->db = "jcistern";*/
+        
+        //Para LocalHost
         $this->user = "root";
         $this->password = "";
-        $this->host = "localhost";
+        $this->host = "localhost";//Para LocalHost
         $this->db = "petchow";
     }
     

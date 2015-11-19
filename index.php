@@ -87,7 +87,7 @@ and open the template in the editor.
             </section>
             <section id="Contenido">
                 <div class="cubo" id="bienvenido">
-                    <h1><b>¡Bienvenido a PetChow!</b></h1>
+                    <a href=""><img src="files/img/bienvenido.png" width="900px" height="100px"></a>
                 </div>
 
                 <div class="cubo" id="publi">
