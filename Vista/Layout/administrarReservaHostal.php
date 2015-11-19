@@ -89,6 +89,9 @@
 <script>
         function crearReserva() {
             document.getElementById("fm").reset();
+            document.getElementById('estado-pago').style.display = 'none';
+            $("#idMascota").empty();
+            $("#idCanil").empty();
             $('#dlg').dialog('open').dialog('setTitle', 'Crear Reserva');
             document.getElementById('accion').value = "AGREGAR";
         }
@@ -97,7 +100,7 @@
             var permitir = true;
             var idEstadoReserva = document.getElementById('idEstadoReserva').value;
             if (document.getElementById('accion').value == "AGREGAR") {
-                if (idEstadoReserva == 2 || idEstadoReserva == 3) {
+                if (idEstadoReserva == 3) {
                     permitir = false;
                 }
             }
@@ -127,7 +130,7 @@
                     });
                 }
             } else {
-                $.messager.alert('Error', "Debe seleccionar el estado de reserva como 'Reservada'");
+                $.messager.alert('Error', "No puede agregar una reserva con el estado: 'Finalizada'");
             }
         }
 
@@ -197,7 +200,6 @@
             $.getJSON(
                     url_json,
                     function (data) {
-                        console.log(data);
                         if (data.idPago != null) {
                             document.getElementById('pago').value = 2;
                         } else {
@@ -209,7 +211,7 @@
 
         function habilitarPago() {
             var idEstadoReserva = document.getElementById('idEstadoReserva').value;
-            if (idEstadoReserva == 2 && document.getElementById('accion').value == "ACTUALIZAR") {
+            if (idEstadoReserva == 2) {
                 document.getElementById('estado-pago').style.display = 'inline';
                 buscarEstadoPago();
             } else {

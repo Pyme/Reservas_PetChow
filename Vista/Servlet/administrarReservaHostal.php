@@ -18,25 +18,46 @@ if ($accion != null) {
         $idEstadoReserva = htmlspecialchars($_REQUEST['idEstadoReserva']);
         $idMascota = htmlspecialchars($_REQUEST['idMascota']);
         $idCanil = htmlspecialchars($_REQUEST['idCanil']);
+        $estadoPago = htmlspecialchars($_REQUEST['pago']);
 
-        $reservahostal = new ReservahostalDTO();
-        $reservahostal->setTipo($tipo);
-        $reservahostal->setFechaInicio($fechaInicio);
-        $reservahostal->setFechaFin($fechaFin);
-        $reservahostal->setTarifa($tarifa);
-        $reservahostal->setIdEstadoReserva($idEstadoReserva);
-        $reservahostal->setIdMascota($idMascota);
-        $reservahostal->setIdCanil($idCanil);
+        $permitir = TRUE;
+        if ($idEstadoReserva == 2) {
+            if ($estadoPago != 2) {
+                $permitir = FALSE;
+            }
+        }
+        if ($permitir) {
+            $id = $control->getIDReserva();
 
-        $result = $control->addReservahostal($reservahostal);
+            $reservahostal = new ReservahostalDTO();
+            $reservahostal->setIdReservaHostal($id);
+            $reservahostal->setTipo($tipo);
+            $reservahostal->setFechaInicio($fechaInicio);
+            $reservahostal->setFechaFin($fechaFin);
+            $reservahostal->setTarifa($tarifa);
+            $reservahostal->setIdEstadoReserva($idEstadoReserva);
+            $reservahostal->setIdMascota($idMascota);
+            $reservahostal->setIdCanil($idCanil);
 
-        if ($result) {
-            echo json_encode(array(
-                'success' => true,
-                'mensaje' => "Reserva hostal ingresada correctamente"
-            ));
+            $result = $control->addReservahostal($reservahostal);
+            
+            if ($idEstadoReserva == 2) {
+                $pago = new PagoDTO();
+                $pago->setIdReservaHostal($id);
+                $pago->setMonto($tarifa);
+                $control->addPago($pago);
+            }
+
+            if ($result) {
+                echo json_encode(array(
+                    'success' => true,
+                    'mensaje' => "Reserva hostal ingresada correctamente" . $result
+                ));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            }
         } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            echo json_encode(array('errorMsg' => 'Debe realizar el pago.'));
         }
     } else if ($accion == "BORRAR") {
         $idReservaHostal = htmlspecialchars($_REQUEST['idReservaHostal']);
@@ -86,17 +107,17 @@ if ($accion != null) {
             $reservahostal->setIdEstadoReserva($idEstadoReserva);
             $reservahostal->setIdMascota($idMascota);
             $reservahostal->setIdCanil($idCanil);
-            
+
             $pago = new PagoDTO();
             $pago->setIdReservaHostal($idReservaHostal);
             $pago->setMonto($tarifa);
 
             $result = $control->updateReservahostal($reservahostal);
-            
-            if($result){
+
+            if ($result) {
                 $result = $control->addPago($pago);
             }
-            
+
             if ($result) {
                 echo json_encode(array(
                     'success' => true,
@@ -105,7 +126,7 @@ if ($accion != null) {
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
             }
-        }else{
+        } else {
             echo json_encode(array('errorMsg' => 'Debe realizar el pago.'));
         }
     }

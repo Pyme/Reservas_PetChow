@@ -224,6 +224,10 @@ class PetChow {
         return $this->reservahostalDAO->findAll();
     }
 
+    public function getIDReserva() {
+        return $this->reservahostalDAO->getId();
+    }
+    
     public function addReservaHostal($reservahostal) {
         return $this->reservahostalDAO->save($reservahostal);
     }
