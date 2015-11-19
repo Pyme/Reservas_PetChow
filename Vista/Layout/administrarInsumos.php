@@ -45,15 +45,17 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancelar</a>
 </div>  
 
-<div id="dlg-utilizar" class="easyui-dialog" style="width:340px;height:150px;padding:20px 30px;"
+<div id="dlg-utilizar" class="easyui-dialog" style="width:240px;height:150px;padding:20px 30px;"
      closed="true" buttons="#dlg-buttons-utilizar" modal="true">
     <div class="ftitle"></div>
     <form id="fm-utilizar" method="post" novalidate>
         <div class="fitem">
             <label>Cantidad:</label>
-            <input type="number" class="easyui-validatebox" value="" id="stock" style="width:200px;" name="stock" min="0" required>
+            <input type="number" class="easyui-validatebox" value="0" id="stockUtilizar" style="width:100px;" name="stockUtilizar" min="0" required>
         </div>      
         <input name="idInsumosUtilizado" id="idInsumosUtilizado" type="hidden">
+        <input name="stockMaximo" id="stockMaximo" type="hidden">
+        <input name="accion" id="accionUtilizar" type="hidden">
     </form>
 </div>  
 <div id="dlg-buttons-utilizar">
@@ -120,10 +122,34 @@
         if (row) {
             document.getElementById("fm-utilizar").reset();
             $('#dlg-utilizar').dialog('open').dialog('setTitle', 'Utilizar Insumo');
-            document.getElementById('accion').value = "UTILIZAR";
+            document.getElementById('accionUtilizar').value = "UTILIZAR";
+            document.getElementById('stockMaximo').value = row.stock;
+            document.getElementById('idInsumosUtilizado').value = row.idInsumos;
         } else {
             $.messager.alert('Alerta', 'Debe seleccionar el insumo a utilizar.');
         }
+    }
+
+    function descontarInsumo() {
+        $('#fm-utilizar').form('submit', {
+            url: "../Servlet/administrarInsumos.php",
+            onSubmit: function () {
+                return $(this).form('validate');
+            },
+            success: function (result) {
+                var result = eval('(' + result + ')');
+                if (result.errorMsg) {
+                    $.messager.alert('Error', result.errorMsg);
+                } else {
+                    $('#dlg-utilizar').dialog('close');        // close the dialog
+                    $('#dg').datagrid('reload');    // reload the user data
+                    $.messager.show({
+                        title: 'Aviso',
+                        msg: result.mensaje
+                    });
+                }
+            }
+        });
     }
     /*function buscarInsumoByIdInsumo() {
      var nombre = document.getElementById("inputBuscarInsumo").value;
