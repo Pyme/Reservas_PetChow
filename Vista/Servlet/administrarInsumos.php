@@ -55,7 +55,7 @@ if ($accion != null) {
         $insumo->setStock($stock);
         $insumo->setPrecio($precio);
 
-        $result = false;//$control->updateInsumo($insumo);
+        $result = $control->updateInsumo($insumo);
 
         if ($result) {
             echo json_encode(array(
