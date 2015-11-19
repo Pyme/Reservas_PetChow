@@ -211,6 +211,10 @@ class PetChow {
     public function getPagoByID($idPago) {
         return $this->pagoDAO->findByID($idPago);
     }
+    
+    public function getPagoByIDReserva($idReserva) {
+        return $this->pagoDAO->findByIDReserva($idReserva);
+    }
 
     public function getPagoLikeAtrr($cadena) {
         return $this->pagoDAO->findLikeAtrr($cadena);

@@ -50,6 +50,21 @@ class PagoDAO{
         $this->conexion->desconectar();
         return $pago;
     }
+    
+    public function findByIDReserva($idReserva) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM pago WHERE idReservaHostal =  ".$idReserva." ";
+        $result = $this->conexion->ejecutar($query);
+        $pago = new PagoDTO();
+        while ($fila = mysql_fetch_assoc($result)) {
+            $pago->setIdPago($fila['idPago']);
+            $pago->setFechaPago($fila['fechaPago']);
+            $pago->setMonto($fila['monto']);
+            $pago->setIdReservaHostal($fila['idReservaHostal']);
+        }
+        $this->conexion->desconectar();
+        return $pago;
+    }
 
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
@@ -72,8 +87,8 @@ class PagoDAO{
 
     public function save($pago) {
         $this->conexion->conectar();
-        $query = "INSERT INTO pago (idPago,fechaPago,monto,idReservaHostal)"
-                . " VALUES ( ".$pago->getIdPago()." , '".$pago->getFechaPago()."' ,  ".$pago->getMonto()." ,  ".$pago->getIdReservaHostal()." )";
+        $query = "INSERT INTO pago (fechaPago,monto,idReservaHostal)"
+                . " VALUES ( now() ,  ".$pago->getMonto()." ,  ".$pago->getIdReservaHostal()." )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;

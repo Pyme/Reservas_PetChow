@@ -57,7 +57,13 @@ if ($accion != null) {
         $pago = $control->getPagoByID($idPago);
         $json = json_encode($pago);
         echo $json;
-    } else if ($accion == "ACTUALIZAR") {
+    } else if ($accion == "BUSCAR_BY_ID_RESERVA") {
+        $idReserva = htmlspecialchars($_REQUEST['idReserva']);
+
+        $pago = $control->getPagoByIDReserva($idReserva);
+        $json = json_encode($pago);
+        echo $json;
+    }else if ($accion == "ACTUALIZAR") {
         $idPago = htmlspecialchars($_REQUEST['idPago']);
         $fechaPago = htmlspecialchars($_REQUEST['fechaPago']);
         $monto = htmlspecialchars($_REQUEST['monto']);

@@ -27,7 +27,7 @@
     <input type="search" name="inputBuscarReserva" id="inputBuscarReserva" placeholder="Buscar..." results="4" onKeyUp="buscarReserva()">
 </div>
 
-<div id="dlg" class="easyui-dialog" style="width:410px;height:285px;padding:10px 20px;"
+<div id="dlg" class="easyui-dialog" style="width:410px;height:300px;padding:10px 20px;"
      closed="true" buttons="#dlg-buttons" modal="true">
     <div class="ftitle"></div>
     <form id="fm" method="post" novalidate>
@@ -45,7 +45,7 @@
         </div>
         <div class="fitem">
             <label>Estado Reserva:</label>
-            <select class="easyui-validatebox" value="" id="idEstadoReserva" style="width:200px;" name="idEstadoReserva" maxlength="45">
+            <select class="easyui-validatebox" value="" id="idEstadoReserva" style="width:200px;" name="idEstadoReserva" maxlength="45" onchange="habilitarPago()">
                 <option value='1'>Reservada</option>
                 <option value='2'>Concretada</option>
                 <option value='3'>Finalizada</option>
@@ -65,6 +65,13 @@
             <select class="easyui-validatebox" value="" id="idCanil" style="width:200px;" name="idCanil" maxlength="45">
             </select>
         </div>        
+        <div class="fitem" id="estado-pago" style="display: none;">
+            <label>Pago:</label>
+            <select class="easyui-validatebox" value="" id="pago" style="width:200px;" name="pago">
+                <option value='1'>No</option>
+                <option value='2'>Si</option>
+            </select>            
+        </div>
         <input name="accion" id="accion" type="hidden">
         <input name="idReservaHostal" id="idReservaHostal" type="hidden">
         <input name="tipo" id="tipo" value="Presencial" type="hidden">
@@ -87,28 +94,40 @@
         }
 
         function guardarReserva() {
-            if (validar()) {
-                $('#fm').form('submit', {
-                    url: "../Servlet/administrarReservaHostal.php",
-                    onSubmit: function () {
-                        return $(this).form('validate');
-                    },
-                    success: function (result) {
-                        var result = eval('(' + result + ')');
-                        if (result.errorMsg) {
-                            $.messager.alert('Error', result.errorMsg);
-                        } else {
-                            $('#dlg').dialog('close');        // close the dialog
-                            $('#dg').datagrid('reload');    // reload the user data
-                            $("#idMascota").empty();
-                            $("#idCanil").empty();
-                            $.messager.show({
-                                title: 'Aviso',
-                                msg: result.mensaje
-                            });
+            var permitir = true;
+            var idEstadoReserva = document.getElementById('idEstadoReserva').value;
+            if (document.getElementById('accion').value == "AGREGAR") {
+                if (idEstadoReserva == 2 || idEstadoReserva == 3) {
+                    permitir = false;
+                }
+            }
+
+            if (permitir) {
+                if (validar()) {
+                    $('#fm').form('submit', {
+                        url: "../Servlet/administrarReservaHostal.php",
+                        onSubmit: function () {
+                            return $(this).form('validate');
+                        },
+                        success: function (result) {
+                            var result = eval('(' + result + ')');
+                            if (result.errorMsg) {
+                                $.messager.alert('Error', result.errorMsg);
+                            } else {
+                                $('#dlg').dialog('close');        // close the dialog
+                                $('#dg').datagrid('reload');    // reload the user data
+                                $("#idMascota").empty();
+                                $("#idCanil").empty();
+                                $.messager.show({
+                                    title: 'Aviso',
+                                    msg: result.mensaje
+                                });
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            } else {
+                $.messager.alert('Error', "Debe seleccionar el estado de reserva como 'Reservada'");
             }
         }
 
@@ -156,13 +175,45 @@
             document.getElementById("fm").reset();
             var row = $('#dg').datagrid('getSelected');
             if (row) {
-                buscarMascotas();
-                buscarCanilParaMascota();
+                document.getElementById('run').value = row.run;
                 $('#dlg').dialog('open').dialog('setTitle', 'Editar Reserva');
+                buscarMascotasEditar(row.idMascota);
                 $('#fm').form('load', row);
                 document.getElementById('accion').value = "ACTUALIZAR";
+                if (row.idEstadoReserva == 2) {
+                    buscarEstadoPago();
+                    habilitarPago();
+                } else {
+                    document.getElementById('estado-pago').style.display = 'none';
+                }
             } else {
                 $.messager.alert('Alerta', 'Debe seleccionar un empleado a editar.');
+            }
+        }
+
+        function buscarEstadoPago() {
+            var idReservaHostal = document.getElementById('idReservaHostal').value;
+            var url_json = '../Servlet/administrarPago.php?accion=BUSCAR_BY_ID_RESERVA&idReserva=' + idReservaHostal;
+            $.getJSON(
+                    url_json,
+                    function (data) {
+                        console.log(data);
+                        if (data.idPago != null) {
+                            document.getElementById('pago').value = 2;
+                        } else {
+                            document.getElementById('pago').value = 1;
+                        }
+                    }
+            );
+        }
+
+        function habilitarPago() {
+            var idEstadoReserva = document.getElementById('idEstadoReserva').value;
+            if (idEstadoReserva == 2 && document.getElementById('accion').value == "ACTUALIZAR") {
+                document.getElementById('estado-pago').style.display = 'inline';
+                buscarEstadoPago();
+            } else {
+                document.getElementById('estado-pago').style.display = 'none';
             }
         }
 
@@ -205,6 +256,22 @@
                         $.each(data, function (k, v) {
                             $("#idMascota").append("<option value=\'" + v.idMascota + "\'>" + v.nombre + "</option>");
                         });
+                    }
+            );
+        }
+
+        function buscarMascotasEditar(idMascota) {
+            var run = document.getElementById("run").value;
+            var url_json = '../Servlet/administrarMascotas.php?accion=BUSCAR_BY_RUN&run=' + run;
+            $("#idMascota").empty();
+            $.getJSON(
+                    url_json,
+                    function (data) {
+                        $.each(data, function (k, v) {
+                            $("#idMascota").append("<option value=\'" + v.idMascota + "\'>" + v.nombre + "</option>");
+                        });
+                        document.getElementById('idMascota').value = idMascota;
+                        buscarCanilParaMascota();
                     }
             );
         }

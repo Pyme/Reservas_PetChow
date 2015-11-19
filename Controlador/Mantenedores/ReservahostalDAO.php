@@ -105,7 +105,6 @@ class ReservahostalDAO{
                 . "  tipo = '".$reservahostal->getTipo()."' ,"
                 . "  fechaInicio = '".$reservahostal->getFechaInicio()."' ,"
                 . "  fechaFin = '".$reservahostal->getFechaFin()."' ,"
-                . "  fechaReserva = '".$reservahostal->getFechaReserva()."' ,"
                 . "  tarifa =  ".$reservahostal->getTarifa()." ,"
                 . "  idEstadoReserva =  ".$reservahostal->getIdEstadoReserva()." ,"
                 . "  idMascota =  ".$reservahostal->getIdMascota()." ,"
