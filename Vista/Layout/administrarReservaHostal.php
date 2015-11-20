@@ -190,7 +190,7 @@
                     document.getElementById('estado-pago').style.display = 'none';
                 }
             } else {
-                $.messager.alert('Alerta', 'Debe seleccionar un empleado a editar.');
+                $.messager.alert('Alerta', 'Debe seleccionar la reserva a editar.');
             }
         }
 
