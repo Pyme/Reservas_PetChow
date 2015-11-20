@@ -13,10 +13,16 @@ class Configuracion {
         $this->db = "jcistern";*/
         
         //Para LocalHost
-        $this->user = "root";
+        /*$this->user = "root";
         $this->password = "";
-        $this->host = "localhost";//Para LocalHost
-        $this->db = "petchow";
+        $this->host = "localhost";
+        $this->db = "petchow";*/
+        
+        //WEB
+        $this->user = "icibiobi_jciste";
+        $this->password = "local8080";
+        $this->host = "localhost";
+        $this->db = "icibiobi_petchow";
     }
     
     public function getUser() {
