@@ -247,6 +247,10 @@ class PetChow {
     public function getReservaHostalLikeAtrr($cadena) {
         return $this->reservahostalDAO->findLikeAtrr($cadena);
     }
+    
+    public function getReservaHostalEntreFechas($desde,$hasta) {
+        return $this->reservahostalDAO->getEntreFechas($desde,$hasta);
+    }
 
     public function getAllInsumos() {
         return $this->insumosDAO->findAll();

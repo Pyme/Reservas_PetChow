@@ -20,6 +20,8 @@ if (($run != null || $run != "") && ($clave != null || $clave != "")) {
             $_SESSION["idPerfil"] = $usuario->getIdPerfil();
             $_SESSION["run"] = $usuario->getRun();
             $_SESSION["nombre"] = $usuario->getNombre();
+            $_SESSION["nombres"] = $usuario->getNombres();
+            $_SESSION["apellidos"] = $usuario->getApellidos();
 
             if ($usuario->getIdPerfil() == 1) {//administrador
                 $pagina = "Vista/Layout/administrarReservaHostal.php";

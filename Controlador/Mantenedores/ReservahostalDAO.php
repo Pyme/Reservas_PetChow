@@ -103,6 +103,32 @@ class ReservahostalDAO {
         return $reservahostals;
     }
 
+    public function getEntreFechas($desde, $hasta) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM reservahostal R JOIN mascota M ON R.idMascota = M.idMascota JOIN estadoreserva E ON R.idEstadoReserva = E.idEstadoReserva WHERE (R.fechaReserva >= '$desde' AND R.fechaReserva <= '$hasta')";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $reservahostals = array();
+        while ($fila = mysql_fetch_assoc($result)) {
+            $reservahostal = new ReservahostalDTO();
+            $reservahostal->setIdReservaHostal($fila['idReservaHostal']);
+            $reservahostal->setTipo($fila['tipo']);
+            $reservahostal->setFechaInicio($fila['fechaInicio']);
+            $reservahostal->setFechaFin($fila['fechaFin']);
+            $reservahostal->setFechaReserva($fila['fechaReserva']);
+            $reservahostal->setTarifa($fila['tarifa']);
+            $reservahostal->setIdEstadoReserva($fila['idEstadoReserva']);
+            $reservahostal->setIdMascota($fila['idMascota']);
+            $reservahostal->setIdCanil($fila['idCanil']);
+            $reservahostal->setDescripcionEstado($fila['estado']);
+            $reservahostal->setRun($fila['run']);
+            $reservahostals[$i] = $reservahostal;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $reservahostals;
+    }
+
     public function save($reservahostal) {
         $this->conexion->conectar();
         $query = "INSERT INTO reservahostal (idReservaHostal,tipo,fechaInicio,fechaFin,fechaReserva,tarifa,idEstadoReserva,idMascota,idCanil)"

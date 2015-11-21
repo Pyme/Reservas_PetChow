@@ -108,7 +108,8 @@ and open the template in the editor.
                                 <a class="btn btn-default" onclick="validarLogin()">Entrar</a>
                             </div>   
                         </form>
-                    </div>
+                        <p><a href="registrate.php">Registrarse</a></p>
+                    </div>                    
                 </div>
             </section>
             <footer>

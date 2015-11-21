@@ -47,11 +47,13 @@ class UsuarioDAO implements InterfaceDAO {
 
     public function findByRun($run) {
         $this->conexion->conectar();
-        $query = "SELECT u.run, u.clave, p.idPerfil, p.nombre FROM usuario u JOIN perfil p on u.idPerfil = p.idPerfil WHERE u.run = '" . $run."'";
+        $query = "SELECT u.run, u.clave, p.idPerfil, p.nombre,pe.nombres,pe.apellidos FROM usuario u JOIN perfil p on u.idPerfil = p.idPerfil JOIN persona pe ON pe.run = u.run WHERE u.run = '" . $run."'";
         $result = $this->conexion->ejecutar($query);
         $usuario = new UsuarioDTO();
         while ($fila = mysql_fetch_assoc($result)) {
             $usuario->setRun($fila['run']);
+            $usuario->setNombres($fila['nombres']);
+            $usuario->setApellidos($fila['apellidos']);            
             $usuario->setClave($fila['clave']);
             $usuario->setIdPerfil($fila['idPerfil']);
             $usuario->setNombre($fila['nombre']);

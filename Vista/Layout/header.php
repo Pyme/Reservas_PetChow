@@ -1,4 +1,5 @@
-<?php session_start();
+<?php
+session_start();
 if ($_SESSION['autentificado'] != "SI") {
     header("Location: ../../../index.php");
 }
@@ -23,7 +24,7 @@ and open the template in the editor.
         <script type="text/javascript" src="../../files/Complementos/jquery-easyui-1.4.2/jquery.min.js"></script>
         <script type="text/javascript" src="../../files/Complementos/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
         <script type="text/javascript" src="../../files/Complementos/jquery-easyui-1.4.2/plugins/jquery.datagrid.js"></script>
-        
+
         <link rel="stylesheet" href="../../files/css/estilos.css">
     </head>
     <body>
@@ -48,3 +49,8 @@ and open the template in the editor.
 
             </section>
             <section id="Contenido">
+                <div class="sessionUsuario">
+                    <label><?php echo $_SESSION["nombres"] . " " .$_SESSION["apellidos"]; ?></label>
+                    <a href="../Servlet/loginOFF.php"><img src="../../Files/img/salir.png" width="20px" height="20px"></a><br>
+                    <label><?php echo $_SESSION["nombre"]; ?></label>
+                </div>

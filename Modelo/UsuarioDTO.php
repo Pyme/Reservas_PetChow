@@ -15,6 +15,8 @@ class UsuarioDTO {
 
     //put your code here
     public $run;
+    public $nombres;
+    public $apellidos;
     public $clave;
     public $idPerfil;
     public $nombre;
@@ -50,5 +52,20 @@ class UsuarioDTO {
     function setIdPerfil($idPerfil) {
         $this->idPerfil = $idPerfil;
     }
+    
+    function getNombres() {
+        return $this->nombres;
+    }
 
+    function getApellidos() {
+        return $this->apellidos;
+    }
+
+    function setNombres($nombres) {
+        $this->nombres = $nombres;
+    }
+
+    function setApellidos($apellidos) {
+        $this->apellidos = $apellidos;
+    }
 }
