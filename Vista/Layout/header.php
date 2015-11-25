@@ -51,6 +51,6 @@ and open the template in the editor.
             <section id="Contenido">
                 <div class="sessionUsuario">
                     <label><?php echo $_SESSION["nombres"] . " " .$_SESSION["apellidos"]; ?></label>
-                    <a href="../Servlet/loginOFF.php"><img src="../../Files/img/salir.png" width="20px" height="20px"></a><br>
+                    <a href="../Servlet/loginOFF.php"><img src="../../files/img/salir.png" width="20px" height="20px"></a><br>
                     <label><?php echo $_SESSION["nombre"]; ?></label>
                 </div>
