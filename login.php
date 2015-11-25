@@ -18,10 +18,10 @@ and open the template in the editor.
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        
+
         <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/themes/metro-blue/easyui.css">
         <link rel="stylesheet" type="text/css" href="files/Complementos/jquery-easyui-1.4.2/themes/icon.css">
-        
+
         <link rel="stylesheet" href="files/css/estilos.css">
         <script>
             $('.carousel').carousel({
@@ -46,70 +46,34 @@ and open the template in the editor.
                     <li><a style="height: 40px;" href="login.php">Ingresar</a></li>
                 </ul>
             </section>
-            <section id="banner">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators --> 
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                    </ol>
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="files/img/b4.jpg" alt="...">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="files/img/b2.jpg" alt="...">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="files/img/b3.jpg" alt="...">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="files/img/b1.jpg" alt="...">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                            </div>
-                        </div>
-                    </div>       
-
-                    <!-- Controls -->
-                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div> <!-- Carousel -->
-            </section>
             <section id="Contenido">
                 <div class="login">
-                    <div class="formulario-ingreso">
+                    <div class="cubo" id="formulario-ingreso" style="width: 310px;">
+                        <div class="titini">
+                            <label>Iniciar sesión</label>
+                        </div>
                         <form id="fm" method="post" novalidate>
                             <div class="form-group">
-                                <label for="InputRut">Run:</label>
-                                <input type="text" class="form-control" id="InputRun" name="InputRun" placeholder="112223339 ">
+                                <label for="InputRut">Run</label>
+                                <input type="text" class="form-control" id="InputRun" name="InputRun" placeholder="112223339" style="width:270px;">
                             </div>
                             <div class="form-group">
-                                <label for="InputPassword1">Password</label>
-                                <input type="password" class="form-control" id="InputPassword1" name="InputPassword1" placeholder="Password">
+                                <label for="InputPassword1">Contraseña</label>
+                                <input type="password" class="form-control" id="InputPassword1" name="InputPassword1" placeholder="Password" style="width:270px;">
                             </div>
                             <div class="boton-login">
-                                <a class="btn btn-default" onclick="validarLogin()">Entrar</a>
+                                <a class="btn btn-default" onclick="validarLogin()" >Entrar</a> 
                             </div>   
                         </form>
-                        <p><a href="registrate.php">Registrarse</a></p>
-                    </div>                    
+                        <p><a href="registrate.php">¿No dispone de una Cuenta? ¡Registrese ahora!</a></p>
+                    </div> 
+                    <div class="cubo" id="info" style="width: 520px;">
+                        <label>Visitanos</label>
+                        <p>
+                            Tenemos el mejor ambiente agradable, ameno y acogedor. 
+                        </p>
+                        <a href=""><img src="files/img/pie.jpg" width="480px" height="220px"></a>
+                    </div>
                 </div>
             </section>
             <footer>
@@ -127,7 +91,7 @@ and open the template in the editor.
                         var result = eval('(' + result + ')');
                         if (!result.success) {
                             $.messager.alert('Error', result.mensaje);
-                        }else{
+                        } else {
                             location.href = result.pagina;
                         }
                     }
