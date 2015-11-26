@@ -7,7 +7,6 @@ $control = PetChow::getInstancia();
 
 $accion = htmlspecialchars($_REQUEST['accion']);
 
-
 if ($accion != null) {
     if ($accion == "GENERAR") {
         $fInicio = date_create(htmlspecialchars($_REQUEST['InputFechaInicio']));
@@ -21,8 +20,8 @@ if ($accion != null) {
         
         /*
         $json = json_encode($reservas);
-        echo $json;*/
-        
+        echo $json;
+        */
         
         $pdf = new PDF('P', 'mm', 'A4');
         $pdf->AddPage();
@@ -38,11 +37,9 @@ if ($accion != null) {
         $pdf->cabeceraHorizontalReservas($cabeceraReservas,10,40);
         $pdf->datosHorizontalReservas($reservas,10,47);
         
-        $pdf->Footer();
+        $pdf->Footer();        
+        $pdf->Output();        
         
-        //$pdf->tablaHorizontalReservas($tituloPagina, $subTituloCantidades, $cabeceraCantidad, $cantidades, $subTituloReservas, $cabeceraReservas, $reservas);
-        $pdf->Output();
-         
         
     }
 }
