@@ -1,6 +1,6 @@
 <?php
 
-require('../../Files/Complementos/fpdf17/fpdf.php');
+require('../../files/Complementos/fpdf17/fpdf.php');
 
 /**
  * Description of ReportesPDF
@@ -11,7 +11,7 @@ class PDF extends FPDF {
 
     function logoAndTitulo($titulo) {
         // Logo                               x  y  escala tamaño
-        $this->Image('../../Files/img/logo-reporte.jpg', 10, 8, 20);
+        $this->Image('../../files/img/logo-reporte.jpg', 10, 8, 20);
         // Título
         $this->SetXY(35, 13);
         $this->SetFont('Arial', 'B', 13);
