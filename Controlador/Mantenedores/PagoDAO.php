@@ -115,7 +115,7 @@ class PagoDAO{
             $pago = new PagoDTO();
             $pago->setIdPago($fila['idPago']);
             $pago->setFechaPago($fila['fechaPago']);
-            $pago->setFechaMonto($fila['monto']);
+            $pago->setMonto($fila['monto']);
             $pago->setIdReservaHostal($fila['idReservaHostal']);
             
             $pagos[$i] = $pago;

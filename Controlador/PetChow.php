@@ -248,7 +248,7 @@ class PetChow {
     }
     
     public function getPagosEntreFechas($desde,$hasta) {
-        return $this->PagoDAO->getPagoEntreFechas($desde,$hasta);
+        return $this->pagoDAO->getPagoEntreFechas($desde,$hasta);
     }
     public function getReservaHostalEntreFechas($desde,$hasta) {
         return $this->reservahostalDAO->getEntreFechas($desde,$hasta);
