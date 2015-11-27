@@ -2,8 +2,8 @@
 
 <div class='vista'>            
     <div id="formulario-reporte">
-        <label><h2>Rango de Fechas Reservas</h2></label><br>
-        <form id="form-reserva" action="../Servlet/administrarReporteReservas.php">
+        <label><h2>Rango de Fechas Pagos</h2></label><br>
+        <form id="form-reserva" action="../Servlet/administrarReportePagos.php">
             <label style="margin: 0 0 10px 0;">Fecha Inicio:</label>
             <input type="date" class="form-control" id="InputFechaInicio" name="InputFechaInicio" style="width: 200px; margin-left: 48px;">
             <label style="margin: 10px 0px 0px 40px;">Fecha Termino:</label>
@@ -12,13 +12,13 @@
         </form>
     </div>
     <div class="botonReporte">
-        <button onclick="generarReporteReservas()" class="btn btn-default" style="width: 140px; height: 25px; border-radius: 5px;"> Generar Reporte</button>
+        <button onclick="generarReportePagos()" class="btn btn-default" style="width: 140px; height: 25px; border-radius: 5px;"> Generar Reporte</button>
     </div>
 
 </div>
 
 <script type="text/javascript">
-    function generarReporteReservas() {
+    function generarReportePagos() {
         var fechaInicio = document.getElementById("InputFechaInicio").value;
         var fechaTermino = document.getElementById("InputFechaTermino").value;
         var f_actual = fechaActual();

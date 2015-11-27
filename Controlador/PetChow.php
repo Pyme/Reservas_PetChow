@@ -16,7 +16,6 @@ include_once 'Mantenedores/InsumosDAO.php';
  */
 
 class PetChow {
-
     private static $instancia = NULL;
     private $personaDAO;
     private $usuarioDAO;
@@ -248,6 +247,9 @@ class PetChow {
         return $this->reservahostalDAO->findLikeAtrr($cadena);
     }
     
+    public function getPagosEntreFechas($desde,$hasta) {
+        return $this->PagoDAO->getPagoEntreFechas($desde,$hasta);
+    }
     public function getReservaHostalEntreFechas($desde,$hasta) {
         return $this->reservahostalDAO->getEntreFechas($desde,$hasta);
     }

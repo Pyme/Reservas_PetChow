@@ -105,4 +105,23 @@ class PagoDAO{
         $this->conexion->desconectar();
         return $result;
     }
+     public function getPagoEntreFechas($desde, $hasta) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM pago P JOIN reservahostal R ON P.idReservaHostal = R.idReservaHostal WHERE (P.fechaPago >= '$desde' AND P.fechaPago <= '$hasta')";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $pagos = array();
+        while ($fila = mysql_fetch_assoc($result)) {
+            $pago = new PagoDTO();
+            $pago->setIdPago($fila['idPago']);
+            $pago->setFechaPago($fila['fechaPago']);
+            $pago->setFechaMonto($fila['monto']);
+            $pago->setIdReservaHostal($fila['idReservaHostal']);
+            
+            $pagos[$i] = $pago;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $pagos;
+    }
 }

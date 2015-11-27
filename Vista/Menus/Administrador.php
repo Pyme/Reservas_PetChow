@@ -7,6 +7,7 @@
     <li><a href="">Generar Reportes</a>
         <ul>
             <li><a href="../Layout/reporteReservas.php">Reservas</a></li>
+            <li><a href="../Layout/reportePagos.php">Pagos</a></li>
         </ul>
     </li>
     <!--<li><a href="">Editar mis datos</a></li>-->
