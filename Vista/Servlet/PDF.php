@@ -20,8 +20,8 @@ class PDF extends FPDF {
         // Salto de línea
         $this->Ln(5);
     }
-    
-    function subTitulo($titulo,$x,$y) {
+
+    function subTitulo($titulo, $x, $y) {
         // Título
         $this->SetTextColor(3, 3, 3);
         $this->SetXY($x, $y);
@@ -31,8 +31,9 @@ class PDF extends FPDF {
         // Salto de línea
         $this->Ln(5);
     }
+
     //REPORTE RESERVAS    
-    function cabeceraHorizontalReservas($cabecera,$x,$y) {
+    function cabeceraHorizontalReservas($cabecera, $x, $y) {
         $this->SetXY($x, $y);
         $this->SetFont('Arial', 'B', 10);
         $this->SetFillColor(77, 201, 235); //Fondo cion
@@ -48,9 +49,9 @@ class PDF extends FPDF {
         $this->CellFitSpace(20, 7, utf8_decode($cabecera[7]), 1, 0, 'L', true);
         $this->CellFitSpace(15, 7, utf8_decode($cabecera[8]), 1, 0, 'L', true);
         $this->CellFitSpace(20, 7, utf8_decode($cabecera[9]), 1, 0, 'L', true);
-    }   
-    
-    function datosHorizontalReservas($reservas,$x,$y) {
+    }
+
+    function datosHorizontalReservas($reservas, $x, $y) {
         $this->SetXY($x, $y);
         $this->SetFont('Arial', '', 10);
         $this->SetFillColor(229, 229, 229); //Gris tenue de cada fila
@@ -67,28 +68,29 @@ class PDF extends FPDF {
             $this->CellFitSpace(20, 7, utf8_decode($reserva->getIdMascota()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(15, 7, utf8_decode($reserva->getIdCanil()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(20, 7, utf8_decode($reserva->getDescripcionEstado()), 1, 0, 'L', $bandera);
-            
+
             $this->Ln(); //Salto de línea para generar otra fila
             $bandera = !$bandera; //Alterna el valor de la bandera
         }
     }
 
-    function tablaHorizontalReservas($tituloPagina, $subTituloCantidades,$cabeceraCantidad,$cantidades,$subTituloReservas, $cabeceraReservas, $reservas) {
+    function tablaHorizontalReservas($tituloPagina, $subTituloCantidades, $cabeceraCantidad, $cantidades, $subTituloReservas, $cabeceraReservas, $reservas) {
         $this->logoAndTitulo($tituloPagina);
-        
+
         $this->subTitulo($subTituloCantidades, 20, 35);
         $this->cabeceraHorizontalReservasPorLibro($cabeceraCantidad);
         $this->datosHorizontalCantidades($cantidades);
-        
+
         $this->subTitulo($subTituloReservas, 20, 85);
         $this->cabeceraHorizontalReservas($cabeceraReservas);
         $this->datosHorizontalReservas($reservas);
-        
+
         $this->Footer();
-    }   
+    }
+
     //PRIMER REPORTE FINALIZADO
     //Reporte pagos
-        function cabeceraHorizontalPagos($cabecera,$x,$y) {
+    function cabeceraHorizontalPagos($cabecera, $x, $y) {
         $this->SetXY($x, $y);
         $this->SetFont('Arial', 'B', 10);
         $this->SetFillColor(77, 201, 235); //Fondo cion
@@ -98,9 +100,9 @@ class PDF extends FPDF {
         $this->CellFitSpace(23, 7, utf8_decode($cabecera[1]), 1, 0, 'L', true);
         $this->CellFitSpace(23, 7, utf8_decode($cabecera[2]), 1, 0, 'L', true);
         $this->CellFitSpace(26, 7, utf8_decode($cabecera[3]), 1, 0, 'L', true);
-        
-    } 
-   function datosHorizontalPagos($pagos,$x,$y) {
+    }
+
+    function datosHorizontalPagos($pagos, $x, $y) {
         $this->SetXY($x, $y);
         $this->SetFont('Arial', '', 10);
         $this->SetFillColor(229, 229, 229); //Gris tenue de cada fila
@@ -111,26 +113,73 @@ class PDF extends FPDF {
             $this->CellFitSpace(23, 7, utf8_decode($pago->getFechaPago()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(23, 7, utf8_decode($pago->getMonto()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(26, 7, utf8_decode($pago->getIdReservaHostal()), 1, 0, 'L', $bandera);
-            
+
             $this->Ln(); //Salto de línea para generar otra fila
             $bandera = !$bandera; //Alterna el valor de la bandera
         }
     }
 
-    function tablaHorizontalPagos($tituloPagina, $subTituloCantidades,$cabeceraCantidad,$cantidades,$subTituloReservas, $cabeceraReservas, $reservas) {
+    function tablaHorizontalPagos($tituloPagina, $subTituloCantidades, $cabeceraCantidad, $cantidades, $subTituloReservas, $cabeceraReservas, $reservas) {
         $this->logoAndTitulo($tituloPagina);
-        
+
         $this->subTitulo($subTituloCantidades, 20, 35);
         $this->cabeceraHorizontalReservasPorLibro($cabeceraCantidad);
         $this->datosHorizontalCantidades($cantidades);
-        
+
         $this->subTitulo($subTituloReservas, 20, 85);
         $this->cabeceraHorizontalReservas($cabeceraReservas);
         $this->datosHorizontalReservas($reservas);
-        
+
         $this->Footer();
-    }   
+    }
+
     //segundo reporte finalizado
+    //insumos no dispo
+    function cabeceraHorizontalInsumosNoDis($cabecera, $x, $y) {
+        $this->SetXY($x, $y);
+        $this->SetFont('Arial', 'B', 10);
+        $this->SetFillColor(77, 201, 235); //Fondo cion
+        //$this->SetFillColor(242, 171, 29); //Fondo naranjo
+        $this->SetTextColor(240, 255, 240); //Letra color blanco
+        $this->CellFitSpace(20, 7, utf8_decode($cabecera[0]), 1, 0, 'L', true);
+        $this->CellFitSpace(23, 7, utf8_decode($cabecera[1]), 1, 0, 'L', true);
+        $this->CellFitSpace(23, 7, utf8_decode($cabecera[2]), 1, 0, 'L', true);
+        $this->CellFitSpace(20, 7, utf8_decode($cabecera[3]), 1, 0, 'L', true);
+    }
+
+    function datosHorizontalInsumosNoDis($insumos, $x, $y) {
+        $this->SetXY($x, $y);
+        $this->SetFont('Arial', '', 10);
+        $this->SetFillColor(229, 229, 229); //Gris tenue de cada fila
+        $this->SetTextColor(3, 3, 3); //Color del texto: Negro
+        $bandera = false; //Para alternar el relleno
+        foreach ($insumos as $insumo) {
+            $this->CellFitSpace(9, 7, utf8_decode($insumo->getIdInsumos()), 1, 0, 'L', $bandera);
+            $this->CellFitSpace(23, 7, utf8_decode($insumo->getNombre()), 1, 0, 'L', $bandera);
+            $this->CellFitSpace(23, 7, utf8_decode($insumo->getStock()), 1, 0, 'L', $bandera);
+            $this->CellFitSpace(20, 7, utf8_decode($insumo->getPrecio()), 1, 0, 'L', $bandera);
+            
+
+            $this->Ln(); //Salto de línea para generar otra fila
+            $bandera = !$bandera; //Alterna el valor de la bandera
+        }
+    }
+
+    function tablaHorizontalInsumosNoDis($tituloPagina, $subTituloCantidades, $cabeceraCantidad, $cantidades, $subTituloReservas, $cabeceraReservas, $reservas) {
+        $this->logoAndTitulo($tituloPagina);
+
+        $this->subTitulo($subTituloCantidades, 20, 35);
+        $this->cabeceraHorizontalReservasPorLibro($cabeceraCantidad);
+        $this->datosHorizontalCantidades($cantidades);
+
+        $this->subTitulo($subTituloReservas, 20, 85);
+        $this->cabeceraHorizontalReservas($cabeceraReservas);
+        $this->datosHorizontalReservas($reservas);
+
+        $this->Footer();
+    }
+
+    //tercer REPORTE FINALIZADO
     // Pie de página
     function Footer() {
         // Posición: a 1,5 cm del final
