@@ -11,7 +11,7 @@
             <li><a href="../Layout/reportePagos.php">Financiero</a></li>
             <li><a href="">Productos</a>
                 <ul>
-                    <li><a href="">Disponibles</a></li>
+                    <li><a href="../Layout/reporteProductosDisponibles.php">Disponibles</a></li>
                     <li><a href="../Layout/reporteProductosNoDisponibles.php">No Disponibles</a></li>
                     <li><a href="">Utilizados</a></li>
                 </ul>

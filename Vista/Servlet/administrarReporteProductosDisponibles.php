@@ -9,7 +9,7 @@ $accion = htmlspecialchars($_REQUEST['accion']);
 
 if ($accion != null) {
     if ($accion == "generar") {       
-        $insumos = $control->getInsumosByNoDisponibles();
+        $insumos = $control->getInsumosByDisponibles();
         
         /*
         $json = json_encode($reservas);
@@ -19,9 +19,9 @@ if ($accion != null) {
         $pdf = new PDF('P', 'mm', 'A4');
         $pdf->AddPage();
 
-        $tituloPagina = "Reporte insumos no disponibles ";
+        $tituloPagina = "Reporte insumos disponibles ";
 
-        $subTituloInsumosNoDis= "Detalle Insumos no disponibles:";
+        $subTituloInsumosNoDis= "Detalle Insumos disponibles:";
         $cabeceraInsumosNoDis = array('idInsumos', 'nombre', 'stock', 'precio');
         
         $pdf->SetAutoPageBreak(TRUE);

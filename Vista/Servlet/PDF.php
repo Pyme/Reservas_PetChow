@@ -142,7 +142,7 @@ class PDF extends FPDF {
         //$this->SetFillColor(242, 171, 29); //Fondo naranjo
         $this->SetTextColor(240, 255, 240); //Letra color blanco
         $this->CellFitSpace(20, 7, utf8_decode($cabecera[0]), 1, 0, 'L', true);
-        $this->CellFitSpace(23, 7, utf8_decode($cabecera[1]), 1, 0, 'L', true);
+        $this->CellFitSpace(50, 7, utf8_decode($cabecera[1]), 1, 0, 'L', true);
         $this->CellFitSpace(23, 7, utf8_decode($cabecera[2]), 1, 0, 'L', true);
         $this->CellFitSpace(20, 7, utf8_decode($cabecera[3]), 1, 0, 'L', true);
     }
@@ -154,8 +154,8 @@ class PDF extends FPDF {
         $this->SetTextColor(3, 3, 3); //Color del texto: Negro
         $bandera = false; //Para alternar el relleno
         foreach ($insumos as $insumo) {
-            $this->CellFitSpace(9, 7, utf8_decode($insumo->getIdInsumos()), 1, 0, 'L', $bandera);
-            $this->CellFitSpace(23, 7, utf8_decode($insumo->getNombre()), 1, 0, 'L', $bandera);
+            $this->CellFitSpace(20, 7, utf8_decode($insumo->getIdInsumos()), 1, 0, 'L', $bandera);
+            $this->CellFitSpace(50, 7, utf8_decode($insumo->getNombre()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(23, 7, utf8_decode($insumo->getStock()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(20, 7, utf8_decode($insumo->getPrecio()), 1, 0, 'L', $bandera);
             
