@@ -77,6 +77,32 @@ class ReservahostalDAO {
         return $reservahostal;
     }
 
+    public function findByRun($run) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM reservahostal R JOIN estadoreserva E ON R.idEstadoReserva = E.idEstadoReserva JOIN mascota M ON R.idMascota = M.idMascota  WHERE  M.run = '".$run."'";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $reservahostals = array();
+        while ($fila = mysql_fetch_assoc($result)) {
+           $reservahostal = new ReservahostalDTO();
+            $reservahostal->setIdReservaHostal($fila['idReservaHostal']);
+            $reservahostal->setTipo($fila['tipo']);
+            $reservahostal->setFechaInicio($fila['fechaInicio']);
+            $reservahostal->setFechaFin($fila['fechaFin']);
+            $reservahostal->setFechaReserva($fila['fechaReserva']);
+            $reservahostal->setTarifa($fila['tarifa']);
+            $reservahostal->setIdEstadoReserva($fila['idEstadoReserva']);
+            $reservahostal->setDescripcionEstado($fila['estado']);
+            $reservahostal->setIdMascota($fila['idMascota']);
+            $reservahostal->setIdCanil($fila['idCanil']);
+            $reservahostal->setRun($fila['run']);
+            $reservahostals[$i] = $reservahostal;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $reservahostals;
+    }
+
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
         $query = "SELECT * FROM reservahostal R JOIN mascota M ON R.idMascota = M.idMascota JOIN estadoreserva E ON R.idEstadoReserva = E.idEstadoReserva WHERE upper(M.run) LIKE upper('%" . $cadena . "%') ";

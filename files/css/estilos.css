@@ -173,10 +173,11 @@ div.botonReporte{
 }
 
 div.container{  
-    width: 100%;
-    background-color: #fff;
-    height: 100%;    
+    width: 100px;
+    background-color: #CFF4FE;
+    height: 100px;    
     padding-top: 40px;
+   
 }
 
 .formulario{   
@@ -184,6 +185,8 @@ div.container{
     margin: 0 auto;
     background: #13C0F0;
     padding: 20px;
+    border-radius: 20px;
+     float: left;
 }
 footer{
     background:#13C0F0;

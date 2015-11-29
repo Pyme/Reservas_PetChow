@@ -242,6 +242,9 @@ class PetChow {
     public function getReservaHostalByID($idReservaHostal) {
         return $this->reservahostalDAO->findByID($idReservaHostal);
     }
+    public function getReservaHostalByRun($run) {
+        return $this->reservahostalDAO->findByRun($run);
+    }
 
     public function getReservaHostalLikeAtrr($cadena) {
         return $this->reservahostalDAO->findLikeAtrr($cadena);

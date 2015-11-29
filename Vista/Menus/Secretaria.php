@@ -8,6 +8,12 @@
         <ul>
             <li><a href="../Layout/reporteReservas.php">Reservas</a></li>
             <li><a href="../Layout/reportePagos.php">Pagos</a></li>
+            <li><a href="">Productos</a>
+                <ul>
+                    <li><a href="../Layout/reporteProductosDisponibles.php">Disponibles</a></li>
+                    <li><a href="../Layout/reporteProductosNoDisponibles.php">No Disponibles</a></li>
+                </ul>
+            </li>
         </ul>
     </li>
 </ul>
