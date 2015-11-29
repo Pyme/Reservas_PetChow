@@ -61,7 +61,7 @@ if ($accion != null) {
         if ($empleado->getRun() == null || $empleado->getRun() == "") {//Validamos que el cliente no sea empleado
             $result = $control->removePersona($run);
             if ($result) {
-                echo json_encode(array('success' => true, 'mensaje' => "Persona borrado correctamente"));
+                echo json_encode(array('success' => true, 'mensaje' => "Persona borrada correctamente"));
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
             }

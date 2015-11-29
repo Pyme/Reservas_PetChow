@@ -73,21 +73,6 @@ class PDF extends FPDF {
             $bandera = !$bandera; //Alterna el valor de la bandera
         }
     }
-
-    function tablaHorizontalReservas($tituloPagina, $subTituloCantidades, $cabeceraCantidad, $cantidades, $subTituloReservas, $cabeceraReservas, $reservas) {
-        $this->logoAndTitulo($tituloPagina);
-
-        $this->subTitulo($subTituloCantidades, 20, 35);
-        $this->cabeceraHorizontalReservasPorLibro($cabeceraCantidad);
-        $this->datosHorizontalCantidades($cantidades);
-
-        $this->subTitulo($subTituloReservas, 20, 85);
-        $this->cabeceraHorizontalReservas($cabeceraReservas);
-        $this->datosHorizontalReservas($reservas);
-
-        $this->Footer();
-    }
-
     //PRIMER REPORTE FINALIZADO
     //Reporte pagos
     function cabeceraHorizontalPagos($cabecera, $x, $y) {
@@ -118,22 +103,7 @@ class PDF extends FPDF {
             $bandera = !$bandera; //Alterna el valor de la bandera
         }
     }
-
-    function tablaHorizontalPagos($tituloPagina, $subTituloCantidades, $cabeceraCantidad, $cantidades, $subTituloReservas, $cabeceraReservas, $reservas) {
-        $this->logoAndTitulo($tituloPagina);
-
-        $this->subTitulo($subTituloCantidades, 20, 35);
-        $this->cabeceraHorizontalReservasPorLibro($cabeceraCantidad);
-        $this->datosHorizontalCantidades($cantidades);
-
-        $this->subTitulo($subTituloReservas, 20, 85);
-        $this->cabeceraHorizontalReservas($cabeceraReservas);
-        $this->datosHorizontalReservas($reservas);
-
-        $this->Footer();
-    }
-
-    //segundo reporte finalizado
+   //segundo reporte finalizado
     //insumos no dispo
     function cabeceraHorizontalInsumosNoDis($cabecera, $x, $y) {
         $this->SetXY($x, $y);
@@ -164,21 +134,6 @@ class PDF extends FPDF {
             $bandera = !$bandera; //Alterna el valor de la bandera
         }
     }
-
-    function tablaHorizontalInsumosNoDis($tituloPagina, $subTituloCantidades, $cabeceraCantidad, $cantidades, $subTituloReservas, $cabeceraReservas, $reservas) {
-        $this->logoAndTitulo($tituloPagina);
-
-        $this->subTitulo($subTituloCantidades, 20, 35);
-        $this->cabeceraHorizontalReservasPorLibro($cabeceraCantidad);
-        $this->datosHorizontalCantidades($cantidades);
-
-        $this->subTitulo($subTituloReservas, 20, 85);
-        $this->cabeceraHorizontalReservas($cabeceraReservas);
-        $this->datosHorizontalReservas($reservas);
-
-        $this->Footer();
-    }
-
     //tercer REPORTE FINALIZADO
     // Pie de página
     function Footer() {

@@ -13,7 +13,7 @@
                 <ul>
                     <li><a href="../Layout/reporteProductosDisponibles.php">Disponibles</a></li>
                     <li><a href="../Layout/reporteProductosNoDisponibles.php">No Disponibles</a></li>
-                    <li><a href="">Utilizados</a></li>
+                    <!--<li><a href="">Utilizados</a></li>-->
                 </ul>
             </li>
         </ul>
