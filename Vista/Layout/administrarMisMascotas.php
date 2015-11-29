@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-<table id="dg" title="Mascotas" class="easyui-datagrid" style="width:900px;height:600px"
+<table id="dg" title="Mascotas" class="easyui-datagrid" style="width:900px;height:550px"
        url="../Servlet/administrarMascotas.php?accion=GET_MASCOTAS_USUARIO_ACTIVO"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">

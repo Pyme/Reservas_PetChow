@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-<table id="dg" title="Clientes" class="easyui-datagrid" style="width:900px;height:600px"
+<table id="dg" title="Clientes" class="easyui-datagrid" style="width:900px;height:550px"
        url="../Servlet/administrarPersonas.php?accion=Listado"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">

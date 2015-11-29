@@ -2,7 +2,7 @@
 
 <div class='vista'>            
     <div id="formulario-reporte">
-        <label><h2>Rango de Fechas Pagos</h2></label><br>
+        <label><h2>Rango de Fechas Reporte</h2></label><br>
         <form id="form-reserva" action="../Servlet/administrarReportePagos.php">
             <label style="margin: 0 0 10px 0;">Fecha Inicio:</label>
             <input type="date" class="form-control" id="InputFechaInicio" name="InputFechaInicio" style="width: 200px; margin-left: 48px;">

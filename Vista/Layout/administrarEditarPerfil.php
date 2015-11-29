@@ -47,7 +47,7 @@
         </form>
     </div>
     <div class="botonReporte">
-        <button onclick="guardarPersona()" class="btn btn-default" style="width: 100px; height: 25px; border-radius: 5px;"> Guardar</button>
+        <button onclick="guardarPersona()" class="btn btn-default" style="width: 300px; height: 25px; border-radius: 5px;"> Actualizar mis datos personales</button>
     </div>
 
 </div>

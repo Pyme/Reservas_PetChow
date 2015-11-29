@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-<table id="dg" title="Reservas" class="easyui-datagrid" style="width:900px;height:600px"
+<table id="dg" title="Reservas" class="easyui-datagrid" style="width:900px;height:550px"
        url="../Servlet/administrarReservaHostal.php?accion=GET_RESERVAS_USUARIO_ACTIVO"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">
