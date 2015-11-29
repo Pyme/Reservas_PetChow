@@ -1,7 +1,7 @@
 <?php include 'header.php'; ?>
 
 <table id="dg" title="Mascotas" class="easyui-datagrid" style="width:900px;height:600px"
-       url="../Servlet/administrarMascotas.php?accion=BUSCAR_BY_RUN"
+       url="../Servlet/administrarMascotas.php?accion=GET_MASCOTAS_USUARIO_ACTIVO"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">
     <thead>

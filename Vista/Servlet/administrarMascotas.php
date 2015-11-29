@@ -51,6 +51,13 @@ if ($accion != null) {
         $mascotas = $control->getMascotaByRunDueño($run);
         $json = json_encode($mascotas);
         echo $json;
+    } else if ($accion == "GET_MASCOTAS_USUARIO_ACTIVO") {
+        session_start();
+        $run = $_SESSION["run"];
+
+        $mascotas = $control->getMascotaByRunDueño($run);
+        $json = json_encode($mascotas);
+        echo $json;
     } else if ($accion == "ACTUALIZAR") {
         $idMascota = htmlspecialchars($_REQUEST['idMascota']);
         $raza = htmlspecialchars($_REQUEST['raza']);
