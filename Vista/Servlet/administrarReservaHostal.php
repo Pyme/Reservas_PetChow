@@ -62,6 +62,7 @@ if ($accion != null) {
     }else if ($accion == "AGREGAR_BY_USER_ACTIVO") {
         session_start();
         $run = $_SESSION["run"];
+        
         $tipo = htmlspecialchars($_REQUEST['tipo']);
         $fechaInicio = htmlspecialchars($_REQUEST['fechaInicio']);
         $fechaFin = htmlspecialchars($_REQUEST['fechaFin']);

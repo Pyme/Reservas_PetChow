@@ -24,14 +24,14 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearReserva()">Agregar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarReserva()">Editar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarReserva()">Eliminar</a>
-    <input type="search" name="inputBuscarReserva" id="inputBuscarReserva" placeholder="Buscar..." results="4" onKeyUp="buscarReserva()">
+    <!-- <input type="search" name="inputBuscarReserva" id="inputBuscarReserva" placeholder="Buscar..." results="4" onKeyUp="buscarReserva()">  -->
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:410px;height:300px;padding:10px 20px;"
      closed="true" buttons="#dlg-buttons" modal="true">
     <div class="ftitle"></div>
     <form id="fm" method="post" novalidate>
-        
+
         <div class="fitem">
             <label>Fecha Inicio:</label>
             <input type="date" name="fechaInicio" id="fechaInicio" class="easyui-validatebox" style="width:200px;" onchange="diasEntreFechas();" required>
@@ -85,8 +85,13 @@
 <script src="../../files/js/validarut.js"></script>
 
 <script>
+        $(document).ready(function () {
+
+        });
+
         function crearReserva() {
             document.getElementById("fm").reset();
+            buscarMascotas();
             document.getElementById('estado-pago').style.display = 'none';
             $("#idMascota").empty();
             $("#idCanil").empty();
@@ -111,6 +116,7 @@
                             return $(this).form('validate');
                         },
                         success: function (result) {
+                            console.log(result);
                             var result = eval('(' + result + ')');
                             if (result.errorMsg) {
                                 $.messager.alert('Error', result.errorMsg);
@@ -218,38 +224,33 @@
         }
 
         function validar() {
-            if (Rut(document.getElementById('run').value)) {
-                if (document.getElementById('fechaInicio').value != "") {
-                    if (document.getElementById('fechaFin').value != "") {
-                        if (document.getElementById('tarifa').value != "") {
-                            if (document.getElementById('idMascota').value != "") {
-                                if (document.getElementById('idCanil').value != "") {
-                                    return true;
-                                } else {
-                                    $.messager.alert("Alerta", "No hay caniles disponibles para las fechas indicadas.");
-                                }
+            if (document.getElementById('fechaInicio').value != "") {
+                if (document.getElementById('fechaFin').value != "") {
+                    if (document.getElementById('tarifa').value != "") {
+                        if (document.getElementById('idMascota').value != "") {
+                            if (document.getElementById('idCanil').value != "") {
+                                return true;
                             } else {
-                                $.messager.alert("Alerta", "EL cliente no tiene mascotas registrada.");
+                                $.messager.alert("Alerta", "No hay caniles disponibles para las fechas indicadas.");
                             }
                         } else {
-                            $.messager.alert("Alerta", "Debe ingresar la tarifa.");
+                            $.messager.alert("Alerta", "EL cliente no tiene mascotas registrada.");
                         }
                     } else {
-                        $.messager.alert("Alerta", "Debe ingresar la fecha de termino");
+                        $.messager.alert("Alerta", "Debe ingresar la tarifa.");
                     }
                 } else {
-                    $.messager.alert("Alerta", "Debe ingresar la fecha de inicio");
+                    $.messager.alert("Alerta", "Debe ingresar la fecha de termino");
                 }
             } else {
-                $.messager.alert("Alerta", "El run ingresado no es valido");
+                $.messager.alert("Alerta", "Debe ingresar la fecha de inicio");
             }
             return false;
         }
 
         function buscarMascotas() {
-            var run = document.getElementById("run").value;
-            var url_json = '../Servlet/administrarMascotas.php?accion=BUSCAR_BY_RUN&run=' + run;
-            $("#idMascota").empty();
+            var url_json = '../Servlet/administrarMascotas.php?accion=GET_MASCOTAS_USUARIO_ACTIVO';
+            $("#idMascota").empty();            
             $.getJSON(
                     url_json,
                     function (data) {
