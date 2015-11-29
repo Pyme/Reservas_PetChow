@@ -68,7 +68,7 @@ class MascotaDAO implements InterfaceDAO {
 
     public function findLikeAtrr($name) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM mascota WHERE upper(nombre) LIKE upper('$name%')";
+        $query = "SELECT * FROM mascota WHERE upper(nombre) LIKE upper('$name%') OR upper(run) LIKE upper('%$name%')";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $mascotas = array();

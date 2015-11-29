@@ -80,6 +80,7 @@
 
 <div id="dlg-buttons">
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="guardarReserva()">Guardar</a>
+    <a href="../Layout/administrarMascotas.php" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="">Nueva Mascota</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancelar</a>
 </div>  
 
@@ -260,6 +261,37 @@
                         });
                     }
             );
+        }
+
+        function crearMascota() {
+            document.getElementById("fm").reset();
+            $('#dlg').dialog('open').dialog('setTitle', 'Crear Mascota');
+            document.getElementById('accion').value = "AGREGAR";
+        }
+
+        function guardarMascota() {
+            if (validar()) {
+                $('#fm').form('submit', {
+                    url: "../Servlet/administrarMascotas.php",
+                    onSubmit: function () {
+                        return $(this).form('validate');
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        var result = eval('(' + result + ')');
+                        if (result.errorMsg) {
+                            $.messager.alert('Error', result.errorMsg);
+                        } else {
+                            $('#dlg').dialog('close');        // close the dialog
+                            $('#dg').datagrid('reload');    // reload the user data
+                            $.messager.show({
+                                title: 'Aviso',
+                                msg: result.mensaje
+                            });
+                        }
+                    }
+                });
+            }
         }
 
         function buscarMascotasEditar(idMascota) {
