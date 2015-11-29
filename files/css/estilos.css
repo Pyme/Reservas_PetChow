@@ -171,6 +171,20 @@ div.botonReporte{
     font-size: 14px;
     text-align: center;
 }
+
+div.container{  
+    width: 100%;
+    background-color: #fff;
+    height: 100%;    
+    padding-top: 40px;
+}
+
+.formulario{   
+    width: 350px;
+    margin: 0 auto;
+    background: #13C0F0;
+    padding: 20px;
+}
 footer{
     background:#13C0F0;
     width: 900px;

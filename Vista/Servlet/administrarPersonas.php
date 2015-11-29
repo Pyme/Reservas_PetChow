@@ -57,7 +57,7 @@ if ($accion != null) {
     } else if ($accion == "BORRAR") {
         $run = htmlspecialchars($_REQUEST['run']);
 
-        $empleado = $control->getEmpleadoByRun($run);//Buscamos el empleado por el run si existe
+        $empleado = $control->getEmpleadoByRun($run); //Buscamos el empleado por el run si existe
         if ($empleado->getRun() == null || $empleado->getRun() == "") {//Validamos que el cliente no sea empleado
             $result = $control->removePersona($run);
             if ($result) {
@@ -65,7 +65,7 @@ if ($accion != null) {
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
             }
-        }else{
+        } else {
             echo json_encode(array('errorMsg' => 'No se puede eliminar al cliente porque es empleado de la empresa.'));
         }
     } else if ($accion == "BUSCAR") {
@@ -77,6 +77,14 @@ if ($accion != null) {
         echo $json;
     } else if ($accion == "BUSCAR_BY_RUN") {
         $run = htmlspecialchars($_REQUEST['run']);
+
+        $persona = $control->getPersonaByRun($run);
+
+        $json = json_encode($persona);
+        echo $json;
+    } else if ($accion == "GET_USUARIO_ACTIVO") {
+        session_start();
+        $run = $_SESSION["run"];
 
         $persona = $control->getPersonaByRun($run);
 

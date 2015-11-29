@@ -1,5 +1,5 @@
 <ul class="nav">
-    <li><a href="">Editar mis datos</a></li>
+    <li><a href="../Layout/administrarEditarPerfil.php">Editar perfil</a></li>
     <li><a href="../Layout/administrarReservaHostal.php">Reservas</a></li>
     <li><a href="../Layout/administrarEmpleados.php">Empleados</a></li>
     <li><a href="../Layout/administrarPersonas.php">Clientes</a></li>

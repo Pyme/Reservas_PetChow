@@ -1,4 +1,5 @@
 <ul class="nav">
+    <li><a href="../Layout/administrarEditarPerfil.php">Editar perfil</a></li>
     <li><a href="../Layout/administrarReservaHostal.php">Reservas</a></li>
     <li><a href="../Layout/administrarPersonas.php">Clientes</a></li>
     <li><a href="../Layout/administrarMascotas.php">Mascotas</a></li>
@@ -9,6 +10,5 @@
             <li><a href="../Layout/reportePagos.php">Pagos</a></li>
         </ul>
     </li>
-    <!--<li><a href="">Editar perfil</a></li>-->
 </ul>
 
