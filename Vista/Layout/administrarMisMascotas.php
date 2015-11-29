@@ -18,7 +18,7 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearMascota()">Agregar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarMascota()">Editar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarMascota()">Eliminar</a>
-    <input type="search" name="inputBuscarMascota" id="inputBuscarMascota" placeholder="Buscar por nombre" results="4" onKeyUp="buscarMascota()">    
+    <!-- <input type="search" name="inputBuscarMascota" id="inputBuscarMascota" placeholder="Buscar por nombre" results="4" onKeyUp="buscarMascota()"> -->
 </div>
 <div id="dlg" class="easyui-dialog" style="width:410px;height:220px;padding:20px 30px;"
      closed="true" buttons="#dlg-buttons" modal="true">
@@ -39,13 +39,9 @@
             <label>Nombre:</label>
             <input type="text" class="easyui-validatebox" value="" id="nombre" style="width:200px;" name="nombre" maxlength="45" required>
         </div>
-        <div class="fitem">
-            <label>Run Dueño:</label>
-            <input name="run" id="run" class="easyui-validatebox" style="width:200px;"  required placeholder="ej 11222333k" onkeyup="obtienePersona()" >
-        </div>        
+        <input type="hidden" name="run" id="run" >
         <input name="accion" id="accion" type="hidden">
         <input name="idMascota" id="idMascota" type="hidden">
-        <input name="existe" id="existe" type="hidden">
     </form>
 </div>  
 <div id="dlg-buttons">
@@ -58,7 +54,7 @@
         function crearMascota() {
             document.getElementById("fm").reset();
             $('#dlg').dialog('open').dialog('setTitle', 'Crear Mascota');
-            document.getElementById('accion').value = "AGREGAR";
+            document.getElementById('accion').value = "AGREGAR_BY_USER_ACTIVO";
         }
 
         function guardarMascota() {
@@ -131,63 +127,34 @@
                 $('#nombre').val(row.nombre);
                 $('#run').val(row.run);
                 $('#fm').form('load', row);
-                document.getElementById("existe").value = true;
                 document.getElementById('accion').value = "ACTUALIZAR";
             } else {
                 $.messager.alert('Alerta', 'Debe seleccionar la mascota a editar.');
             }
         }
 
-        function obtienePersona() {
-            document.getElementById("run").value = eliminarCaracteres(document.getElementById("run").value);
-            var run = document.getElementById("run").value;
-            var parm = "";
-            if (run != "") {
-                parm = parm + "&run=" + run;
-            }
-            var url_json = '../Servlet/administrarPersonas.php?accion=BUSCAR_BY_RUN' + parm;
-            $.getJSON(
-                    url_json,
-                    function (dato) {
-                        if (dato.run != null) {
-                            document.getElementById("existe").value = true;
-                        } else {
-                            document.getElementById("existe").value = false;
-                        }
-                    }
-            );
-        }
-
         function validar() {
-            if (Rut(document.getElementById('run').value)) {
-                if (document.getElementById("existe").value == "true") {
-                    if (document.getElementById('nombre').value != "") {
-                        if (document.getElementById('raza').value != "") {
-                            if (document.getElementById('tipoMascota').value != "") {
-                                return true;
-                            } else {
-                                $.messager.alert("Alerta", "Debe seleccionar un tipo de mascota");
-                            }
-                        } else {
-                            $.messager.alert("Alerta", "Debe ingresar La raza de la mascota");
-                        }
+            if (document.getElementById('nombre').value != "") {
+                if (document.getElementById('raza').value != "") {
+                    if (document.getElementById('tipoMascota').value != "") {
+                        return true;
                     } else {
-                        $.messager.alert("Alerta", "Debe ingresar el nombre");
+                        $.messager.alert("Alerta", "Debe seleccionar un tipo de mascota");
                     }
                 } else {
-                    $.messager.alert("Alerta", "Debe registrar al cliente.");
+                    $.messager.alert("Alerta", "Debe ingresar La raza de la mascota");
                 }
             } else {
-                $.messager.alert("Alerta", "El run ingresado no es valido");
+                $.messager.alert("Alerta", "Debe ingresar el nombre");
             }
             return false;
         }
-        
-        function eliminarCaracteres(cadena){
+
+        function eliminarCaracteres(cadena) {
             var aux = String(cadena);
-            aux = aux.replace('.','');
-            aux = aux.replace('.','');
-            aux = aux.replace('-','');
+            aux = aux.replace('.', '');
+            aux = aux.replace('.', '');
+            aux = aux.replace('-', '');
             return aux;
         }
 

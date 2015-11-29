@@ -24,15 +24,15 @@ if (($run != null || $run != "") && ($clave != null || $clave != "")) {
             $_SESSION["apellidos"] = $usuario->getApellidos();
 
             if ($usuario->getIdPerfil() == 1) {//administrador
-                $pagina = "Vista/Layout/administrarReservaHostal.php";
+                $pagina = "Vista/Layout/administrarEditarPerfil.php";
             } else if ($usuario->getIdPerfil() == 2) {//Persona
-                $pagina = "Vista/Layout/administrarPersonas.php";
+                $pagina = "Vista/Layout/administrarEditarPerfil.php";
             } else if ($usuario->getIdPerfil() == 3) {//Cuidador
-                $pagina = "Vista/Layout/administrarPersonas.php";
+                $pagina = "Vista/Layout/administrarEditarPerfil.php";
             } else if ($usuario->getIdPerfil() == 4) {//Secretaria
-                $pagina = "Vista/Layout/administrarPersonas.php";
+                $pagina = "Vista/Layout/administrarEditarPerfil.php";
             } else if ($usuario->getIdPerfil() == 5) {//Veterinario
-                $pagina = "Vista/Layout/administrarPersonas.php";
+                $pagina = "Vista/Layout/administrarEditarPerfil.php";
             }
 
             $success = true;
