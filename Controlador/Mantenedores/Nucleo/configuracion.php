@@ -13,7 +13,7 @@ class Configuracion {
         $this->db = "jcistern";*/
         
         //Para LocalHost
-        $this->user = "root";
+       $this->user = "root";
         $this->password = "";
         $this->host = "localhost";
         $this->db = "petchow";

@@ -51,7 +51,7 @@ if ($accion != null) {
             if ($result) {
                 echo json_encode(array(
                     'success' => true,
-                    'mensaje' => "Reserva hostal ingresada correctamente" . $result
+                    'mensaje' => "Reserva hostal ingresada correctamente"
                 ));
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
@@ -103,7 +103,7 @@ if ($accion != null) {
             if ($result) {
                 echo json_encode(array(
                     'success' => true,
-                    'mensaje' => "Reserva hostal ingresada correctamente" . $result
+                    'mensaje' => "Reserva hostal ingresada correctamente" 
                 ));
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
@@ -116,7 +116,7 @@ if ($accion != null) {
 
         $result = $control->removeReservahostal($idReservaHostal);
         if ($result) {
-            echo json_encode(array('success' => true, 'mensaje' => "Reserva hostal borrado correctamente"));
+            echo json_encode(array('success' => true, 'mensaje' => "Reserva eliminada correctamente"));
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
@@ -180,7 +180,7 @@ if ($accion != null) {
             if ($result) {
                 echo json_encode(array(
                     'success' => true,
-                    'mensaje' => "Reservahostal actualizada correctamente"
+                    'mensaje' => "Reserva actualizada correctamente"
                 ));
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
