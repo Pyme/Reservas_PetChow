@@ -18,7 +18,7 @@ and open the template in the editor.
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        
+
         <link rel="stylesheet" href="files/css/estilos.css">
         <script>
             $('.carousel').carousel({
@@ -85,11 +85,11 @@ and open the template in the editor.
                     </a>
                 </div> <!-- Carousel -->
             </section>
-            <section id="Contenido">
+            <section class="contenedor-avisos">
                 <div class="cubo" id="bienvenido">
                     <a href=""><img src="files/img/bienvenido.png" width="900px" height="100px"></a>
                 </div>
-
+                <!--
                 <div class="cubo" id="publi">
                     <a href="http://www.masterdog.cl/"><img src="files/img/anuncio2.png" width="200px" height="480px"></a>
                 </div>
@@ -103,11 +103,38 @@ and open the template in the editor.
                     <p> <br> </p>
                     <a href=""><img src="files/img/cuidar2.jpg" width="330px" height="227px"></a>
                 </div>
+                -->
+                <section class="avisos" id="avisos">
+                    
+                </section>
             </section>
             <footer>
                 <p> Hostal de Mascotas PetChow | Av. Andres Bello S/n | Chillan <br/> Fono/Fax: (56-42)2463000 </p>
             </footer>
         </section>   
 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                cargarDatos();
+            });
+
+            function cargarDatos() {
+                $("#avisos").empty();
+                var url_json = 'Vista/Servlet/administrarAviso.php?accion=LISTADO';
+                $.getJSON(
+                        url_json,
+                        function (datos) {
+                            $.each(datos, function (k, v) {
+                                var descripcion = "";
+                                if(v.descripcion.length > 1){
+                                    descripcion = "<div class='descripcion-aviso'>"+v.descripcion+"</div>";
+                                }
+                                var contenido = "<div class='aviso'>"+descripcion+"<img src='" + v.rutaImagen + "' /></div>";
+                                $("#avisos").append(contenido);
+                            });
+                        }
+                );
+            }
+        </script>
     </body>
 </html>

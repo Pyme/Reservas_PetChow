@@ -1,6 +1,7 @@
 <?php
 
 include_once 'Mantenedores/PersonaDAO.php';
+include_once 'Mantenedores/AvisoDAO.php';
 include_once 'Mantenedores/UsuarioDAO.php';
 include_once 'Mantenedores/MascotaDAO.php';
 include_once 'Mantenedores/CanilDAO.php';
@@ -16,7 +17,9 @@ include_once 'Mantenedores/InsumosDAO.php';
  */
 
 class PetChow {
+
     private static $instancia = NULL;
+    private $avisoDAO;
     private $personaDAO;
     private $usuarioDAO;
     private $mascotaDAO;
@@ -28,6 +31,7 @@ class PetChow {
     private $insumosDAO;
 
     public function PetChow() {
+        $this->avisoDAO = new AvisoDAO();
         $this->personaDAO = new PersonaDAO();
         $this->usuarioDAO = new UsuarioDAO();
         $this->mascotaDAO = new MascotaDAO();
@@ -44,6 +48,34 @@ class PetChow {
             self::$instancia = new PetChow();
         }
         return self::$instancia;
+    }
+    
+    public function getIDAviso(){
+        return $this->avisoDAO->getID();
+    }
+    
+    public function getAllAvisos() {
+        return $this->avisoDAO->findAll();
+    }
+
+    public function addAviso($aviso) {
+        return $this->avisoDAO->save($aviso);
+    }
+
+    public function removeAviso($idAviso) {
+        return $this->avisoDAO->delete($idAviso);
+    }
+
+    public function updateAviso($aviso) {
+        return $this->avisoDAO->update($aviso);
+    }
+
+    public function getAvisoByID($idAviso) {
+        return $this->avisoDAO->findByID($idAviso);
+    }
+
+    public function getAvisoLikeAtrr($cadena) {
+        return $this->avisoDAO->findLikeAtrr($cadena);
     }
 
     public function getAllUsuarios() {
@@ -210,7 +242,7 @@ class PetChow {
     public function getPagoByID($idPago) {
         return $this->pagoDAO->findByID($idPago);
     }
-    
+
     public function getPagoByIDReserva($idReserva) {
         return $this->pagoDAO->findByIDReserva($idReserva);
     }
@@ -226,7 +258,7 @@ class PetChow {
     public function getIDReserva() {
         return $this->reservahostalDAO->getId();
     }
-    
+
     public function addReservaHostal($reservahostal) {
         return $this->reservahostalDAO->save($reservahostal);
     }
@@ -242,6 +274,7 @@ class PetChow {
     public function getReservaHostalByID($idReservaHostal) {
         return $this->reservahostalDAO->findByID($idReservaHostal);
     }
+
     public function getReservaHostalByRun($run) {
         return $this->reservahostalDAO->findByRun($run);
     }
@@ -249,12 +282,13 @@ class PetChow {
     public function getReservaHostalLikeAtrr($cadena) {
         return $this->reservahostalDAO->findLikeAtrr($cadena);
     }
-    
-    public function getPagosEntreFechas($desde,$hasta) {
-        return $this->pagoDAO->getPagoEntreFechas($desde,$hasta);
+
+    public function getPagosEntreFechas($desde, $hasta) {
+        return $this->pagoDAO->getPagoEntreFechas($desde, $hasta);
     }
-    public function getReservaHostalEntreFechas($desde,$hasta) {
-        return $this->reservahostalDAO->getEntreFechas($desde,$hasta);
+
+    public function getReservaHostalEntreFechas($desde, $hasta) {
+        return $this->reservahostalDAO->getEntreFechas($desde, $hasta);
     }
 
     public function getAllInsumos() {
@@ -272,7 +306,8 @@ class PetChow {
     public function getInsumosByNoDisponibles() {
         return $this->insumosDAO->findByNoDisponibles();
     }
-     public function getInsumosLikeAtrr($cadena) {
+
+    public function getInsumosLikeAtrr($cadena) {
         return $this->insumosDAO->findLikeAtrr($cadena);
     }
 

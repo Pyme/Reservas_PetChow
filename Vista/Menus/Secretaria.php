@@ -16,5 +16,6 @@
             </li>
         </ul>
     </li>
+    <li><a href="../Layout/administrarAvisos.php">Avisos</a></li>
 </ul>
 

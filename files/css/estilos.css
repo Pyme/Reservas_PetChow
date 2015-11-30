@@ -88,7 +88,7 @@ ul, ol {
 }
 #Contenido{
     background: #CFF4FE;
-    height: 600px;
+    min-height: 600px;
     width: 900px;
 }
 div.sessionUsuario{
@@ -133,6 +133,29 @@ div.sessionUsuario{
     height: 450px;
     width:400px;
     padding: 0px 30px 30px 50px;
+}
+.contenedor-avisos{
+    width: 900px;
+    min-height: 600px;
+    background-color: #CFF4FE;
+}
+.avisos img{
+    width: 100%;
+}
+.avisos{
+    width: 900px;
+    height: 100%;
+    
+}
+.aviso{
+    //background-color: red;
+    width: 280px;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+.descripcion-aviso{
+    
 }
 #contacto{
     background: #CFF4FE;
