@@ -25,22 +25,12 @@
         document.getElementById("accion").value = "GENERAR";
         if (fechaInicio != "") {
             if (fechaTermino != "") {
-                if (fechaInicio <= f_actual) {
-                    if (fechaTermino <= f_actual) {
-                        if ((Date.parse(fechaInicio)) <= (Date.parse(fechaTermino))) {
-                            console.log("ENVIANDO");
-                            $("#form-reserva").submit();
-                        } else {
-                            $.messager.alert('Alerta', "La fecha inicial no puede ser mayor que la fecha de termino");
-                            document.getElementById("InputFechaInicio").focus();
-                        }
-                    } else {
-                        $.messager.alert('Alerta', "La fecha final no puede ser mayor que la fecha actual");
-                        document.getElementById("InputFechaInicio").focus();
-                    }
+                if ((Date.parse(fechaInicio)) <= (Date.parse(fechaTermino))) {
+                    console.log("ENVIANDO");
+                    $("#form-reserva").submit();
                 } else {
-                    $.messager.alert('Error', "La fecha inicial no puede ser mayor a la actual");
-                    document.getElementById("InputFechaInicio").value = "";
+                    $.messager.alert('Alerta', "La fecha inicial no puede ser mayor que la fecha de termino");
+                    document.getElementById("InputFechaInicio").focus();
                 }
             } else {
                 $.messager.alert('Alerta', "Debe ingresar la fecha de termino");
