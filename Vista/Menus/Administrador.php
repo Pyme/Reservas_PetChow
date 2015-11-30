@@ -1,8 +1,8 @@
 <ul class="nav">
-    <li><a href="../Layout/administrarEditarPerfil.php">Editar perfil</a></li>
+
+    <li><a href="../Layout/administrarPersonas.php">Clientes</a></li>
     <li><a href="../Layout/administrarReservaHostal.php">Reservas</a></li>
     <li><a href="../Layout/administrarEmpleados.php">Empleados</a></li>
-    <li><a href="../Layout/administrarPersonas.php">Clientes</a></li>
     <li><a href="../Layout/administrarMascotas.php">Mascotas</a></li>
     <li><a href="../Layout/administrarInsumos.php">Insumos</a></li>
     <li><a href="">Generar Reportes</a>
@@ -19,5 +19,6 @@
         </ul>
     </li>
     <li><a href="../Layout/administrarAvisos.php">Avisos</a></li>
+    <li><a href="../Layout/administrarEditarPerfil.php">Editar perfil</a></li>
 </ul>
 

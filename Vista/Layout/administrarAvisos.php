@@ -15,7 +15,7 @@
 </table>
 
 <div id="toolbar">
-    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearAviso()">Agregar</a>
+    <!--<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="crearAviso()">Agregar</a>-->
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarAviso()">Editar</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarAviso()">Eliminar</a>
     <!-- <input type="search" name="inputBuscarPersona" id="inputBuscarPersona" placeholder="Buscar..." results="4" onKeyUp="buscarPersona()">    -->
