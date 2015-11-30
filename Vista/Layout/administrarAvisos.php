@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-<table id="dg" title="Avisos" class="easyui-datagrid" style="width:890px;height:450px"
+<table id="dg" title="Avisos" class="easyui-datagrid" style="width:900px;height:600px"
        url="../Servlet/administrarAviso.php?accion=LISTADO"
        toolbar="#toolbar"
        rownumbers="true" fitColumns="true" singleSelect="true">
