@@ -2,8 +2,9 @@
 
 include_once 'Nucleo/ConexionMySQL.php';
 include_once '../../Modelo/ReservahostalDTO.php';
+include_once 'InterfaceDAO.php';
 
-class ReservahostalDAO {
+class ReservahostalDAO implements InterfaceDAO{
 
     private $conexion;
 
@@ -11,7 +12,7 @@ class ReservahostalDAO {
         $this->conexion = new ConexionMySQL();
     }
 
-    public function getID() {
+    public function getID() {//Obtiene un id disponible de la BD
         $this->conexion->conectar();
         $query = "SELECT (max(idReservaHostal)+1) as id FROM reservahostal";
         $result = $this->conexion->ejecutar($query);
@@ -30,7 +31,7 @@ class ReservahostalDAO {
         return $result;
     }
 
-    public function findAll() {
+    public function findAll() {//mostrar todas las reservas
         $this->conexion->conectar();
         $query = "SELECT * FROM reservahostal R JOIN estadoreserva E ON R.idEstadoReserva = E.idEstadoReserva JOIN mascota M ON R.idMascota = M.idMascota ";
         $result = $this->conexion->ejecutar($query);
@@ -129,7 +130,7 @@ class ReservahostalDAO {
         return $reservahostals;
     }
 
-    public function getEntreFechas($desde, $hasta) {
+    public function getEntreFechas($desde, $hasta) {//metodo para reporte
         $this->conexion->conectar();
         $query = "SELECT * FROM reservahostal R JOIN mascota M ON R.idMascota = M.idMascota JOIN estadoreserva E ON R.idEstadoReserva = E.idEstadoReserva WHERE (R.fechaReserva >= '$desde' AND R.fechaReserva <= '$hasta')";
         $result = $this->conexion->ejecutar($query);

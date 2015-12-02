@@ -28,7 +28,7 @@ if ($accion != null) {
             $aviso->setRutaImagen($ruta . $nombreImagen);
             $aviso->setDescripcion($descripcion);
 
-            if ($imagen["size"] <= 2000000) {
+            if ($imagen["size"] <= 2000000) {//2 Mb
                 if (validaTipo($imagen["type"])) {
                     $result = $control->addAviso($aviso);
 
@@ -39,7 +39,7 @@ if ($accion != null) {
                         $subirImagen->setName("aviso_" . $idAviso);
                         $respuesta = $subirImagen->subirImagen($imagen);
                         if ($respuesta != true) {
-                            $control->addAviso($idAviso);
+                            $control->removeAviso($idAviso);
                             $result = false;
                         }
                     }

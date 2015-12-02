@@ -73,6 +73,7 @@ class PDF extends FPDF {
             $bandera = !$bandera; //Alterna el valor de la bandera
         }
     }
+
     //PRIMER REPORTE FINALIZADO
     //Reporte pagos
     function cabeceraHorizontalPagos($cabecera, $x, $y) {
@@ -83,7 +84,7 @@ class PDF extends FPDF {
         $this->SetTextColor(240, 255, 240); //Letra color blanco
         $this->CellFitSpace(15, 7, utf8_decode($cabecera[0]), 1, 0, 'L', true);
         $this->CellFitSpace(23, 7, utf8_decode($cabecera[1]), 1, 0, 'L', true);
-        $this->CellFitSpace(23, 7, utf8_decode($cabecera[2]), 1, 0, 'L', true);
+        $this->CellFitSpace(26, 7, utf8_decode($cabecera[2]), 1, 0, 'L', true);
         $this->CellFitSpace(26, 7, utf8_decode($cabecera[3]), 1, 0, 'L', true);
     }
 
@@ -93,17 +94,24 @@ class PDF extends FPDF {
         $this->SetFillColor(229, 229, 229); //Gris tenue de cada fila
         $this->SetTextColor(3, 3, 3); //Color del texto: Negro
         $bandera = false; //Para alternar el relleno
+        $total = 0;
+        $salto = 0;
         foreach ($pagos as $pago) {
             $this->CellFitSpace(15, 7, utf8_decode($pago->getIdPago()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(23, 7, utf8_decode($pago->getFechaPago()), 1, 0, 'L', $bandera);
-            $this->CellFitSpace(23, 7, utf8_decode($pago->getMonto()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(26, 7, utf8_decode($pago->getIdReservaHostal()), 1, 0, 'L', $bandera);
-
+            $this->CellFitSpace(26, 7, utf8_decode($pago->getMonto()), 1, 0, 'L', $bandera);
+            $total = $total + $pago->getMonto();
+            $salto = $salto + 7;
             $this->Ln(); //Salto de línea para generar otra fila
             $bandera = !$bandera; //Alterna el valor de la bandera
         }
+
+        $this->SetXY(57, ($y + $salto + 7));
+        $this->Cell(43, 7, utf8_decode("  Total Periodo: $" . $total." "), 1, 0, 'L', false);
     }
-   //segundo reporte finalizado
+
+    //segundo reporte finalizado
     //insumos no dispo
     function cabeceraHorizontalInsumosNoDis($cabecera, $x, $y) {
         $this->SetXY($x, $y);
@@ -128,12 +136,13 @@ class PDF extends FPDF {
             $this->CellFitSpace(50, 7, utf8_decode($insumo->getNombre()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(23, 7, utf8_decode($insumo->getStock()), 1, 0, 'L', $bandera);
             $this->CellFitSpace(20, 7, utf8_decode($insumo->getPrecio()), 1, 0, 'L', $bandera);
-            
+
 
             $this->Ln(); //Salto de línea para generar otra fila
             $bandera = !$bandera; //Alterna el valor de la bandera
         }
     }
+
     //tercer REPORTE FINALIZADO
     // Pie de página
     function Footer() {

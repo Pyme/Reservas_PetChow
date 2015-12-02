@@ -26,14 +26,14 @@ if ($accion != null) {
         $pdf = new PDF('P', 'mm', 'A4');
         $pdf->AddPage();
 
-        $tituloPagina = "Reporte Pagos desde el  " . $fechaInicio . " hasta el " . $fechaTermino;
+        $tituloPagina = "         Reporte Pagos desde el  " . $fechaInicio . " hasta el " . $fechaTermino;
 
-        $subTituloPagos = "Pagos realizados en el periodo:";
-        $cabeceraPagos = array('Id Pago', 'Fecha Pago', 'Monto', 'Id Reserva Hostal');
+        $subTituloPagos = "A continuacion se detallan los pagos realizados en el periodo seleccionado";
+        $cabeceraPagos = array('Id Pago', 'Fecha Pago', 'Id Reserva Hostal','Monto');
 
         $pdf->SetAutoPageBreak(TRUE);
         $pdf->logoAndTitulo($tituloPagina);
-        $pdf->subTitulo($subTituloPagos, 20, 30);
+        $pdf->subTitulo($subTituloPagos, 30, 25);
         $pdf->cabeceraHorizontalPagos($cabeceraPagos,10,40);
         $pdf->datosHorizontalPagos($pagos,10,47);
         

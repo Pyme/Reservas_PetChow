@@ -6,7 +6,7 @@
  * @author Joseline
  */
 class SubirImagen {
-
+    
     private $extenciones = array("image/jpg", "image/jpeg", "image/png", "image/gif"); // Tipos de archivos soportados
     private $directorio;
     private $redimensionar = FAlSE;
@@ -88,8 +88,8 @@ class SubirImagen {
         if ($imagen["name"]) {
             //Si no existe la ruta, se crea.
             if (file_exists($this->directorio) || @mkdir($this->directorio)) {
-                if ($imagen["size"] <= $this->sizeMax) {
-                    if ($this->validaTipo($imagen["type"])) {
+                if ($imagen["size"] <= $this->sizeMax) {//Valida que la imagen no supere el tamaño maximo
+                    if ($this->validaTipo($imagen["type"])) {//Valida que la imagen sea de una extension permitida
                         $origen = $imagen["tmp_name"];
                         $destino = "";
                         if ($this->defaulName == TRUE) {
@@ -98,14 +98,14 @@ class SubirImagen {
                             $destino = $this->directorio . $this->asignaNombre($imagen["type"], $this->name);
                         }
                         //movemos la imagen
-                        if ($this->redimensionar) {
+                        if ($this->redimensionar) {//Cambia el tamaño de la imagen si se solicito Alto, ancho
                             if ($this->redimensionar($imagen["type"], $origen, $destino)) {
                                 $respuesta = true;
                             } else {
                                 $respuesta = "no se pudo mover la imagen";
                             }
                         } else {
-                            if (@move_uploaded_file($origen, $destino)) {
+                            if (@move_uploaded_file($origen, $destino)) {//Sube la imagen al servidor
                                 $respuesta = "Imagen movida correctamente";
                             } else {
                                 $respuesta = "no se pudo mover la imagen";

@@ -7,7 +7,7 @@ $control = PetChow::getInstancia();
 $accion = htmlspecialchars($_REQUEST['accion']);
 if ($accion != null) {
     if ($accion == "LISTADO") {
-        $canils = $control->getAllCanils();
+        $canils = $control->getAllCanil();
         $json = json_encode($canils);
         echo $json;
     } else if ($accion == "AGREGAR") {

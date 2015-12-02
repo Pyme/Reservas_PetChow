@@ -161,11 +161,8 @@
         }
 
         function buscarReserva() {
-            var cadena = document.getElementById("inputBuscarReserva").value;
-            var parm = "";
-            parm = parm + "&cadena=" + cadena;
-
-            var url_json = '../Servlet/administrarReservaHostal.php?accion=BUSCAR' + parm;
+            var cadena = document.getElementById("inputBuscarReserva").value;  
+            var url_json = '../Servlet/administrarReservaHostal.php?accion=BUSCAR&cadena=' + cadena;
             $.getJSON(
                     url_json,
                     function (datos) {
